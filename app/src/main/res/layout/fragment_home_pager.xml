@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.allipper.rentme.widget.SwipeRefreshLayout
+    android:id="@+id/swipeRefreshLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    >
+
+    <ListView
+        android:id="@+id/datas_lv"
+        style="@style/ListViewStyle"
+        android:dividerHeight="8dp"
+        >
+    </ListView>
+
+
+</com.allipper.rentme.widget.SwipeRefreshLayout>

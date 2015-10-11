@@ -1,0 +1,124 @@
+<!-- A DrawerLayout is intended to be used as the top-level content view using match_parent for both width and height to consume the full space available. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/grey"
+             tools:context=".IndexActivity">
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        style="@style/TitleStyle"
+        android:layout_alignParentTop="true">
+
+        <com.allipper.rentme.widget.DrawableLeftCenterButton
+            android:id="@+id/gps_location_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@null"
+            android:drawableLeft="@mipmap/gps_location"
+            android:drawablePadding="8dp"
+            android:text="福州"
+            android:textColor="@color/title_color"
+            android:textSize="@dimen/text_size_18sp"/>
+
+        <ImageView
+            android:id="@+id/filter_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="14dp"
+            android:src="@mipmap/home_filter"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title_layout"
+        android:background="@color/grey"
+        android:layout_marginTop="46dp">
+    </FrameLayout>
+
+
+    <LinearLayout
+        style="@style/BottomStyle"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        >
+
+        <LinearLayout
+            android:id="@+id/home_tab_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="14dp"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/home_tab_selector"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="首页"
+                android:textColor="@color/bottom_text_selector"
+                android:textSize="@dimen/text_size_12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/msg_tab_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="14dp"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/msg_tab_selector"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="消息"
+                android:textColor="@color/bottom_text_selector"
+                android:textSize="@dimen/text_size_12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mine_tab_ll"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="14dp"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/mine_tab_selector"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="我的"
+                android:textColor="@color/bottom_text_selector"
+                android:textSize="@dimen/text_size_12sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

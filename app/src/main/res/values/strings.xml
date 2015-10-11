@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Rentme</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="network_error_timeout">网络异常，请检查您的网络</string>
+    <string name="network_error_parse">数据解析错误，请联系客服人员</string>
+    <string name="network_error_generic">系统异常，请联系客服人员</string>
+    <string name="loading">正在加载数据&#8230;</string>
+
+    <string name="common_login_title">登录</string>
+    <string name="common_login_account_tip">请输入手机号码/用户名</string>
+    <string name="common_password_format_tip">请输入密码</string>
+    <string name="common_register_right_now_tip">立即注册</string>
+    <string name="common_forget_password">忘记密码</string>
+    <string name="common_login_right_now">立即登录</string>
+    <string name="uploading">正在上传...</string>
+</resources>

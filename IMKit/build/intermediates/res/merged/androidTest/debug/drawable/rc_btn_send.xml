@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/rc_btn_send"/>
+</selector><!-- From: file:/E:/workspace/Rentme/IMKit/src/main/res/drawable/rc_btn_send.xml --><!-- From: file:/E:/workspace/Rentme/IMKit/build/intermediates/bundles/debug/res/drawable/rc_btn_send.xml -->

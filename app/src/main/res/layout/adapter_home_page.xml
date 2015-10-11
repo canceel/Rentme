@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/grey"
+              android:descendantFocusability="blocksDescendants"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white"
+        >
+
+        <com.allipper.rentme.widget.CircleImageView
+            android:id="@+id/head_cv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="14dp"
+            android:src="@mipmap/icon_defaultheader"/>
+
+        <ImageView
+            android:id="@+id/status_check_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignBottom="@+id/head_cv"
+            android:layout_alignRight="@+id/head_cv"
+            android:src="@mipmap/status_check"/>
+
+        <TextView
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/head_cv"
+            android:layout_marginLeft="21dp"
+            android:layout_toRightOf="@+id/head_cv"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/sex_girl"
+            android:text="杨颖"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_size_16sp"/>
+
+        <LinearLayout
+            android:id="@+id/second_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/name_tv"
+            android:layout_below="@+id/name_tv"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/career_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="职业："
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/career_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="摄影"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+
+            <TextView
+                android:id="@+id/age_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="年龄："
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/age_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="21-25岁"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/third_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/second_ll"
+            android:layout_below="@+id/second_ll"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/hight_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="身高："
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/hight_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="165-170cm"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+
+            <TextView
+                android:id="@+id/weight_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="体重："
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/weight_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:gravity="left"
+                android:text="40-50kg"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/forth_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/third_ll"
+            android:layout_below="@+id/third_ll"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/offercontent_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出租范围："
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/offercontent_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="1"
+                android:text="吃饭、聊天、看电影/吃饭、聊天、看电影/吃饭、聊天、看电影/吃饭、聊天、看电影"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fifth_ll"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/forth_ll"
+            android:layout_below="@+id/forth_ll"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/schedule_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="档期："
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/schedule_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="left"
+                android:maxLines="2"
+                android:text="睡醒后"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white"
+        android:paddingBottom="6dp"
+        android:paddingTop="12dp"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <com.allipper.rentme.widget.NoRequsetGridView
+                android:id="@+id/pictures"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+            </com.allipper.rentme.widget.NoRequsetGridView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="2dp"
+        android:background="@color/white"
+        >
+
+        <ImageView
+            android:id="@+id/distance_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/distance"/>
+
+        <TextView
+            android:id="@+id/distance_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/distance_iv"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="413km"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_size_12sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:background="@mipmap/fee_bg"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/fee_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:padding="2dp"
+                android:paddingLeft="10dp"
+                android:text="￥300"
+                android:textColor="@color/text_red"
+                android:textSize="@dimen/text_size_15sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="2dp"
+                android:padding="2dp"
+                android:text="/时"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_12sp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="6dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@color/white"
+        />
+</LinearLayout>

@@ -1,0 +1,110 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/title_top"
+        style="@style/TitleStyle"
+        android:layout_alignParentTop="true"
+        android:background="@color/msg_title_background">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:onClick="back"
+            android:padding="12dp"
+            android:src="@mipmap/back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="8dp"
+            android:text="登录"
+            android:textColor="@color/msg_title_text_color"
+            android:textSize="@dimen/text_size_18sp"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/informaiton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_top"
+        android:layout_centerInParent="true"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="26dp"
+        android:paddingRight="26dp">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@null"/>
+
+        <EditText
+            android:id="@+id/cell_no"
+            style="@style/EditTextStyle"
+            android:background="@mipmap/input_bg"
+            android:drawableLeft="@mipmap/cell"
+            android:drawablePadding="16dp"
+            android:hint="@string/common_login_account_tip"
+            android:imeOptions="actionNext"
+            android:inputType="text|phone"
+            />
+
+        <EditText
+            android:id="@+id/password"
+            style="@style/EditTextStyle"
+            android:layout_marginTop="20dp"
+            android:drawableLeft="@mipmap/password"
+            android:drawablePadding="16dp"
+            android:hint="@string/common_password_format_tip"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            android:background="@mipmap/input_bg"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:onClick="register"
+                android:text="@string/common_register_right_now_tip"
+                android:textColor="@color/text_blue"
+                android:gravity="left|center_vertical"
+                android:textSize="12sp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="20dp"
+                android:background="@null"
+                android:onClick="forget_password"
+                android:text="@string/common_forget_password"
+                android:textColor="@color/text_blue"
+                android:gravity="right|center_vertical"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+        <Button
+            style="@style/ButtonStyle"
+            android:layout_marginTop="50dp"
+            android:onClick="enter"
+            android:text="@string/common_login_right_now"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</RelativeLayout>
