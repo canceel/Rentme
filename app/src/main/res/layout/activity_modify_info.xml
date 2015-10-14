@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/title_top"
         style="@style/TitleStyle"
@@ -29,7 +30,16 @@
             android:text="关于"
             android:textColor="@color/msg_title_text_color"
             android:textSize="@dimen/text_size_18sp"/>
+
+        <Button
+            style="@style/TopButtonStyle"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:onClick="save"
+            android:text="保存"/>
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,20 +52,15 @@
             android:layout_height="wrap_content"
             android:textColor="@color/text_normal"
             android:textSize="@dimen/text_size_14sp"/>
+
         <TextView
             android:id="@+id/tip"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_13sp"
             android:layout_below="@+id/content"
-            android:layout_marginTop="8dp"/>
-        <Button
-            android:layout_below="@+id/tip"
-            android:layout_centerHorizontal="true"
-            style="@style/ButtonStyle"
-            android:text="保存"
-            android:layout_marginTop="20dp"
-            android:onClick="save"/>
+            android:layout_marginTop="8dp"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/text_size_13sp"/>
+
     </RelativeLayout>
 </LinearLayout>

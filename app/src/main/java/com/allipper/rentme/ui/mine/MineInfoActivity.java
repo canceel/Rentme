@@ -209,6 +209,8 @@ public class MineInfoActivity extends BaseActivity {
     }
 
     public void changePicture(View view) {
+        Intent it = new Intent(mContext, MinePicturesActivity.class);
+        startActivity(it);
     }
 
 

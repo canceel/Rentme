@@ -20,6 +20,12 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         inflater = LayoutInflater.from(context);
     }
 
+    public CommonAdapter(Context context, List<T> datas, int layoutId) {
+        this.context = context;
+        this.datas = datas;
+        this.layoutId = layoutId;
+    }
+
     @Override
     public int getCount() {
         return datas == null ? 0 : datas.size();
