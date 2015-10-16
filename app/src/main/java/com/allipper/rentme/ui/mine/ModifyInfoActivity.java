@@ -22,6 +22,8 @@ public class ModifyInfoActivity extends BaseActivity {
     public static final int TYPE_STATUS = 1;
     public static final int TYPE_CAREER = 2;
     public static final int TYPE_SCHEDULE = 3;
+    public static final int TYPE_HOBBI = 4;
+    public static final int TYPE_FEE = 5;
 
     private RelativeLayout title_topRelativeLayout;
     private ImageView backImageView;
@@ -36,10 +38,10 @@ public class ModifyInfoActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_info);
         findViews();
-        getData(false);
+        getDatas(false);
     }
 
-    private void getData(boolean isShowDialog) {
+    public void getDatas(boolean isShowDialog) {
         Intent it = getIntent();
         type = it.getIntExtra(MODIFY_TYPE, -1);
         contentEditText.setText(it.getStringExtra(MODIFY_VALUE));
@@ -65,6 +67,7 @@ public class ModifyInfoActivity extends BaseActivity {
                 tipTextView.setVisibility(View.GONE);
         }
     }
+
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);

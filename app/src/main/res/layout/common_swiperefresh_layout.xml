@@ -1,0 +1,15 @@
+<com.allipper.rentme.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list"
+        style="@style/ListViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="4dp"
+        android:footerDividersEnabled="false">
+    </ListView>
+</com.allipper.rentme.widget.SwipeRefreshLayout>

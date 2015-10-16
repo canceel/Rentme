@@ -12,6 +12,10 @@ import android.widget.TextView;
 import com.allipper.rentme.R;
 import com.allipper.rentme.ui.GuideActivity;
 import com.allipper.rentme.ui.mine.MineInfoActivity;
+import com.allipper.rentme.ui.mine.MinePocketActivity;
+import com.allipper.rentme.ui.mine.MinePublishInfoActivity;
+import com.allipper.rentme.ui.mine.MineRentActivity;
+import com.allipper.rentme.ui.mine.RentMeActivity;
 import com.allipper.rentme.ui.mine.SysSettingActivity;
 
 /**
@@ -33,6 +37,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private TextView agreementTextView;
     private TextView settingTextView;
     private RelativeLayout mineRelativeLayout;
+    private TextView pocketTextView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -57,6 +62,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         helpTextView = (TextView) view.findViewById(R.id.help);
         agreementTextView = (TextView) view.findViewById(R.id.agreement);
         settingTextView = (TextView) view.findViewById(R.id.setting);
+        pocketTextView = (TextView) view.findViewById(R.id.pocket);
         mineRelativeLayout = (RelativeLayout) view.findViewById(R.id.mine_rl);
 
         mine_publishTextView.setOnClickListener(this);
@@ -66,23 +72,34 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         helpTextView.setOnClickListener(this);
         agreementTextView.setOnClickListener(this);
         settingTextView.setOnClickListener(this);
+        pocketTextView.setOnClickListener(this);
         mineRelativeLayout.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        Intent it ;
+        Intent it;
         switch (id) {
             case R.id.mine_rl:
                 it = new Intent(getActivity(), MineInfoActivity.class);
                 startActivity(it);
                 break;
             case R.id.mine_publish:
+                it = new Intent(getActivity(), MinePublishInfoActivity.class);
+                startActivity(it);
                 break;
             case R.id.mine_rent:
+                it = new Intent(getActivity(), MineRentActivity.class);
+                startActivity(it);
                 break;
             case R.id.rent_me:
+                it = new Intent(getActivity(), RentMeActivity.class);
+                startActivity(it);
+                break;
+            case R.id.pocket:
+                it = new Intent(getActivity(), MinePocketActivity.class);
+                startActivity(it);
                 break;
             case R.id.giveback:
                 break;

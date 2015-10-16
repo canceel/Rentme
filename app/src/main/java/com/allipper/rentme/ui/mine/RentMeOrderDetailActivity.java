@@ -1,7 +1,6 @@
-package com.allipper.rentme.ui.dynamic;
+package com.allipper.rentme.ui.mine;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,8 +10,8 @@ import android.widget.TextView;
 import com.allipper.rentme.R;
 import com.allipper.rentme.ui.base.BaseActivity;
 
-public class OrderDetailActivity extends BaseActivity {
-    private static final String TAG = OrderDetailActivity.class.getSimpleName();
+public class RentMeOrderDetailActivity extends BaseActivity {
+    private static final String TAG = RentMeOrderDetailActivity.class.getSimpleName();
 
     private ImageView backImageView;
     private TextView titleTextView;
@@ -35,7 +34,7 @@ public class OrderDetailActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_detail);
+        setContentView(R.layout.activity_rent_me_order_detail);
         findViews();
         getData(false);
     }

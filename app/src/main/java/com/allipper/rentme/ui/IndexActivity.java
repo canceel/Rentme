@@ -11,8 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.bean.FilterItem;
+import com.allipper.rentme.bean.FilterSubItem;
 import com.allipper.rentme.common.util.Logger;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
@@ -22,6 +25,10 @@ import com.allipper.rentme.fragment.MineFragment;
 import com.allipper.rentme.ui.base.FragmentBaseActivity;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
 import com.allipper.rentme.ui.login.LoginActivity;
+import com.allipper.rentme.widget.MyFilterPopupWindow;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
@@ -48,11 +55,13 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     private LinearLayout homeTabLl;
     private LinearLayout msgTabLl;
     private LinearLayout mineTabLl;
+    private MyFilterPopupWindow filterPopup;
 
     private FragmentManager fragmentManager;
     private DbManager db;
     //记录Fragment的位置
     private int position = 0;
+    private ArrayList<FilterItem> filterItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,7 +148,53 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         mineTabLl.setOnClickListener(this);
         titleBtn.setOnClickListener(this);
         filterIv.setOnClickListener(this);
+
+        FilterItem filterItem1 = new FilterItem();
+        filterItem1.title = "性别" ;
+        FilterSubItem filterSubItem1 = new FilterSubItem();
+        filterSubItem1.name = "汉子";
+        filterItem1.item.add(filterSubItem1);
+        FilterSubItem filterSubItem2 = new FilterSubItem();
+        filterSubItem2.name = "妹子";
+        filterItem1.item.add(filterSubItem2);
+        filterItems.add(filterItem1);
+
+        FilterItem filterItem2 = new FilterItem();
+        filterItem2.title = "身高" ;
+        FilterSubItem filterSubItem01 = new FilterSubItem();
+        filterSubItem01.name = "160~165cm";
+        filterItem2.item.add(filterSubItem01);
+        FilterSubItem filterSubItem11 = new FilterSubItem();
+        filterSubItem11.name = "165~110cm";
+        filterItem2.item.add(filterSubItem11);
+        FilterSubItem filterSubItem21 = new FilterSubItem();
+        filterSubItem21.name = "170~180cm";
+        filterItem2.item.add(filterSubItem21);
+        FilterSubItem filterSubItem31 = new FilterSubItem();
+        filterSubItem31.name = "180cm以上";
+        filterItem2.item.add(filterSubItem31);
+        filterItems.add(filterItem2);
+
+        FilterItem filterItem3 = new FilterItem();
+        filterItem3.title = "体重" ;
+        FilterSubItem filterSubItem02 = new FilterSubItem();
+        filterSubItem02.name = "40~55kg";
+        filterItem3.item.add(filterSubItem02);
+        FilterSubItem filterSubItem13 = new FilterSubItem();
+        filterSubItem13.name = "56~60kg";
+        filterItem3.item.add(filterSubItem13);
+        FilterSubItem filterSubItem24 = new FilterSubItem();
+        filterSubItem24.name = "61~65kg";
+        filterItem3.item.add(filterSubItem24);
+        FilterSubItem filterSubItem35 = new FilterSubItem();
+        filterSubItem35.name = "66~75kg";
+        filterItem3.item.add(filterSubItem35);
+        FilterSubItem filterSubItem36 = new FilterSubItem();
+        filterSubItem36.name = "75kg以上";
+        filterItem3.item.add(filterSubItem36);
+        filterItems.add(filterItem3);
     }
+
 
 
     /**
@@ -299,6 +354,19 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     }
 
     private void showFilterPopUpWindow() {
+        if (filterPopup == null) {
+            filterPopup = new MyFilterPopupWindow(this, filterItems);
+        }
+        filterPopup.showAsDropDown(findViewById(R.id.title_layout));
+        filterPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+            @Override
+            public void onDismiss() {
+                filterProductList(filterPopup.selectedItems);
+            }
+        });
+    }
+
+    private void filterProductList(HashMap<String, String> selectedItems) {
 
     }
 

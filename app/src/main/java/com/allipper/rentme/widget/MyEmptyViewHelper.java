@@ -1,14 +1,17 @@
 package com.allipper.rentme.widget;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.ui.base.BaseActivity;
 
 
 /**
@@ -17,13 +20,11 @@ import com.allipper.rentme.R;
 public class MyEmptyViewHelper {
 
     public static final int TYPE_NETWORK_ERROR = -1;
-    public static final int TYPE_ORDER_EMPTY = 0;
-    public static final int TYPE_COLLECTION_EMPTY = 1;
-    public static final int TYPE_EVALUATION_EMPTY = 2;
-    public static final int TYPE_CART_EMPTY = 3;
-    public static final int TYPE_INDEX_EMPTY = 4;
-    public static final int TYPE_COUPONS_EMPTY = 5;
-    public static final int TYPE_DEFAULT_EMPTY = 6;
+    public static final int TYPE_DEFAULT_EMPTY = 1;
+
+    public static final int RETRY_TYPE_NETWORK_ERROR = 0;
+    public static final int RETRY_TYPE_GOTO_INDEX = 1;
+
 
     private static int type;
 
@@ -44,23 +45,40 @@ public class MyEmptyViewHelper {
             }
             MyEmptyViewHelper.type = type;
             emptyView = View.inflate(context, R.layout.layout_empty, null);
-            emptyView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams
-                    .MATCH_PARENT, LinearLayout
-                    .LayoutParams.MATCH_PARENT));
+            emptyView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup
+                    .LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             ImageView icon = (ImageView) emptyView.findViewById(R.id.icon);
             TextView text = (TextView) emptyView.findViewById(R.id.text);
             Button retry = (Button) emptyView.findViewById(R.id.retry);
+            if (emptyView.getParent() != null) {
+                ((ViewGroup) emptyView.getParent()).removeView(emptyView);
+            }
+            LinearLayout.LayoutParams llLp;
+            RelativeLayout.LayoutParams rlLp;
             switch (type) {
-                case TYPE_ORDER_EMPTY:
+                case TYPE_NETWORK_ERROR:
+                    ViewGroup.LayoutParams lp = view.getLayoutParams();
+                    icon.setVisibility(View.GONE);
+                    text.setText("获得网络数据失败");
+                    retry.setVisibility(View.VISIBLE);
+                    retry.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ((BaseActivity) context).retry(RETRY_TYPE_NETWORK_ERROR);
+                        }
+                    });
+                    ((ViewGroup) view.getParent()).addView(emptyView,lp);
+                    break;
+                case TYPE_DEFAULT_EMPTY:
+                    icon.setImageResource(R.mipmap.icon_image_default);
+                    text.setText("暂无数据");
+                    retry.setVisibility(View.GONE);
+                    ((ViewGroup) view.getParent()).addView(emptyView);
                     break;
             }
         }
-
         view.setVisibility(View.GONE);
-        if (emptyView.getParent() != null) {
-            ((ViewGroup) emptyView.getParent()).removeView(emptyView);
-        }
-        ((ViewGroup) view.getParent()).addView(emptyView);
+
         return emptyView;
     }
 
@@ -75,6 +93,17 @@ public class MyEmptyViewHelper {
             ((ViewGroup) view.getParent()).removeView(emptyView);
         }
         view.setVisibility(View.VISIBLE);
+    }
+
+    private static void gotoIndexActivity(TextView retry, final Context context) {
+        retry.setVisibility(View.VISIBLE);
+        retry.setText("去逛逛吧～");
+        retry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity) context).retry(RETRY_TYPE_GOTO_INDEX);
+            }
+        });
     }
 
 

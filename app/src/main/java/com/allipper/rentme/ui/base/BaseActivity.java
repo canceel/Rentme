@@ -1,10 +1,16 @@
 package com.allipper.rentme.ui.base;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+
+import com.allipper.rentme.common.util.Constant;
+import com.allipper.rentme.ui.IndexActivity;
+import com.allipper.rentme.widget.MyEmptyViewHelper;
 
 /**
  * Created by allipper on 2015/9/1.
@@ -32,7 +38,43 @@ public class BaseActivity extends Activity {
         return super.onKeyDown(keyCode, event);
     }
 
+    /**
+     * 请求数据
+     *
+     * @param isShowDialog 是否要显示等待框
+     */
+    protected void getDatas(boolean isShowDialog) {
+        if (Constant.IS_DEBUG_MODE) {
+            getTestDatas(isShowDialog);
+        } else {
+            getRealDatas(isShowDialog);
+        }
+        setDataToView(null);
+    }
+
+
+    protected void getRealDatas(boolean isShowDialog) {
+
+    }
+
+    protected void getTestDatas(boolean isShowDialog) {
+
+    }
+
+    protected void setDataToView(Dialog dialog) {
+
+    }
+
     protected void processExit() {
         finish();
+    }
+
+    public void retry(int tab) {
+        if(tab == MyEmptyViewHelper.RETRY_TYPE_GOTO_INDEX){
+            Intent it = new Intent(this, IndexActivity.class);
+            it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(it);
+            onBackPressed();
+        }
     }
 }

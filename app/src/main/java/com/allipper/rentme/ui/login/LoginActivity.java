@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.ui.base.BaseLoginBusinessActivity;
 
@@ -47,16 +49,16 @@ public class LoginActivity extends BaseLoginBusinessActivity {
 
     //登录
     public void enter(View view) {
-        final String account = edCellNo.getText().toString();
-        final String password = edPassWord.getText().toString();
-        if (TextUtils.isEmpty(account)) {
-            Toast.makeText(this, "请输入手机号或者昵称", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
-        } else {
-            if (Utils.isNetworkConnected(this)) {
-                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
-                mDialog.show();
+//        final String account = edCellNo.getText().toString();
+//        final String password = edPassWord.getText().toString();
+//        if (TextUtils.isEmpty(account)) {
+//            Toast.makeText(this, "请输入手机号或者昵称", Toast.LENGTH_SHORT).show();
+//        } else if (TextUtils.isEmpty(password)) {
+//            Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
+//        } else {
+//            if (Utils.isNetworkConnected(this)) {
+//                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
+//                mDialog.show();
 //                HttpLoad.UserModule.login(this, TAG, account, password, new ResponseCallback<LoginResult>(this) {
 //
 //                    @Override
@@ -96,9 +98,10 @@ public class LoginActivity extends BaseLoginBusinessActivity {
 //                        ToastUtils.show(LoginActivity.this, error);
 //                    }
 //                });
-            }
-
-        }
+//            }
+//        }
+        SharedPreUtils.putString(mContext, SharedPre.App.USER_TPE, "login");
+        onBackPressed();
     }
 
     //忘记密码

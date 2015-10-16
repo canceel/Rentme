@@ -21,6 +21,7 @@ import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.response.PulishInfoResponse;
 import com.allipper.rentme.ui.dynamic.PublishInfoActivity;
 import com.allipper.rentme.widget.AutoScrollViewPager;
+import com.allipper.rentme.widget.MyFilterPopupWindow;
 import com.allipper.rentme.widget.SwipeRefreshLayout;
 import com.allipper.rentme.widget.SwipyRefreshLayoutDirection;
 

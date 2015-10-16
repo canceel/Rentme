@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.ui.base.BaseLoginBusinessActivity;
 
@@ -68,31 +70,31 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
 
     //注册并登录
     public void register_enter(View view) {
-        final String phoneNum = edInputCellon.getText().toString();
-        final String securityCode = edInputSecurityCode.getText().toString();
-        final String password = edInputPassWord.getText().toString();
-        final String conforPassword = edConforPassWord.getText().toString();
-
-        if (TextUtils.isEmpty(phoneNum)) {
-            Toast.makeText(this, "请输入手机号码", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(securityCode)) {
-            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
-        }
+//        final String phoneNum = edInputCellon.getText().toString();
+//        final String securityCode = edInputSecurityCode.getText().toString();
+//        final String password = edInputPassWord.getText().toString();
+//        final String conforPassword = edConforPassWord.getText().toString();
+//
+//        if (TextUtils.isEmpty(phoneNum)) {
+//            Toast.makeText(this, "请输入手机号码", Toast.LENGTH_SHORT).show();
+//        } else if (TextUtils.isEmpty(securityCode)) {
+//            Toast.makeText(this, "请输入验证码", Toast.LENGTH_SHORT).show();
+//        }
 //        else if (!TextUtils.isEmpty(messageCode) && !messageCode.equals(securityCode) ) {
 //            Toast.makeText(this, "验证码错误", Toast.LENGTH_SHORT).show();
 //        }
-        else if (TextUtils.isEmpty(password)) {
-            Toast.makeText(this, "请输入新密码", Toast.LENGTH_SHORT).show();
-        } else if (TextUtils.isEmpty(conforPassword)) {
-            Toast.makeText(this, "请再次输入新密码", Toast.LENGTH_SHORT).show();
-        } else if (!(password.equals(conforPassword))) {
-            Toast.makeText(this, "两次密码不相同", Toast.LENGTH_SHORT).show();
-        } else if (!(cbServeRule.isChecked())) {
-            Toast.makeText(this, "请阅读海外购APP服务条款", Toast.LENGTH_SHORT).show();
-        } else {
-            if (Utils.isNetworkConnected(this)) {
-                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
-                mDialog.show();
+//        else if (TextUtils.isEmpty(password)) {
+//            Toast.makeText(this, "请输入新密码", Toast.LENGTH_SHORT).show();
+//        } else if (TextUtils.isEmpty(conforPassword)) {
+//            Toast.makeText(this, "请再次输入新密码", Toast.LENGTH_SHORT).show();
+//        } else if (!(password.equals(conforPassword))) {
+//            Toast.makeText(this, "两次密码不相同", Toast.LENGTH_SHORT).show();
+//        } else if (!(cbServeRule.isChecked())) {
+//            Toast.makeText(this, "请阅读海外购APP服务条款", Toast.LENGTH_SHORT).show();
+//        } else {
+//            if (Utils.isNetworkConnected(this)) {
+//                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
+//                mDialog.show();
 //                HttpLoad.UserModule.registMobile(this, TAG, phoneNum, password, SharedPreUtils.getString(mContext, SharedPre.Location.ACRONYM_NAME), new
 //                        ResponseCallback<RegistResult>(this) {
 //
@@ -131,8 +133,10 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
 //                                ToastUtils.show(RegisterActivity.this, error);
 //                            }
 //                        });
-            }
-        }
+//            }
+//        }
+        SharedPreUtils.putString(mContext, SharedPre.App.USER_TPE, "login");
+        onBackPressed();
     }
 
     public void back(View view) {

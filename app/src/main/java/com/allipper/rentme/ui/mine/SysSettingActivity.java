@@ -98,6 +98,8 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+                            //TODO 删除用户信息
+                            SharedPreUtils.removeSharedKey(mContext, SharedPre.App.USER_TPE);
                             //删除SharedPreference中的用户信息
                             Utils.cleanUserInfo(SysSettingActivity.this);
                             //删除缓存文件
@@ -109,34 +111,35 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra(EXIT_CURRENT_USER, true);
                             startActivity(intent);
+                            onBackPressed();
                         }
                     }).setPositiveButton("取消", null).show();
         }
         if (id == R.id.check_version) {
             if (Utils.isNetworkConnected(this)) {
-                final Dialog dialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
-                dialog.show();
-                HttpLoad.AppVersion.getAppVersion(this, TAG, new
-                        ResponseCallback<ResponseAppVersion>(SysSettingActivity.this) {
-
-                            @Override
-                            public void onRequestSuccess(ResponseAppVersion result) {
-                                dialog.dismiss();
-                                if (result.versionCode > versionCode) {
-                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                                    intent.setData(Uri.parse(result.url));
-                                    startActivity(intent);
-                                } else {
-                                    ToastUtils.show(SysSettingActivity.this, "目前已经是最新版本");
-                                }
-                            }
-
-                            @Override
-                            public void onReuquestFailed(String error) {
-                                dialog.dismiss();
-                                ToastUtils.show(SysSettingActivity.this, error);
-                            }
-                        });
+//                final Dialog dialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
+//                dialog.show();
+//                HttpLoad.AppVersion.getAppVersion(this, TAG, new
+//                        ResponseCallback<ResponseAppVersion>(SysSettingActivity.this) {
+//
+//                            @Override
+//                            public void onRequestSuccess(ResponseAppVersion result) {
+//                                dialog.dismiss();
+//                                if (result.versionCode > versionCode) {
+//                                    Intent intent = new Intent(Intent.ACTION_VIEW);
+//                                    intent.setData(Uri.parse(result.url));
+//                                    startActivity(intent);
+//                                } else {
+//                                    ToastUtils.show(SysSettingActivity.this, "目前已经是最新版本");
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onReuquestFailed(String error) {
+//                                dialog.dismiss();
+//                                ToastUtils.show(SysSettingActivity.this, error);
+//                            }
+//                        });
             }
         }
         if (id == R.id.clear_cache) {

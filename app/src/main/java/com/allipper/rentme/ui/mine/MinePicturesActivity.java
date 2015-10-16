@@ -96,7 +96,8 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     /**
      * 利用ContentProvider扫描手机中的图片，此方法在运行在子线程中 完成图片的扫描，最终获得jpg最多的那个文件夹
      */
-    private void getDatas(boolean isShowedDialgo) {
+    @Override
+    public void getTestDatas(boolean isShowDialog) {
         for (int i = 0; i < 5; i++) {
             ImageBean ib = new ImageBean();
             ib.url = "uri" + i;

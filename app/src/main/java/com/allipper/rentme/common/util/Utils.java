@@ -196,7 +196,7 @@ public class Utils {
 
 
     public static boolean isGuestUser(Context context) {
-        return false;
+        return TextUtils.isEmpty(SharedPreUtils.getString(context, SharedPre.App.USER_TPE));
 //        return (TextUtils.isEmpty(SharedPreUtils.getString(context, SharedPre.App.USER_TPE)) ||
 //                SharedPre.Constant.GUEST_USER.equals(SharedPreUtils.getString(context, SharedPre
 //                        .App.USER_TPE)));

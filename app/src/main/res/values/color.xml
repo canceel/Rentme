@@ -28,6 +28,7 @@
 
     <color name="grey">#E9E9E9</color>
     <color name="transparent_grey">#C0E9E9E9</color>
+    <color name="transparent_dark">#DC25232D</color>
     <color name="btn_background_press">#FD9603</color>
     <color name="btn_background_unpress">@color/title_background</color>
     <color name="btn_background_enable">@color/text_light</color>
