@@ -63,9 +63,6 @@ public class RentMeOrderDetailActivity extends BaseActivity {
 
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
 
     public void confirm(View view) {
     }

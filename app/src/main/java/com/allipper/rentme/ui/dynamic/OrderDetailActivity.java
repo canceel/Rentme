@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.mine.MinePayActivity;
 
 public class OrderDetailActivity extends BaseActivity {
     private static final String TAG = OrderDetailActivity.class.getSimpleName();
@@ -69,6 +70,9 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     public void confirm(View view) {
+        Intent it = new Intent(mContext, MinePayActivity.class);
+        it.putExtra("isCharged",false);
+        startActivity(it);
     }
 }
 

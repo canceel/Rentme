@@ -140,9 +140,6 @@ public class MinePublishInfoActivity extends BaseActivity {
 
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
 
     public void changeBackgroud(View view) {
         View contentView = LayoutInflater.from(this).inflate(
@@ -368,6 +365,11 @@ public class MinePublishInfoActivity extends BaseActivity {
 
     public void delete(View view) {
     }
+    public void confirm(View view) {
+        ToastUtils.show(mContext,"发布成功");
+        finish();
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

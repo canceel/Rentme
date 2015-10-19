@@ -1,0 +1,186 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey">
+
+    <RelativeLayout
+        android:id="@+id/title_top"
+        style="@style/TitleStyle"
+        android:layout_alignParentTop="true"
+        android:background="@color/msg_title_background">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:onClick="back"
+            android:padding="12dp"
+            android:src="@mipmap/back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="8dp"
+            android:text="银行卡详情"
+            android:textColor="@color/msg_title_text_color"
+            android:textSize="@dimen/text_size_18sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_top"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/rc_divider"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/text_white_0"
+            >
+
+            <com.allipper.rentme.widget.CircleImageView
+                android:id="@+id/cardIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@color/text_red"/>
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="90dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="4dp"
+                android:text="中国银行"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_16sp"/>
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/name"
+                android:layout_below="@+id/name"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="8dp"
+                android:text="储蓄卡"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+
+            <TextView
+                android:id="@+id/cardNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/type"
+                android:text="后四位4389"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_14sp"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/rc_divider"/>
+
+        <com.allipper.rentme.widget.AutoHeightListView
+            android:id="@+id/list"
+            style="@style/ListViewStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        </com.allipper.rentme.widget.AutoHeightListView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="单笔支付限额:"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_13sp"/>
+
+            <TextView
+                android:id="@+id/onceLimit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="￥1000"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/rc_divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="每日支付限额:"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_13sp"/>
+
+            <TextView
+                android:id="@+id/dayLimit"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="16dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="￥3000"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+        </LinearLayout>
+
+        <Button
+            style="@style/ButtonStyle"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="unbind"
+            android:text="解除绑定"/>
+    </LinearLayout>
+
+</RelativeLayout>

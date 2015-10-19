@@ -74,9 +74,6 @@ public class RentMeActivity extends SwipeRefreshBaseActivity {
         });
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
 
 
 }

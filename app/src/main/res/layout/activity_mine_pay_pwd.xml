@@ -1,0 +1,79 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey">
+
+    <RelativeLayout
+        android:id="@+id/title_top"
+        style="@style/TitleStyle"
+        android:layout_alignParentTop="true"
+        android:background="@color/msg_title_background">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:onClick="back"
+            android:padding="12dp"
+            android:src="@mipmap/back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="8dp"
+            android:text="支付密码"
+            android:textColor="@color/msg_title_text_color"
+            android:textSize="@dimen/text_size_18sp"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_top"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/rc_divider"/>
+
+        <TextView
+            android:id="@+id/modify"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/icon_row"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:text="修改支付密码"
+            android:onClick="changePwd"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_size_16sp"/>
+        <TextView
+            android:id="@+id/findback"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:background="@color/white"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/icon_row"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:text="找回支付密码"
+            android:onClick="findBackPwd"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_size_16sp"/>
+    </LinearLayout>
+
+</RelativeLayout>

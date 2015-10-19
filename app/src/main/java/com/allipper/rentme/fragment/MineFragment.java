@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.ui.GuideActivity;
+import com.allipper.rentme.ui.mine.AgreementActivity;
+import com.allipper.rentme.ui.mine.GiveBackActivity;
 import com.allipper.rentme.ui.mine.MineInfoActivity;
 import com.allipper.rentme.ui.mine.MinePocketActivity;
 import com.allipper.rentme.ui.mine.MinePublishInfoActivity;
@@ -102,12 +104,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(it);
                 break;
             case R.id.giveback:
+                it = new Intent(getActivity(), GiveBackActivity.class);
+                startActivity(it);
                 break;
             case R.id.help:
                 it = new Intent(getActivity(), GuideActivity.class);
                 startActivity(it);
                 break;
             case R.id.agreement:
+                it = new Intent(getActivity(), AgreementActivity.class);
+                startActivity(it);
                 break;
             case R.id.setting:
                 it = new Intent(getActivity(), SysSettingActivity.class);

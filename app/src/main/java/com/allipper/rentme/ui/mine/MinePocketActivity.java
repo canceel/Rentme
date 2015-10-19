@@ -14,6 +14,8 @@ import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.CircleImageView;
 import com.allipper.rentme.widget.DrawableLeftCenterButton;
 
+import java.util.Random;
+
 public class MinePocketActivity extends BaseActivity {
     private static final String TAG = MinePocketActivity.class.getSimpleName();
 
@@ -52,9 +54,6 @@ public class MinePocketActivity extends BaseActivity {
 
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
 
     public void gotoPocketDetails(View view) {
         Intent it = new Intent(mContext, PocketDetailsActivity.class);
@@ -62,16 +61,31 @@ public class MinePocketActivity extends BaseActivity {
     }
 
     public void charge(View view) {
+        Intent it = new Intent(mContext, MineChargeActivity.class);
+        startActivity(it);
     }
 
     public void withdraw(View view) {
+        Intent it = new Intent(mContext, MineWithdrawActivity.class);
+        startActivity(it);
     }
 
 
     public void gotoMineCard(View view) {
+        Intent it = new Intent(mContext, MineCardActivity.class);
+        startActivity(it);
     }
 
     public void gotoPayPwd(View view) {
+        Intent it = null;
+        Random rd = new Random();
+        if (rd.nextBoolean()) {
+            it = new Intent(mContext, PayPasswordActivity.class);
+        } else {
+            it = new Intent(mContext, MinePayPwdActivity.class);
+        }
+        startActivity(it);
+
     }
 
 

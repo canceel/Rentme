@@ -39,8 +39,8 @@ import io.rong.imlib.model.UserInfo;
 public class IndexActivity extends FragmentBaseActivity implements View.OnClickListener {
 
     public static final String UPDATE_USER_INFO = "update_user_info";
-    String Token = "tbkP51yUE6JhtdPr1UlwnyFkuBwYKh3wa1XDQZufTqjlRvPH4edJrvXqadYhC" +
-            "+JWVxAOxGbcPXDM5He63lm9MQ==";//test
+    String Token = "/vF9at/zPgLACf2atvUXXLSUXIuhYrpnL2rv6v3TqMTdk6sO8EkeHI7KLV0+vJQqQ90T/Ijz" +
+            "+lKSO4/TnNq1Hw==";//test
     private static long BACK_PRESSED;
     private static final int TAB_HOME = 0;
     private static final int TAB_MESSAGE = 1;
@@ -150,7 +150,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         filterIv.setOnClickListener(this);
 
         FilterItem filterItem1 = new FilterItem();
-        filterItem1.title = "性别" ;
+        filterItem1.title = "性别";
         FilterSubItem filterSubItem1 = new FilterSubItem();
         filterSubItem1.name = "汉子";
         filterItem1.item.add(filterSubItem1);
@@ -160,7 +160,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         filterItems.add(filterItem1);
 
         FilterItem filterItem2 = new FilterItem();
-        filterItem2.title = "身高" ;
+        filterItem2.title = "身高";
         FilterSubItem filterSubItem01 = new FilterSubItem();
         filterSubItem01.name = "160~165cm";
         filterItem2.item.add(filterSubItem01);
@@ -176,7 +176,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         filterItems.add(filterItem2);
 
         FilterItem filterItem3 = new FilterItem();
-        filterItem3.title = "体重" ;
+        filterItem3.title = "体重";
         FilterSubItem filterSubItem02 = new FilterSubItem();
         filterSubItem02.name = "40~55kg";
         filterItem3.item.add(filterSubItem02);
@@ -194,7 +194,6 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         filterItem3.item.add(filterSubItem36);
         filterItems.add(filterItem3);
     }
-
 
 
     /**

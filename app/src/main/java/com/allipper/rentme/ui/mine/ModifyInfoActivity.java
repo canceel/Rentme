@@ -78,10 +78,6 @@ public class ModifyInfoActivity extends BaseActivity {
 
     }
 
-    //���õ���¼�
-    public void back(View view) {
-        super.back(view);
-    }
 
     public void save(View view) {
         onSuccessed();

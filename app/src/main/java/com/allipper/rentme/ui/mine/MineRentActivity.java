@@ -74,10 +74,5 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
         });
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
-
-
 }
 

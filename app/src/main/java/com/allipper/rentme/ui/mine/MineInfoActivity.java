@@ -110,7 +110,7 @@ public class MineInfoActivity extends BaseActivity {
         offerContents = getResources().getStringArray(R.array.select_offercontent);
         offerContentIndex = new boolean[offerContents.length];
         findViews();
-        getData(false);
+        getDatas(false);
     }
 
     private void getData(boolean isShowDialog) {
@@ -149,9 +149,6 @@ public class MineInfoActivity extends BaseActivity {
         CropUtils.setHeadFromDisk(this, head_cvCircleImageView);
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
 
     public void changeHead(View view) {
         View contentView = LayoutInflater.from(this).inflate(

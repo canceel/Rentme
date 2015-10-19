@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:drawablePadding="8dp"
-            android:text="充值"
+            android:text="我的银行卡"
             android:textColor="@color/msg_title_text_color"
             android:textSize="@dimen/text_size_18sp"/>
     </RelativeLayout>
@@ -35,54 +35,62 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_top"
-        android:layout_marginTop="16dp"
         android:orientation="vertical">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:background="@color/rc_divider"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:background="@color/white"
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="85dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
-                android:gravity="center"
+                android:layout_marginRight="16dp"
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
-                android:text="金额:"
+                android:text="储蓄卡:"
                 android:textColor="@color/text_dark"
                 android:textSize="@dimen/text_size_16sp"/>
 
-            <EditText
-                android:id="@+id/sumMoney"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="16dp"
-                android:layout_weight="1"
-                android:drawablePadding="20dp"
-                android:gravity="left|center_vertical"
-                android:hint="请输入充值金额"
-                android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="8dp"
             android:background="@color/rc_divider"/>
-        <Button
-            style="@style/ButtonStyle"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
+
+        <com.allipper.rentme.widget.AutoHeightListView
+            android:id="@+id/list"
+            style="@style/ListViewStyle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        </com.allipper.rentme.widget.AutoHeightListView>
+
+        <TextView
+            android:id="@+id/card"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:onClick="confirm"
-            android:text="下一步"/>
-
-
+            android:background="@color/white"
+            android:drawablePadding="8dp"
+            android:drawableRight="@mipmap/icon_row"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="16dp"
+            android:text="添加银行卡"
+            android:onClick="bindCard"
+            android:textColor="@color/text_dark"
+            android:textSize="@dimen/text_size_16sp"/>
     </LinearLayout>
 
 </RelativeLayout>

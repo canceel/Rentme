@@ -1,0 +1,201 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/grey">
+
+    <RelativeLayout
+        android:id="@+id/title_top"
+        style="@style/TitleStyle"
+        android:layout_alignParentTop="true"
+        android:background="@color/msg_title_background">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:onClick="back"
+            android:padding="12dp"
+            android:src="@mipmap/back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="8dp"
+            android:text="验证银行卡信息"
+            android:textColor="@color/msg_title_text_color"
+            android:textSize="@dimen/text_size_18sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_top"
+        android:layout_marginLeft="16dp"
+        android:gravity="left"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        android:text="向租我余额充值0.01元以完成验证"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_size_12sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/message"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="银行卡:"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_13sp"/>
+
+            <TextView
+                android:id="@+id/cardName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="中国银行储蓄卡"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/rc_divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="卡   号:"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_13sp"/>
+
+            <TextView
+                android:id="@+id/cardNo"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="621232123100321030201"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/rc_divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="85dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="手机号:"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_13sp"/>
+
+            <TextView
+                android:id="@+id/cell"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="153900000000"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_15sp"/>
+
+        </LinearLayout>
+
+
+
+        <Button
+            style="@style/ButtonStyle"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:onClick="confirm"
+            android:text="下一步"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="同意"
+                android:textColor="@color/text_normal"
+                android:textSize="@dimen/text_size_12sp"/>
+            <TextView
+                android:id="@+id/confirmMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/title_top"
+                android:gravity="left"
+                android:paddingBottom="16dp"
+                android:paddingTop="16dp"
+                android:text="租我快捷支付协议"
+                android:textColor="@color/text_blue"
+                android:textSize="@dimen/text_size_12sp"
+                android:autoLink="all"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
