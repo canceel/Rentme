@@ -16,7 +16,11 @@ import com.allipper.rentme.R;
 import com.allipper.rentme.common.util.LoadDialogUtil;
 import com.allipper.rentme.common.util.SharedPre;
 import com.allipper.rentme.common.util.SharedPreUtils;
+import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.ResponseMessageBean;
 import com.allipper.rentme.ui.base.BaseLoginBusinessActivity;
 
 
@@ -150,21 +154,21 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
         } else if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
             dialog.show();
-//            HttpLoad.UserModule.getMessageCode(mContext, TAG, edInputCellon.getText().toString(), HttpLoad.UserModule.MESSAGE_MODE_REGISTCELLPHONE, new ResponseCallback<ResponseMessageBean>(mContext) {
-//                @Override
-//                public void onRequestSuccess(ResponseMessageBean result) {
-//                    dialog.dismiss();
-//                    messageCode = result.orderCode;
-//                    time.start();
-//                    ToastUtils.show(mContext, "短信验证码已发送，请注意查收");
-//                }
-//
-//                @Override
-//                public void onReuquestFailed(String error) {
-//                    dialog.dismiss();
-//                    ToastUtils.show(mContext, error);
-//                }
-//            });
+            HttpLoad.UserModule.getMessageCode(mContext, TAG, edInputCellon.getText().toString(), new ResponseCallback<ResponseMessageBean>(mContext) {
+                @Override
+                public void onRequestSuccess(ResponseMessageBean result) {
+                    dialog.dismiss();
+                    messageCode = result.data.captcha;
+                    time.start();
+                    ToastUtils.show(mContext, "短信验证码已发送，请注意查收");
+                }
+
+                @Override
+                public void onReuquestFailed(String error) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, error);
+                }
+            });
 
         }
     }

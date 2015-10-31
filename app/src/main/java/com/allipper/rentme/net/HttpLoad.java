@@ -9,6 +9,7 @@ import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.request.GsonRequest;
 import com.allipper.rentme.net.response.ResponseAppVersion;
+import com.allipper.rentme.net.response.ResponseMessageBean;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -17,10 +18,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.Format;
 
 /**
  * HTTP所有请求方法管理类
- *
+ * <p/>
  * Created by allipper on 2015/10/8.
  */
 
@@ -118,8 +120,32 @@ public class HttpLoad {
                                          ResponseCallback<ResponseAppVersion> callback) {
             GsonRequest<ResponseAppVersion> request = new GsonRequest<>(
                     Request.Method.GET,
-                    Constant.API_VERSION_UPDATE,
+//                    Constant.API_VERSION_UPDATE,
+                    "",
                     ResponseAppVersion.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+    }
+
+    public static abstract class UserModule {
+
+        /**
+         * @param context
+         * @param tag
+         * @param mobile
+         * @param callback
+         */
+        public static void getMessageCode(Context context,
+                                          String tag, String mobile,
+                                          ResponseCallback<ResponseMessageBean> callback) {
+            String url = String.format(Constant.API_USER_GET_MESSAGE_CODE, mobile);
+            GsonRequest<ResponseMessageBean> request = new GsonRequest<>(
+                    Request.Method.GET, url,
+                    ResponseMessageBean.class,
                     null,
                     null,
                     callback,

@@ -5,6 +5,6 @@ package com.allipper.rentme.net.response;
  * Created by Administrator on 2015/7/9.
  */
 public class ResponseBase {
-    public String status;
+    public int code;
     public String message;
 }
