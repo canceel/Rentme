@@ -38,6 +38,7 @@ import com.allipper.rentme.net.HttpUpload;
 import com.allipper.rentme.net.ResponseCallback;
 import com.allipper.rentme.net.response.UploadResult;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.dynamic.MakeOrderActivity;
 import com.allipper.rentme.widget.NoRequsetGridView;
 
 import java.io.File;
@@ -79,16 +80,6 @@ public class MinePublishInfoActivity extends BaseActivity {
     private HorizontalScrollView hsvHorizontalScrollView;
     private NoRequsetGridView bigPicturesNoRequsetGridView;
 
-    private int constellationIndex;
-    private String[] constellations;
-    private int sexIndex;
-    private String[] sexs;
-    private int ageIndex;
-    private String[] ages;
-    private int heightIndex;
-    private String[] heights;
-    private int weightIndex;
-    private String[] weights;
     private boolean[] offerContentIndex;
     private String[] offerContents;
 
@@ -99,11 +90,6 @@ public class MinePublishInfoActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_publish_info);
-        constellations = getResources().getStringArray(R.array.select_constellation);
-        sexs = getResources().getStringArray(R.array.select_sex);
-        ages = getResources().getStringArray(R.array.select_age);
-        heights = getResources().getStringArray(R.array.select_height);
-        weights = getResources().getStringArray(R.array.select_weight);
         offerContents = getResources().getStringArray(R.array.select_offercontent);
         offerContentIndex = new boolean[offerContents.length];
         findViews();
@@ -138,8 +124,35 @@ public class MinePublishInfoActivity extends BaseActivity {
         hsvHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
         bigPicturesNoRequsetGridView = (NoRequsetGridView) findViewById(R.id.bigPictures);
 
+        backImageView.setOnClickListener(this);
+        imageViewImageView.setOnClickListener(this);
+        feeTextView.setOnClickListener(this);
+        offercontentTextView.setOnClickListener(this);
+        scheduleTextView.setOnClickListener(this);
+
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.imageView:
+                changeBackgroud(view);
+                break;
+            case R.id.fee:
+                changeFee(view);
+                break;
+            case R.id.offercontent:
+                changeOfferContent(view);
+                break;
+            case R.id.schedule:
+                changeSchedule(view);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
+    }
 
     public void changeBackgroud(View view) {
         View contentView = LayoutInflater.from(this).inflate(
@@ -201,28 +214,6 @@ public class MinePublishInfoActivity extends BaseActivity {
         startActivity(it);
     }
 
-
-    public void changeCareer(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_CAREER, careerTextView.getText()
-                .toString());
-    }
-
-    public void changeAge(View view) {
-        selectedIndex = ageIndex = processIndex(ageTextView.getText().toString(), ages);
-        showAlertDialog(ageIndex, ages, "请选择年龄", ageTextView);
-    }
-
-    public void changeHeight(View view) {
-        selectedIndex = heightIndex = processIndex(tallTextView.getText().toString(),
-                heights);
-        showAlertDialog(heightIndex, heights, "请选择身高", tallTextView);
-    }
-
-    public void changeWeight(View view) {
-        selectedIndex = weightIndex = processIndex(weightTextView.getText().toString(),
-                weights);
-        showAlertDialog(weightIndex, weights, "请选择体重", weightTextView);
-    }
 
     public void changeOfferContent(View view) {
         for (int i = 0; i < offerContentIndex.length; i++) {
@@ -351,22 +342,15 @@ public class MinePublishInfoActivity extends BaseActivity {
     }
 
 
-    public void changeHobbi(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_HOBBI, hobbyTextView.getText().toString());
-    }
-
     public void changeFee(View view) {
         startIntentActivity(ModifyInfoActivity.TYPE_FEE, feeTextView.getText().toString());
     }
 
-    public void changeStatus(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_STATUS, statusTextView.getText().toString());
-    }
-
     public void delete(View view) {
     }
+
     public void confirm(View view) {
-        ToastUtils.show(mContext,"发布成功");
+        ToastUtils.show(mContext, "发布成功");
         finish();
     }
 
@@ -436,12 +420,6 @@ public class MinePublishInfoActivity extends BaseActivity {
                 break;
             case ModifyInfoActivity.TYPE_FEE:
                 feeTextView.setText(value);
-                break;
-            case ModifyInfoActivity.TYPE_HOBBI:
-                hobbyTextView.setText(value);
-                break;
-            case ModifyInfoActivity.TYPE_STATUS:
-                statusTextView.setText(value);
                 break;
         }
     }

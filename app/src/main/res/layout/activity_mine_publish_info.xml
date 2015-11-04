@@ -51,7 +51,6 @@
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:onClick="changeBackgroud"
                 android:src="@color/text_red"/>
 
             <FrameLayout
@@ -148,9 +147,7 @@
                         android:layout_height="fill_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeStatus"
                         android:text="我很傻 很天真"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -216,9 +213,7 @@
                         android:layout_height="fill_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeCareer"
                         android:text="摄影"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -252,9 +247,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeAge"
                         android:text="23-25岁"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -287,9 +280,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeHeight"
                         android:text="165-170cm"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -322,14 +313,43 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeWeight"
                         android:text="50-50kg"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
                 </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/rc_divider"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="85dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="11dp"
+                        android:gravity="left|center_vertical"
+                        android:paddingBottom="16dp"
+                        android:paddingTop="16dp"
+                        android:text="爱好"
+                        android:textColor="@color/text_normal"
+                        android:textSize="@dimen/text_size_14sp"/>
+
+                    <TextView
+                        android:id="@+id/hobby"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="11dp"
+                        android:layout_weight="1"
+                        android:gravity="left|center_vertical"
+                        android:text="睡觉、吃、游泳、看书"
+                        android:textColor="@color/text_dark"
+                        android:textSize="@dimen/text_size_15sp"/>
+                </LinearLayout>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -359,7 +379,6 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeOfferContent"
                         android:text="吃饭、聊天、看电影"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -394,43 +413,7 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeSchedule"
                         android:text="睡醒后"
-                        android:textColor="@color/text_dark"
-                        android:textSize="@dimen/text_size_15sp"/>
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/rc_divider"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="85dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="11dp"
-                        android:gravity="left|center_vertical"
-                        android:paddingBottom="16dp"
-                        android:paddingTop="16dp"
-                        android:text="爱好"
-                        android:textColor="@color/text_normal"
-                        android:textSize="@dimen/text_size_14sp"/>
-
-                    <TextView
-                        android:id="@+id/hobby"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginRight="11dp"
-                        android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
-                        android:gravity="left|center_vertical"
-                        android:onClick="changeHobbi"
-                        android:text="睡觉、吃、游泳、看书"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
                 </LinearLayout>
@@ -465,7 +448,6 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="changeFee"
                         android:text="300元/时"
                         android:textColor="@color/title_background"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -473,6 +455,7 @@
             </LinearLayout>
 
             <com.allipper.rentme.widget.CircleImageView
+                android:id="@+id/head"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_below="@+id/imageView"

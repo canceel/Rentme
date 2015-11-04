@@ -91,29 +91,12 @@ public class MakeOrderActivity extends BaseActivity {
         total_feeTextView = (TextView) findViewById(R.id.total_fee);
         datingButton = (Button) findViewById(R.id.dating);
 
-    }
-
-
-    public void chooseDate(View view) {
-        showAlertDialog(DATE_DIALOG);
-    }
-
-    public void chooseTime(View view) {
-        showAlertDialog(TIME_DIALOG);
-    }
-
-    public void chooseCity(View view) {
-        startActivityForResult(new Intent(this, CurrentCityActivity.class),
-                CurrentCityActivity.CURRENT_ACTIVITY_RESULT);
-    }
-
-    public void chooseDuration(View view) {
-        showAlertDialog(DURATION_DIALOG);
-    }
-
-    public void confirm(View view) {
-        Intent it = new Intent(mContext, OrderDetailActivity.class);
-        startActivity(it);
+        backImageView.setOnClickListener(this);
+        dateTextView.setOnClickListener(this);
+        timeTextView.setOnClickListener(this);
+        cityTextView.setOnClickListener(this);
+        durationTextView.setOnClickListener(this);
+        datingButton.setOnClickListener(this);
     }
 
     /**
@@ -168,24 +151,6 @@ public class MakeOrderActivity extends BaseActivity {
                                 selectedIndex = which;
                             }
                         });
-//                View view = View.inflate(mContext, R.layout.choose_duration, null);
-//                PickerView durationPv = (PickerView) view.findViewById(R.id.duration);
-//                durationPv.setOnSelectListener(new PickerView.onSelectListener() {
-//                    @Override
-//                    public void onSelect(String text) {
-//                        if (!TextUtils.isEmpty(text)) {
-//                            durationStr = text;
-//                        }
-//                    }
-//                });
-//                String[] datas = getResources().getStringArray(R.array
-//                        .select_durations);
-//                ArrayList<String> dataList = new ArrayList<>(datas.length);
-//                for (String str : datas) {
-//                    dataList.add(str);
-//                }
-//                durationPv.setData(dataList);
-//                builder.setView(view);
                 builder.setTitle("请选择时长");
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -217,5 +182,31 @@ public class MakeOrderActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.date:
+                showAlertDialog(DATE_DIALOG);
+                break;
+            case R.id.time:
+                showAlertDialog(TIME_DIALOG);
+                break;
+            case R.id.city:
+                startActivityForResult(new Intent(this, CurrentCityActivity.class),
+                        CurrentCityActivity.CURRENT_ACTIVITY_RESULT);
+                break;
+            case R.id.duration:
+                showAlertDialog(DURATION_DIALOG);
+                break;
+            case R.id.dating:
+                Intent it = new Intent(mContext, OrderDetailActivity.class);
+                startActivity(it);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
+    }
 }
 

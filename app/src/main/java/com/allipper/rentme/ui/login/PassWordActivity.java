@@ -40,6 +40,11 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
         edConforNewPassWord = (EditText) findViewById(R.id.confor_newpassword);
         btnSecurityCode = (Button) findViewById(R.id.security_code);
         tvInputCellNo = (TextView) findViewById(R.id.input_cellno_tv);
+
+        findViewById(R.id.back).setOnClickListener(this);
+        findViewById(R.id.security_code).setOnClickListener(this);
+        findViewById(R.id.confirm).setOnClickListener(this);
+
         time = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -152,7 +157,19 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
         }
     }
 
-    public void back(View view) {
-        onBackPressed();
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.security_code:
+                get_securitycode(view);
+                break;
+            case R.id.confirm:
+                amend(view);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
     }
 }

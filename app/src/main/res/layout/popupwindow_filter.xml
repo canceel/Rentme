@@ -18,6 +18,7 @@
                 android:id="@+id/btn_cancel"
                 android:layout_width="45dp"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
                 android:background="@null"
                 android:src="@mipmap/icon_delete"/>
 
@@ -26,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="筛选"
-                android:textColor="@color/text_normal"
+                android:textColor="@color/text_white_80"
                 android:textSize="@dimen/text_size_16sp"/>
         </RelativeLayout>
 
@@ -38,9 +39,11 @@
         <Button
             android:id="@+id/btn_submit"
             style="@style/ButtonStyle"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_marginBottom="20dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_marginTop="10dp"
             android:text="确定"
             android:textColor="@color/text_white_0"

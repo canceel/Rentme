@@ -77,10 +77,8 @@ public class MineInfoActivity extends BaseActivity {
     private TextView height_valueTextView;
     private LinearLayout weightLinearLayout;
     private TextView weight_valueTextView;
-    private LinearLayout offercontentLinearLayout;
-    private TextView offercontent_valueTextView;
-    private LinearLayout scheduleLinearLayout;
-    private TextView schedule_valueTextView;
+    private LinearLayout hobbyLinearLayout;
+    private TextView hobby_valueTextView;
 
     private int constellationIndex;
     private String[] constellations;
@@ -92,8 +90,6 @@ public class MineInfoActivity extends BaseActivity {
     private String[] heights;
     private int weightIndex;
     private String[] weights;
-    private boolean[] offerContentIndex;
-    private String[] offerContents;
 
     private int selectedIndex;
 
@@ -107,8 +103,6 @@ public class MineInfoActivity extends BaseActivity {
         ages = getResources().getStringArray(R.array.select_age);
         heights = getResources().getStringArray(R.array.select_height);
         weights = getResources().getStringArray(R.array.select_weight);
-        offerContents = getResources().getStringArray(R.array.select_offercontent);
-        offerContentIndex = new boolean[offerContents.length];
         findViews();
         getDatas(false);
     }
@@ -141,14 +135,74 @@ public class MineInfoActivity extends BaseActivity {
         height_valueTextView = (TextView) findViewById(R.id.height_value);
         weightLinearLayout = (LinearLayout) findViewById(R.id.weight);
         weight_valueTextView = (TextView) findViewById(R.id.weight_value);
-        offercontentLinearLayout = (LinearLayout) findViewById(R.id.offercontent);
-        offercontent_valueTextView = (TextView) findViewById(R.id.offercontent_value);
-        scheduleLinearLayout = (LinearLayout) findViewById(R.id.schedule);
-        schedule_valueTextView = (TextView) findViewById(R.id.schedule_value);
+        hobbyLinearLayout = (LinearLayout) findViewById(R.id.hobby);
+        hobby_valueTextView = (TextView) findViewById(R.id.hobby_value);
+
+
+        backImageView.setOnClickListener(this);
+        head_cvCircleImageView.setOnClickListener(this);
+        name_valueTextView.setOnClickListener(this);
+        status_valueTextView.setOnClickListener(this);
+        constellation_valueTextView.setOnClickListener(this);
+        sex_valueTextView.setOnClickListener(this);
+        findViewById(R.id.toPicture).setOnClickListener(this);
+        career_valueTextView.setOnClickListener(this);
+        age_valueTextView.setOnClickListener(this);
+        height_valueTextView.setOnClickListener(this);
+        weight_valueTextView.setOnClickListener(this);
+        hobby_valueTextView.setOnClickListener(this);
+
 
         CropUtils.setHeadFromDisk(this, head_cvCircleImageView);
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.head_cv:
+                changeHead(view);
+                break;
+            case R.id.name_value:
+                changeName(view);
+                break;
+            case R.id.status_value:
+                changeStatus(view);
+                break;
+            case R.id.constellation_value:
+                changeConstellatione(view);
+                break;
+            case R.id.sex_value:
+                changeSex(view);
+                break;
+            case R.id.toPicture:
+                changePicture(view);
+                break;
+            case R.id.career_value:
+                changeCareer(view);
+                break;
+            case R.id.age_value:
+                changeAge(view);
+                break;
+            case R.id.height_value:
+                changeHeight(view);
+                break;
+            case R.id.weight_value:
+                changeWeight(view);
+                break;
+            case R.id.hobby_value:
+                changeHobbi(view);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
+    }
+
+    public void changeHobbi(View view) {
+        startIntentActivity(ModifyInfoActivity.TYPE_HOBBI, hobby_valueTextView.getText().toString
+                ());
+    }
 
     public void changeHead(View view) {
         View contentView = LayoutInflater.from(this).inflate(
@@ -253,31 +307,6 @@ public class MineInfoActivity extends BaseActivity {
         showAlertDialog(weightIndex, weights, "请选择体重", weight_valueTextView);
     }
 
-    public void changeOfferContent(View view) {
-        for (int i = 0; i < offerContentIndex.length; i++) {
-            offerContentIndex[i] = false;
-        }
-        String str = offercontent_valueTextView.getText().toString();
-        if (!TextUtils.isEmpty(str)) {
-            String[] strs = str.split("、");
-            for (String temp : strs) {
-                int i = 0;
-                for (String temp1 : offerContents) {
-                    if (temp.equals(temp1)) {
-                        offerContentIndex[i] = true;
-                        break;
-                    }
-                    i++;
-                }
-            }
-        }
-        showAlertDialog(offerContentIndex, offerContents, "请选择出租范围", offercontent_valueTextView);
-    }
-
-    public void changeSchedule(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_SCHEDULE, schedule_valueTextView.getText()
-                .toString());
-    }
 
     private int processIndex(String value, String[] datas) {
         int index = 0;
@@ -447,8 +476,8 @@ public class MineInfoActivity extends BaseActivity {
             case ModifyInfoActivity.TYPE_CAREER:
                 career_valueTextView.setText(value);
                 break;
-            case ModifyInfoActivity.TYPE_SCHEDULE:
-                schedule_valueTextView.setText(value);
+            case ModifyInfoActivity.TYPE_HOBBI:
+                hobby_valueTextView.setText(value);
                 break;
         }
     }

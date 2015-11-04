@@ -100,7 +100,7 @@ public class ViewHolder {
      * @return
      */
     public ViewHolder setImageByUrl(String url, int viewId) {
-        HttpLoad.getImage(context, url, 0, (ImageView) getView(viewId));
+        HttpLoad.getImage(url, 0, (ImageView) getView(viewId));
         return this;
     }
 
@@ -113,7 +113,7 @@ public class ViewHolder {
      * @return
      */
     public ViewHolder setImageByUrl(String url, int defaultResId, int viewId) {
-        HttpLoad.getImage(context, url, defaultResId, (ImageView) getView(viewId));
+        HttpLoad.getImage(url, defaultResId, (ImageView) getView(viewId));
         return this;
     }
 

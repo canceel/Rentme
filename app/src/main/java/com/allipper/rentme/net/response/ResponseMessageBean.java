@@ -3,19 +3,20 @@ package com.allipper.rentme.net.response;
 /**
  * Created by allipper on 2015-10-30.
  */
-public class ResponseMessageBean extends ResponseBase{
+public class ResponseMessageBean extends ResponseBase {
+
     /**
-     * request : /api/account/regcaptcha.json
-     * code : 0
-     * message : 请求成功
-     * data : {"mobile":"15280050320","captcha":"332041"}
+     * request : /api/account/getregcaptcha.json
+     * data : {"mobile":"15280050320","captcha":"710876","expiredTime":"2015-11-04 11:27:01",
+     * "createTime":"2015-11-04 10:57:01"}
      */
 
     public String request;
-
     /**
      * mobile : 15280050320
-     * captcha : 332041
+     * captcha : 710876
+     * expiredTime : 2015-11-04 11:27:01
+     * createTime : 2015-11-04 10:57:01
      */
 
     public DataEntity data;
@@ -24,5 +25,7 @@ public class ResponseMessageBean extends ResponseBase{
     public static class DataEntity {
         public String mobile;
         public String captcha;
+        public String expiredTime;
+        public String createTime;
     }
 }

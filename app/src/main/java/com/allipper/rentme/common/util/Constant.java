@@ -97,14 +97,13 @@ public class Constant {
      */
     //获取验证码
     public static final String API_USER_GET_MESSAGE_CODE = BASE_URL +
-            "account/regcaptcha.json?mobile=%1$s";
-    //匿名用户登录
-    public static final String API_ANONYMITY_USER_LOGIN = BASE_URL +
-            "oauth/token?client_id=%1$s&client_secret=%2$s&grant_type=%3$s";
+            "account/getregcaptcha.json?mobile=%1$s";
     //用户注册
-    public static final String API_USER_REGIST = BASE_URL + "v2/yonghuio2o/users";
+    public static final String API_USER_REGIST = BASE_URL + "account/register.json";
     //用户登录
-    public static final String API_USER_LOGIN = BASE_URL + "oauth/token";
+    public static final String API_USER_LOGIN = BASE_URL + "account/login.json";
+    //刷新token
+    public static final String API_REFRESH_TOKEN = BASE_URL + "gettoken.json";
     //重置用户密码
     public static final String API_USER_RESET_PASSWORD = BASE_URL +
             "v2/yonghuio2o/userstoken/changepassword";

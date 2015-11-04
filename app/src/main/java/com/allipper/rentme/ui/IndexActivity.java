@@ -26,7 +26,6 @@ import com.allipper.rentme.ui.base.FragmentBaseActivity;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
 import com.allipper.rentme.ui.login.LoginActivity;
 import com.allipper.rentme.widget.MyFilterPopupWindow;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -166,7 +165,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         filterSubItem01.name = "160~165cm";
         filterItem2.item.add(filterSubItem01);
         FilterSubItem filterSubItem11 = new FilterSubItem();
-        filterSubItem11.name = "165~110cm";
+        filterSubItem11.name = "165~170cm";
         filterItem2.item.add(filterSubItem11);
         FilterSubItem filterSubItem21 = new FilterSubItem();
         filterSubItem21.name = "170~180cm";
@@ -262,23 +261,13 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     private void setTabSelection(int position) {
         //记录position
         this.position = position;
-        //更改底部导航栏按钮状态
-        changeButtonStatus(position);
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         // 先隐藏掉所有的Fragment，以防止有多个Fragment显示在界面上的情况
         hideFragments(transaction);
+        //更改底部导航栏按钮状态
+        changeButtonStatus(position);
         switch (position) {
             case TAB_HOME:
-                homeTabLl.setSelected(true);
-                msgTabLl.setSelected(false);
-                mineTabLl.setSelected(false);
-                filterIv.setVisibility(View.VISIBLE);
-                titleBtn.setText("福州");
-                Drawable leftDrawable = getResources().getDrawable(R.mipmap.gps_location);
-                leftDrawable.setBounds(0, 0, leftDrawable.getIntrinsicWidth(), leftDrawable
-                        .getIntrinsicHeight());
-                titleBtn.setCompoundDrawables(leftDrawable, null, null, null);
-                titleBtn.setOnClickListener(this);
                 if (homeFragment == null) {
                     homeFragment = new HomePagerFragment();
                     transaction.add(R.id.fragment_container, homeFragment);
@@ -287,13 +276,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 }
                 break;
             case TAB_MESSAGE:
-                homeTabLl.setSelected(false);
-                msgTabLl.setSelected(true);
-                mineTabLl.setSelected(false);
-                filterIv.setVisibility(View.GONE);
-                titleBtn.setText("消息");
-                titleBtn.setCompoundDrawables(null, null, null, null);
-                titleBtn.setOnClickListener(null);
+
                 if (msgFragment == null) {
                     initIMkitMsg(transaction);
                 } else {
@@ -301,13 +284,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 }
                 break;
             case TAB_MINE:
-                homeTabLl.setSelected(false);
-                msgTabLl.setSelected(false);
-                mineTabLl.setSelected(true);
-                filterIv.setVisibility(View.GONE);
-                titleBtn.setText("我的");
-                titleBtn.setCompoundDrawables(null, null, null, null);
-                titleBtn.setOnClickListener(null);
+
                 if (mineFragment == null) {
                     mineFragment = new MineFragment();
                     transaction.add(R.id.fragment_container, mineFragment);
@@ -326,16 +303,31 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 homeTabLl.setSelected(true);
                 msgTabLl.setSelected(false);
                 mineTabLl.setSelected(false);
+                filterIv.setVisibility(View.VISIBLE);
+                titleBtn.setText("福州");
+                Drawable leftDrawable = getResources().getDrawable(R.mipmap.gps_location);
+                leftDrawable.setBounds(0, 0, leftDrawable.getIntrinsicWidth(), leftDrawable
+                        .getIntrinsicHeight());
+                titleBtn.setCompoundDrawables(leftDrawable, null, null, null);
+                titleBtn.setOnClickListener(this);
                 break;
             case TAB_MESSAGE:
                 homeTabLl.setSelected(false);
                 msgTabLl.setSelected(true);
                 mineTabLl.setSelected(false);
+                filterIv.setVisibility(View.GONE);
+                titleBtn.setText("消息");
+                titleBtn.setCompoundDrawables(null, null, null, null);
+                titleBtn.setOnClickListener(null);
                 break;
             case TAB_MINE:
                 homeTabLl.setSelected(false);
                 msgTabLl.setSelected(false);
                 mineTabLl.setSelected(true);
+                filterIv.setVisibility(View.GONE);
+                titleBtn.setText("我的");
+                titleBtn.setCompoundDrawables(null, null, null, null);
+                titleBtn.setOnClickListener(null);
                 break;
         }
     }

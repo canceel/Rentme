@@ -4,6 +4,7 @@ package com.allipper.rentme.ui.dynamic;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView orderDateTextView;
     private TextView total_feeTextView;
     private RelativeLayout bottomRelativeLayout;
+    private Button datingButton;
 
 
     @Override
@@ -62,17 +64,24 @@ public class OrderDetailActivity extends BaseActivity {
         orderDateTextView = (TextView) findViewById(R.id.orderDate);
         total_feeTextView = (TextView) findViewById(R.id.total_fee);
         bottomRelativeLayout = (RelativeLayout) findViewById(R.id.bottomRl);
+        datingButton = (Button) findViewById(R.id.dating);
 
+        datingButton.setOnClickListener(this);
     }
 
-    //���õ���¼�
-    public void back(View view) {
-    }
-
-    public void confirm(View view) {
-        Intent it = new Intent(mContext, MinePayActivity.class);
-        it.putExtra("isCharged",false);
-        startActivity(it);
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.dating:
+                Intent it = new Intent(mContext, MinePayActivity.class);
+                it.putExtra("isCharged",false);
+                startActivity(it);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
     }
 }
 

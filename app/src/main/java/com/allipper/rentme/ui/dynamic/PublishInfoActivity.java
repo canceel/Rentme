@@ -18,6 +18,7 @@ import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.PicturesAdapter;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.widget.CircleImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,7 @@ public class PublishInfoActivity extends BaseActivity {
     private GridView pictrues;
     private LinearLayout persenPictureLl;
     private ImageView deleteIv;
+    private CircleImageView headCv;
 
     private int selectedIcon = 0;
 
@@ -88,6 +90,12 @@ public class PublishInfoActivity extends BaseActivity {
         persenPictureLl = (LinearLayout) findViewById(R.id.persen_picture);
         pictrues = (GridView) findViewById(R.id.bigPictures);
         deleteIv = (ImageView) findViewById(R.id.delete);
+        headCv = (CircleImageView) findViewById(R.id.head_cv);
+
+        persenPictureLl.setOnClickListener(this);
+        deleteIv.setOnClickListener(this);
+        backImageView.setOnClickListener(this);
+        datingButton.setOnClickListener(this);
         List<String> pictureUrls = new ArrayList<>(15);
         pictureUrls.add("1");
         pictureUrls.add("2");
@@ -114,28 +122,33 @@ public class PublishInfoActivity extends BaseActivity {
         pictrues.setAdapter(new PicturesAdapter(mContext, pictureUrls, PicturesAdapter.TYPE_OTHER));
     }
 
-    //���õ���¼�
-    public void dating(View view) {
-        Intent it = new Intent(mContext, MakeOrderActivity.class);
-        startActivity(it);
-    }
-
-    public void showMinePictures(View view) {
-        if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.GONE) {
-            pictrueBgRl.setVisibility(View.VISIBLE);
-        }
-    }
-
-    public void delete(View view) {
-        if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
-            pictrueBgRl.setVisibility(View.GONE);
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.dating:
+                Intent it = new Intent(mContext, MakeOrderActivity.class);
+                startActivity(it);
+                break;
+            case R.id.persen_picture:
+                if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.GONE) {
+                    pictrueBgRl.setVisibility(View.VISIBLE);
+                }
+                break;
+            case R.id.delete:
+                if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
+                    pictrueBgRl.setVisibility(View.GONE);
+                }
+            default:
+                super.onClick(view);
+                break;
         }
     }
 
     public void processExit() {
         if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
             pictrueBgRl.setVisibility(View.GONE);
-        }else{
+        } else {
             super.processExit();
         }
     }

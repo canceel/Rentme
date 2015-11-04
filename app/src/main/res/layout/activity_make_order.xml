@@ -16,7 +16,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dp"
-            android:onClick="back"
             android:padding="12dp"
             android:src="@mipmap/back"/>
 
@@ -183,7 +182,6 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="chooseDate"
                         android:text="2015-10-20"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -220,7 +218,6 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="chooseTime"
                         android:text="17：30"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -256,8 +253,7 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="chooseDuration"
-                        android:text="一小时"
+                        android:text="1小时"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
 
@@ -326,7 +322,6 @@
                         android:layout_weight="1"
                         android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:onClick="chooseCity"
                         android:text="福州"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -462,7 +457,6 @@
                 android:layout_width="90dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="2dp"
-                android:onClick="confirm"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="确定提交"

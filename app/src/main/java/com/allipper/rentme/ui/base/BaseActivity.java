@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.allipper.rentme.R;
 import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.widget.MyEmptyViewHelper;
@@ -17,7 +18,7 @@ import com.umeng.message.PushAgent;
 /**
  * Created by allipper on 2015/9/1.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends Activity implements View.OnClickListener {
 
     protected Context mContext;
 
@@ -32,6 +33,7 @@ public class BaseActivity extends Activity {
         super.onResume();
         MobclickAgent.onResume(mContext);
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPause(mContext);
@@ -87,6 +89,13 @@ public class BaseActivity extends Activity {
             it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(it);
             onBackPressed();
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view != null && view.getId() == R.id.back) {
+            back(view);
         }
     }
 }

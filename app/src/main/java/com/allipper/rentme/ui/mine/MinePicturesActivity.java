@@ -146,6 +146,37 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
         cancelButton = (Button) findViewById(R.id.cancel);
         selectAllButton = (Button) findViewById(R.id.selectAll);
         pictureHsv = (HorizontalScrollView) findViewById(R.id.hsv);
+
+        findViewById(R.id.back).setOnClickListener(this);
+        editIv.setOnClickListener(this);
+        cancelButton.setOnClickListener(this);
+        selectAllButton.setOnClickListener(this);
+        closeIv.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.edit:
+                showMenu(view);
+                break;
+            case R.id.cancel:
+                cancel(view);
+                break;
+            case R.id.selectAll:
+                selectAll(view);
+                break;
+            case R.id.delete:
+                delete(view);
+                break;
+            case R.id.close:
+                close(view);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
     }
 
     public void showMenu(View view) {

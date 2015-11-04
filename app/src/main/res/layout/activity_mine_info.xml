@@ -16,7 +16,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dp"
-            android:onClick="back"
             android:padding="12dp"
             android:src="@mipmap/back"/>
 
@@ -71,7 +70,6 @@
                     android:layout_height="64dp"
                     android:layout_marginRight="16dp"
                     android:layout_toLeftOf="@+id/icon"
-                    android:onClick="changeHead"
                     android:src="@mipmap/icon_defaultheader"/>
 
                 <ImageView
@@ -81,7 +79,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="6dp"
-                    android:onClick="changeHead"
                     android:src="@mipmap/icon_row"
                     />
 
@@ -120,7 +117,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeName"
                     android:text="杨颖"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -160,7 +156,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeStatus"
                     android:text="我的生活我做主"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -200,7 +195,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeConstellatione"
                     android:text="双鱼座"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -240,7 +234,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeSex"
                     android:text="女"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -272,6 +265,7 @@
                     android:textSize="@dimen/text_size_16sp"/>
 
                 <TextView
+                    android:id="@+id/toPicture"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="6dp"
@@ -279,7 +273,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changePicture"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
@@ -318,7 +311,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeCareer"
                     android:text="大学生"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -358,7 +350,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeAge"
                     android:text="21~25"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -398,7 +389,6 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeHeight"
                     android:text="180cm以上"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
@@ -438,8 +428,7 @@
                     android:drawablePadding="20dp"
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
-                    android:onClick="changeWeight"
-                    android:text="70~80kg"
+                    android:text="71~75kg"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
@@ -451,7 +440,7 @@
                 android:background="@color/rc_divider"/>
 
             <LinearLayout
-                android:id="@+id/offercontent"
+                android:id="@+id/hobby"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -465,12 +454,12 @@
                     android:gravity="left|center_vertical"
                     android:paddingBottom="16dp"
                     android:paddingTop="16dp"
-                    android:text="出租范围"
+                    android:text="爱好"
                     android:textColor="@color/text_dark"
                     android:textSize="@dimen/text_size_16sp"/>
 
                 <TextView
-                    android:id="@+id/offercontent_value"
+                    android:id="@+id/hobby_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginRight="6dp"
@@ -479,50 +468,10 @@
                     android:drawableRight="@mipmap/icon_row"
                     android:gravity="right|center_vertical"
                     android:onClick="changeOfferContent"
-                    android:text="看电影、压马路、喝酒"
+                    android:text="看电影、打篮球"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"
                     />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/rc_divider"/>
-
-            <LinearLayout
-                android:id="@+id/schedule"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-                <TextView
-                    android:layout_width="85dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="11dp"
-                    android:gravity="left|center_vertical"
-                    android:paddingBottom="16dp"
-                    android:paddingTop="16dp"
-                    android:text="档期"
-                    android:textColor="@color/text_dark"
-                    android:textSize="@dimen/text_size_16sp"/>
-
-                <TextView
-                    android:id="@+id/schedule_value"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
-                    android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:drawableRight="@mipmap/icon_row"
-                    android:gravity="right|center_vertical"
-                    android:onClick="changeSchedule"
-                    android:text="午饭后"
-                    android:textColor="@color/text_normal"
-                    android:textSize="@dimen/text_size_14sp"/>
 
             </LinearLayout>
 

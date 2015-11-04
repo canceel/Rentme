@@ -241,7 +241,8 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/distance"/>
+            android:src="@mipmap/distance"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/distance_tv"
@@ -254,7 +255,8 @@
             android:gravity="left"
             android:text="413km"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_12sp"/>
+            android:textSize="@dimen/text_size_12sp"
+            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="wrap_content"

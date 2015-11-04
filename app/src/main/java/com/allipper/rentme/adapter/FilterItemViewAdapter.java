@@ -73,18 +73,17 @@ public class FilterItemViewAdapter extends BaseAdapter implements PickUpFilterIt
             holder.mOrdersListItemDetailDatas.addAll(filterData.item);//第一次填充数据
             holder.adapter = new PickUpFilterItemViewAdapter(context, holder
                     .mOrdersListItemDetailDatas, this);//新建adapter
-            holder.adapter.setPos(position);
             holder.itemGridView.setAdapter(holder.adapter);//将adapter设置到listview里
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
-            holder.adapter.setPos(position);
-            holder.title.setText(filterData.title);
             holder.mOrdersListItemDetailDatas.clear();
             holder.mOrdersListItemDetailDatas.addAll(filterData.item);
             //视图复用的时候不重新new一个数据对象，而是使用之前的数据对象
             holder.adapter.notifyDataSetChanged();//然后通知适配器更新界面
         }
+        holder.adapter.setPos(position);
+        holder.title.setText(filterData.title);
         return convertView;
     }
 

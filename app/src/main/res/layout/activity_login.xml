@@ -15,7 +15,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dp"
-            android:onClick="back"
             android:padding="12dp"
             android:src="@mipmap/back"/>
 
@@ -76,23 +75,23 @@
             android:layout_height="wrap_content">
 
             <Button
+                android:id="@+id/register"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@null"
-                android:onClick="register"
                 android:text="@string/common_register_right_now_tip"
                 android:textColor="@color/text_blue"
                 android:gravity="left|center_vertical"
                 android:textSize="12sp"/>
 
             <Button
+                android:id="@+id/forget"
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
                 android:background="@null"
-                android:onClick="forget_password"
                 android:text="@string/common_forget_password"
                 android:textColor="@color/text_blue"
                 android:gravity="right|center_vertical"
@@ -100,9 +99,9 @@
         </RelativeLayout>
 
         <Button
+            android:id="@+id/login"
             style="@style/ButtonStyle"
             android:layout_marginTop="50dp"
-            android:onClick="enter"
             android:text="@string/common_login_right_now"
             android:textSize="18sp"/>
     </LinearLayout>
