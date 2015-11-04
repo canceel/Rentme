@@ -18,6 +18,9 @@ import com.allipper.rentme.database.DbManager;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.umeng.analytics.AnalyticsConfig;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -40,6 +43,12 @@ public class StartActivity extends BaseActivity implements Animation.AnimationLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+        MobclickAgent.updateOnlineConfig(mContext);
+        AnalyticsConfig.enableEncrypt(true);
+        PushAgent mPushAgent = PushAgent.getInstance(mContext);
+        if(SharedPreUtils.getBoolean(mContext, SharedPre.App.MESSAGE_PUSH, true)){
+            mPushAgent.enable();
+        }
         initView();
     }
 

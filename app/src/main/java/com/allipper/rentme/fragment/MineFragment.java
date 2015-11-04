@@ -19,6 +19,7 @@ import com.allipper.rentme.ui.mine.MinePublishInfoActivity;
 import com.allipper.rentme.ui.mine.MineRentActivity;
 import com.allipper.rentme.ui.mine.RentMeActivity;
 import com.allipper.rentme.ui.mine.SysSettingActivity;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * @author
@@ -48,6 +49,16 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         initView(view);
         return view;
     }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MineScreen"); //统计页面
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MineScreen");
+    }
+
 
     /**
      * 初始化界面

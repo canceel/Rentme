@@ -124,8 +124,6 @@ public class LocalImageLoader {
             protected int sizeOf(String key, Bitmap value) {
                 return value.getRowBytes() * value.getHeight();
             }
-
-            ;
         };
 
         mThreadPool = Executors.newFixedThreadPool(threadCount);

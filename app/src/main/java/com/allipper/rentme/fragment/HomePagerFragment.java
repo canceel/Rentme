@@ -21,9 +21,9 @@ import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.response.PulishInfoResponse;
 import com.allipper.rentme.ui.dynamic.PublishInfoActivity;
 import com.allipper.rentme.widget.AutoScrollViewPager;
-import com.allipper.rentme.widget.MyFilterPopupWindow;
 import com.allipper.rentme.widget.SwipeRefreshLayout;
 import com.allipper.rentme.widget.SwipyRefreshLayoutDirection;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +46,16 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
         View view = inflater.inflate(R.layout.fragment_home_pager, container, false);
         initView(view);
         return view;
+    }
+
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart("MainScreen"); //统计页面
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd("MainScreen");
     }
 
     /**

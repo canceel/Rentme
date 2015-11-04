@@ -11,6 +11,8 @@ import android.view.View;
 import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.widget.MyEmptyViewHelper;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 /**
  * Created by allipper on 2015/9/1.
@@ -23,6 +25,16 @@ public class BaseActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = this;
+        PushAgent.getInstance(mContext).onAppStart();
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(mContext);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(mContext);
     }
 
     public void back(View view) {
@@ -70,7 +82,7 @@ public class BaseActivity extends Activity {
     }
 
     public void retry(int tab) {
-        if(tab == MyEmptyViewHelper.RETRY_TYPE_GOTO_INDEX){
+        if (tab == MyEmptyViewHelper.RETRY_TYPE_GOTO_INDEX) {
             Intent it = new Intent(this, IndexActivity.class);
             it.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(it);

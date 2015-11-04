@@ -460,8 +460,8 @@
     <style name="RCTheme.Notification" parent="RCTheme.TextView">
         <item name="android:background">@drawable/rc_conversation_time_bg</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
         <item name="android:paddingTop">2dp</item>
         <item name="android:paddingBottom">2dp</item>
         <item name="android:textColor">@color/rc_text_color_primary_inverse</item>

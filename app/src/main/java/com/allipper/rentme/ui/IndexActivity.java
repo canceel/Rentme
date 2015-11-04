@@ -26,6 +26,7 @@ import com.allipper.rentme.ui.base.FragmentBaseActivity;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
 import com.allipper.rentme.ui.login.LoginActivity;
 import com.allipper.rentme.widget.MyFilterPopupWindow;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -388,4 +389,5 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
             }
         }
     }
+
 }
