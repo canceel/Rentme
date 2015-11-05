@@ -34,7 +34,7 @@ public class UploadFileRequest<T> extends Request<T> {
     private AndroidMultiPartEntity.ProgressListener progressListener;
     private final File mImageFile;
     private final Class<T> clz;
-    private static final String FILE_PART_NAME = "image";
+    private static final String FILE_PART_NAME = "file";
     private final static int TIME_OUT = 2 * 60 * 1000;
 
     public UploadFileRequest(int method, String tag, String url, File imageFile, Class<T> clz,

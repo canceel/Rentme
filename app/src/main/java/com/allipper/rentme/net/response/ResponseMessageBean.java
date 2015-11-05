@@ -11,7 +11,6 @@ public class ResponseMessageBean extends ResponseBase {
      * "createTime":"2015-11-04 10:57:01"}
      */
 
-    public String request;
     /**
      * mobile : 15280050320
      * captcha : 710876

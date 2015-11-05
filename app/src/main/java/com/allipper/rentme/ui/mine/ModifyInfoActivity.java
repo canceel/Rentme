@@ -1,8 +1,10 @@
 package com.allipper.rentme.ui.mine;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -10,6 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.ToastUtils;
+import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.UpdateUserInforResponse;
 import com.allipper.rentme.ui.base.BaseActivity;
 
 public class ModifyInfoActivity extends BaseActivity {
@@ -19,11 +28,9 @@ public class ModifyInfoActivity extends BaseActivity {
     public static final String MODIFY_TYPE = "modify_type";
     public static final String MODIFY_VALUE = "modify_value";
     public static final int TYPE_NAME = 0;
-    public static final int TYPE_STATUS = 1;
-    public static final int TYPE_CAREER = 2;
-    public static final int TYPE_SCHEDULE = 3;
-    public static final int TYPE_HOBBI = 4;
-    public static final int TYPE_FEE = 5;
+    public static final int TYPE_STATUS = TYPE_NAME + 1;
+    public static final int TYPE_SCHEDULE = TYPE_STATUS + 1;
+    public static final int TYPE_FEE = TYPE_SCHEDULE + 1;
 
     private RelativeLayout title_topRelativeLayout;
     private ImageView backImageView;
@@ -54,14 +61,6 @@ public class ModifyInfoActivity extends BaseActivity {
                 titleTextView.setText("修改个性签名");
                 tipTextView.setVisibility(View.GONE);
                 break;
-            case TYPE_CAREER:
-                titleTextView.setText("修改职业");
-                tipTextView.setVisibility(View.GONE);
-                break;
-            case TYPE_SCHEDULE:
-                titleTextView.setText("修改档期");
-                tipTextView.setText("合理档期可以让别人更容易租到你");
-                break;
             default:
                 titleTextView.setText("修改");
                 tipTextView.setVisibility(View.GONE);
@@ -80,7 +79,46 @@ public class ModifyInfoActivity extends BaseActivity {
 
 
     public void save(View view) {
+        if (TextUtils.isEmpty(contentEditText.getText().toString())) {
+            ToastUtils.show(mContext, "内容不能为空");
+            return;
+        }
+        switch (type) {
+            case TYPE_NAME:
+                updateUserInfo(SharedPre.User.NICKNAME, contentEditText.getText().toString());
+                break;
+            case TYPE_STATUS:
+                updateUserInfo(SharedPre.User.USERDETAIL, contentEditText.getText().toString());
+                break;
+        }
+
+
         onSuccessed();
+    }
+
+    private void updateUserInfo(String type, String value) {
+        if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.updating);
+            dialog.show();
+            HttpLoad.UserModule.updateUserInfor(TAG, type, value, Utils.getToken
+                    (mContext), new
+                    ResponseCallback<UpdateUserInforResponse>(mContext) {
+
+                        @Override
+                        public void onRequestSuccess(UpdateUserInforResponse result) {
+                            Utils.saveUserInfor(mContext, result.data);
+                            dialog.dismiss();
+                            onSuccessed();
+                        }
+
+                        @Override
+                        public void onReuquestFailed(String error) {
+                            dialog.dismiss();
+                            ToastUtils.show(mContext, error);
+                        }
+                    });
+
+        }
     }
 
     private void onSuccessed() {

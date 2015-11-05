@@ -38,7 +38,6 @@ import com.allipper.rentme.net.HttpUpload;
 import com.allipper.rentme.net.ResponseCallback;
 import com.allipper.rentme.net.response.UploadResult;
 import com.allipper.rentme.ui.base.BaseActivity;
-import com.allipper.rentme.ui.dynamic.MakeOrderActivity;
 import com.allipper.rentme.widget.NoRequsetGridView;
 
 import java.io.File;
@@ -428,29 +427,29 @@ public class MinePublishInfoActivity extends BaseActivity {
         if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
             dialog.show();
-            HttpUpload.uploadUserHeadImg(mContext, TAG, new File(CropUtils.getPath(mContext,
-                    imageUri)), "", new ResponseCallback<UploadResult>(mContext) {
-
-                @Override
-                public void onRequestSuccess(UploadResult result) {
-                    dialog.dismiss();
-                    SharedPreUtils.putString(mContext, SharedPre.User.AVATAR_URL, result
-                            .avatarurl);
-//                    CropUtils.setHeadFromDisk(mContext, head_cvCircleImageView);
-                    ToastUtils.show(mContext, "操作成功");
-                }
-
-                @Override
-                public void onReuquestFailed(String error) {
-                    dialog.dismiss();
-                    ToastUtils.show(mContext, error);
-                }
-            }, new AndroidMultiPartEntity.ProgressListener() {
-                @Override
-                public void transferred(long num) {
-
-                }
-            });
+//            HttpUpload.uploadUserHeadImg(mContext, TAG, new File(CropUtils.getPath(mContext,
+//                    imageUri)), "", new ResponseCallback<UploadResult>(mContext) {
+//
+//                @Override
+//                public void onRequestSuccess(UploadResult result) {
+//                    dialog.dismiss();
+////                    SharedPreUtils.putString(mContext, SharedPre.User.AVATARURL, result
+////                            .avatarurl);
+////                    CropUtils.setHeadFromDisk(mContext, head_cvCircleImageView);
+//                    ToastUtils.show(mContext, "操作成功");
+//                }
+//
+//                @Override
+//                public void onReuquestFailed(String error) {
+//                    dialog.dismiss();
+//                    ToastUtils.show(mContext, error);
+//                }
+//            }, new AndroidMultiPartEntity.ProgressListener() {
+//                @Override
+//                public void transferred(long num) {
+//
+//                }
+//            });
 
         }
     }

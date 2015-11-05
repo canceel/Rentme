@@ -9,14 +9,17 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.allipper.rentme.R;
-import com.allipper.rentme.bean.Customer;
+import com.allipper.rentme.net.response.LoginResult;
+import com.allipper.rentme.net.response.UpdateUserInforResponse;
+import com.allipper.rentme.net.response.UserInfoEntity;
 
 import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -61,39 +64,37 @@ public class Utils {
     }
 
     /**
-     * 保存应用账号
+     * 保存登录的信息
      *
      * @param context
-     * @param account 登录账户（昵称、手机号码）
+     * @param dataEntity
      */
-    public static void saveAppInfo(Context context, String account) {
-        SharedPreUtils.putString(context, SharedPre.App.ACCOUNT, account);
+    public static void saveLoginResult(Context context, LoginResult.DataEntity dataEntity) {
+        SharedPreUtils.putString(context, SharedPre.App.ACCESS_TOKEN, dataEntity.token);
+        saveUserInfor(context, dataEntity.userInfo);
     }
 
+    private static <T> void saveListData(Context context, List<T> data, String name) {
+        if (data != null && data.size() > 0) {
+            StringBuffer album = new StringBuffer();
+            for (T str : data
+                    ) {
+                album.append(",").append(str);
+            }
+            if (album.length() > 0) {
+                SharedPreUtils.putString(context, name, album.deleteCharAt(0)
+                        .toString());
+            }
+        }
+    }
 
-    /**
-     * 保存用户信息
-     *
-     * @param context
-     * @param customer
-     */
-    public static void saveUserInfo(Context context, Customer customer) {
-        SharedPreUtils.putString(context, SharedPre.User.AVATAR_URL, customer.avatar_url);
-        SharedPreUtils.putString(context, SharedPre.User.ALIAS, customer.alias);
-        SharedPreUtils.putString(context, SharedPre.User.ACCOUNT_UID, customer.account_uid);
-        SharedPreUtils.putString(context, SharedPre.User.EMAIL, customer.email);
-        SharedPreUtils.putString(context, SharedPre.User.GENDER, customer.gender);
-        SharedPreUtils.putString(context, SharedPre.User.ID_NUMBER, customer.idnumber);
-        SharedPreUtils.putString(context, SharedPre.User.ID_TYPE, customer.idtype);
-        SharedPreUtils.putString(context, SharedPre.User.IS_CHECK_MAIL, customer.ischeckmail);
-        SharedPreUtils.putString(context, SharedPre.User.IS_CHECK_MOBILE, customer.ischeckmobile);
-        SharedPreUtils.putString(context, SharedPre.User.IS_CHECKID, customer.ischeckid);
-        SharedPreUtils.putString(context, SharedPre.User.MEMBER_ID, customer.member_id);
-        SharedPreUtils.putString(context, SharedPre.User.MEMBER_LEVEL, customer.member_level);
-        SharedPreUtils.putString(context, SharedPre.User.MEMBER_STATUS, customer.member_status);
-        SharedPreUtils.putString(context, SharedPre.User.UPDATE_TIME, customer.update_time);
-        SharedPreUtils.putString(context, SharedPre.User.MOBILE, customer.mobile);
-        SharedPreUtils.putString(context, SharedPre.User.NAME, customer.name);
+    private static <T> List<T> getListData(Context context, String name) {
+        String str = SharedPreUtils.getString(context, name);
+        if (!TextUtils.isEmpty(str)) {
+            String[] strs = str.split(",");
+            return (List<T>) Arrays.asList(strs);
+        }
+        return null;
     }
 
 
@@ -102,48 +103,43 @@ public class Utils {
      *
      * @param context
      */
-    public static Customer getUserInfo(Context context) {
-        if (TextUtils.isEmpty(SharedPreUtils.getString(context, SharedPre.User.ACCOUNT_UID))) {
+    public static UserInfoEntity getUserInfo(Context context) {
+        if (SharedPreUtils.getInt(context, SharedPre.User.USERID, 0) == 0) {
             return null;
         }
-        Customer customer = new Customer();
-        customer.avatar_url = SharedPreUtils.getString(context, SharedPre.User.AVATAR_URL);
-        customer.alias = SharedPreUtils.getString(context, SharedPre.User.ALIAS);
-        customer.account_uid = SharedPreUtils.getString(context, SharedPre.User.ACCOUNT_UID);
-        customer.email = SharedPreUtils.getString(context, SharedPre.User.EMAIL);
-        customer.gender = SharedPreUtils.getString(context, SharedPre.User.GENDER);
-        customer.idnumber = SharedPreUtils.getString(context, SharedPre.User.ID_NUMBER);
-        customer.idtype = SharedPreUtils.getString(context, SharedPre.User.ID_TYPE);
-        customer.ischeckmail = SharedPreUtils.getString(context, SharedPre.User.IS_CHECK_MAIL);
-        customer.ischeckmobile = SharedPreUtils.getString(context, SharedPre.User.IS_CHECK_MOBILE);
-        customer.ischeckid = SharedPreUtils.getString(context, SharedPre.User.IS_CHECKID);
-        customer.member_id = SharedPreUtils.getString(context, SharedPre.User.MEMBER_ID);
-        customer.member_level = SharedPreUtils.getString(context, SharedPre.User.MEMBER_LEVEL);
-        customer.member_status = SharedPreUtils.getString(context, SharedPre.User.MEMBER_STATUS);
-        customer.update_time = SharedPreUtils.getString(context, SharedPre.User.UPDATE_TIME);
+        UserInfoEntity customer = new UserInfoEntity();
+        customer.album = getListData(context, SharedPre.User.ALBUM);
+        customer.interests = getListData(context, SharedPre.User.INTERESTS);
+        customer.ageRange = SharedPreUtils.getInt(context, SharedPre.User.AGERANGE, 0);
+        customer.constellation = SharedPreUtils.getInt(context, SharedPre.User.CONSTELLATION, 0);
+        customer.heightRange = SharedPreUtils.getInt(context, SharedPre.User.HEIGHTRANGE, 0);
+        customer.nickName = SharedPreUtils.getString(context, SharedPre.User.NICKNAME);
+        customer.realName = SharedPreUtils.getString(context, SharedPre.User.REALNAME);
+        customer.userDetail = SharedPreUtils.getString(context, SharedPre.User.USERDETAIL);
+        customer.weightRange = SharedPreUtils.getInt(context, SharedPre.User.WEIGHTRANGE, 0);
+        customer.gender = SharedPreUtils.getInt(context, SharedPre.User.GENDER, 0);
         customer.mobile = SharedPreUtils.getString(context, SharedPre.User.MOBILE);
-        customer.name = SharedPreUtils.getString(context, SharedPre.User.NAME);
+        customer.job = SharedPreUtils.getInt(context, SharedPre.User.JOB, 0);
+        customer.avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
         return customer;
     }
 
 
     //清除SP中用户的信息
     public static void cleanUserInfo(Context context) {
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.AVATAR_URL);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.ALIAS);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.ACCOUNT_UID);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.EMAIL);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.ALBUM);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.INTERESTS);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.AGERANGE);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.CONSTELLATION);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.HEIGHTRANGE);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.NICKNAME);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.REALNAME);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.USERDETAIL);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.WEIGHTRANGE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.GENDER);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.ID_TYPE);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.IS_CHECK_MAIL);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.IS_CHECK_MOBILE);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.IS_CHECKID);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.MEMBER_ID);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.MEMBER_LEVEL);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.MEMBER_STATUS);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.UPDATE_TIME);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.MOBILE);
-        SharedPreUtils.removeSharedKey(context, SharedPre.User.NAME);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.USERID);
     }
 
 
@@ -175,12 +171,12 @@ public class Utils {
     }
 
 
-        /**
-         * 保存当前的位置信息
-         *
-         * @param context
-         * @param acronymName
-         */
+    /**
+     * 保存当前的位置信息
+     *
+     * @param context
+     * @param acronymName
+     */
     public static void saveLocationCode(Context context, String acronymName) {
         SharedPreUtils.putString(context, SharedPre.Location.ACRONYM_NAME, acronymName);
     }
@@ -210,8 +206,7 @@ public class Utils {
      * 将px值转换为dip或dp值，保证尺寸大小不变
      *
      * @param pxValue
-     * @param pxValue
-     *            （DisplayMetrics类中属性density）
+     * @param pxValue （DisplayMetrics类中属性density）
      * @return
      */
     public static int px2dip(Context context, float pxValue) {
@@ -223,8 +218,7 @@ public class Utils {
      * 将dip或dp值转换为px值，保证尺寸大小不变
      *
      * @param dipValue
-     * @param dipValue
-     *            （DisplayMetrics类中属性density）
+     * @param dipValue （DisplayMetrics类中属性density）
      * @return
      */
     public static int dip2px(Context context, float dipValue) {
@@ -236,8 +230,7 @@ public class Utils {
      * 将px值转换为sp值，保证文字大小不变
      *
      * @param pxValue
-     * @param pxValue
-     *            （DisplayMetrics类中属性scaledDensity）
+     * @param pxValue （DisplayMetrics类中属性scaledDensity）
      * @return
      */
     public static int px2sp(Context context, float pxValue) {
@@ -248,8 +241,7 @@ public class Utils {
     /**
      * 将sp值转换为px值，保证文字大小不变
      *
-     * @param spValue
-     *            （DisplayMetrics类中属性scaledDensity）
+     * @param spValue （DisplayMetrics类中属性scaledDensity）
      * @return
      */
     public static int sp2px(Context context, float spValue) {
@@ -275,7 +267,7 @@ public class Utils {
     /**
      * 手机号验证
      *
-     * @param  str
+     * @param str
      * @return 验证通过返回true
      */
     public static boolean isMobile(String str) {
@@ -287,22 +279,23 @@ public class Utils {
         b = m.matches();
         return b;
     }
+
     /**
      * 电话号码验证
      *
-     * @param  str
+     * @param str
      * @return 验证通过返回true
      */
     public static boolean isPhone(String str) {
-        Pattern p1 = null,p2 = null;
+        Pattern p1 = null, p2 = null;
         Matcher m = null;
         boolean b = false;
         p1 = Pattern.compile("^[0][1-9]{2,3}-[0-9]{5,10}$");  // 验证带区号的
         p2 = Pattern.compile("^[1-9]{1}[0-9]{5,8}$");         // 验证没有区号的
-        if(str.length() >9)
-        {	m = p1.matcher(str);
+        if (str.length() > 9) {
+            m = p1.matcher(str);
             b = m.matches();
-        }else{
+        } else {
             m = p2.matcher(str);
             b = m.matches();
         }
@@ -310,7 +303,8 @@ public class Utils {
     }
 
     public final static String MD5(String s) {
-        char hexDigits[]={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
+        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
+                'E', 'F'};
         try {
             byte[] btInput = s.getBytes();
             // 获得MD5摘要算法的 MessageDigest 对象
@@ -333,5 +327,26 @@ public class Utils {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String getToken(Context context) {
+        return SharedPreUtils.getString(context, SharedPre.App.ACCESS_TOKEN);
+    }
+
+    public static void saveUserInfor(Context context, UserInfoEntity userInfoEntity) {
+        SharedPreUtils.putInt(context, SharedPre.User.AGERANGE, userInfoEntity.ageRange);
+        saveListData(context, userInfoEntity.album, SharedPre.User.ALBUM);
+        SharedPreUtils.putInt(context, SharedPre.User.CONSTELLATION, userInfoEntity.constellation);
+        SharedPreUtils.putInt(context, SharedPre.User.GENDER, userInfoEntity.gender);
+        SharedPreUtils.putInt(context, SharedPre.User.HEIGHTRANGE, userInfoEntity.heightRange);
+        SharedPreUtils.putInt(context, SharedPre.User.WEIGHTRANGE, userInfoEntity.weightRange);
+        saveListData(context, userInfoEntity.interests, SharedPre.User.INTERESTS);
+        SharedPreUtils.putInt(context, SharedPre.User.JOB, userInfoEntity.job);
+        SharedPreUtils.putString(context, SharedPre.User.MOBILE, userInfoEntity.mobile);
+        SharedPreUtils.putString(context, SharedPre.User.NICKNAME, userInfoEntity.nickName);
+        SharedPreUtils.putString(context, SharedPre.User.REALNAME, userInfoEntity.realName);
+        SharedPreUtils.putString(context, SharedPre.User.USERDETAIL, userInfoEntity.userDetail);
+        SharedPreUtils.putString(context, SharedPre.User.AVATARURL, userInfoEntity.avatarUrl);
+        SharedPreUtils.putInt(context, SharedPre.User.USERID, userInfoEntity.userId);
     }
 }

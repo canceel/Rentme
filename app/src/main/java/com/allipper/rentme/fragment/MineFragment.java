@@ -1,8 +1,10 @@
 package com.allipper.rentme.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.ui.GuideActivity;
 import com.allipper.rentme.ui.mine.AgreementActivity;
 import com.allipper.rentme.ui.mine.GiveBackActivity;
@@ -54,6 +58,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         super.onResume();
         MobclickAgent.onPageStart("MineScreen"); //统计页面
     }
+
     public void onPause() {
         super.onPause();
         MobclickAgent.onPageEnd("MineScreen");
@@ -87,6 +92,26 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         settingTextView.setOnClickListener(this);
         pocketTextView.setOnClickListener(this);
         mineRelativeLayout.setOnClickListener(this);
+        updateUserInfo();
+    }
+
+    public void updateUserInfo() {
+        String string = SharedPreUtils.getString(getActivity(), SharedPre.User.NICKNAME);
+        string = TextUtils.isEmpty(string) ? "昵称" : string;
+        nameTextView.setText(string);
+        int gender = SharedPreUtils.getInt(getActivity(), SharedPre.User.GENDER, 0);
+        if (gender == 0) {
+            nameTextView.setCompoundDrawables(null, null, null, null);
+        } else if (gender == 1) {
+            Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.sex_girl);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            nameTextView.setCompoundDrawables(null, drawable, null, null);
+        } else {
+            Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.sex_man);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            nameTextView.setCompoundDrawables(null, drawable, null, null);
+        }
+        statusTextView.setText(SharedPreUtils.getString(getActivity(), SharedPre.User.USERDETAIL));
     }
 
     @Override

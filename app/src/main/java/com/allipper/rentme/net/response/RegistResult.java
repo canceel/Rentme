@@ -11,7 +11,6 @@ public class RegistResult extends ResponseBase {
      * "regeditIP":"222.76.27.49","regeditTime":"2015-11-04 16:58:17"}
      */
 
-    public String request;
     /**
      * mobile : 15280050320
      * token : 67a9cfe2-314c-496a-b20f-80efeb15b5fc

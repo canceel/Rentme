@@ -98,29 +98,30 @@ public class Constant {
     //获取验证码
     public static final String API_USER_GET_MESSAGE_CODE = BASE_URL +
             "account/getregcaptcha.json?mobile=%1$s";
+    /**
+     * 上传头像
+     */
+    public static final String API_USER_UPLOAD_HEADIMG = BASE_URL +
+            "account/uploadavatar.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //用户注册
     public static final String API_USER_REGIST = BASE_URL + "account/register.json";
     //用户登录
     public static final String API_USER_LOGIN = BASE_URL + "account/login.json";
     //刷新token
-    public static final String API_REFRESH_TOKEN = BASE_URL + "gettoken.json";
+    public static final String API_REFRESH_TOKEN = BASE_URL + "account/gettoken.json";
     //重置用户密码
     public static final String API_USER_RESET_PASSWORD = BASE_URL +
             "v2/yonghuio2o/userstoken/changepassword";
     //修改用户信息
     public static final String API_USER_MODIFY_INFO = BASE_URL +
-            "v2/yonghuio2o/userstoken/updateprofile";
+            "account/update.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //修改用户密码
     public static final String API_USER_MODIFY_PASSWORD = BASE_URL +
             "v2/yonghuio2o/userstoken/changepassword";
     //获取用户信息
     public static final String API_USER_INFO = BASE_URL + "v2/yonghuio2o/userstoken/getuser";
-    /**
-     * 上传头像
-     */
-    public static final String API_USER_UPLOAD_HEADIMG = BASE_URL +
-            "v2/yonghuio2o/users/current/upload?access_token=%1$s";
 
 
-
+    // 获取系统的枚举配置项
+    public static final String API_GET_SYS_ENUMS = BASE_URL + "common/getsysenums.json";
 }

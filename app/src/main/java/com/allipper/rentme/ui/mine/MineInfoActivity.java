@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.application.ApplicationInit;
 import com.allipper.rentme.common.util.CropUtils;
 import com.allipper.rentme.common.util.DialogUtils;
 import com.allipper.rentme.common.util.LoadDialogUtil;
@@ -31,13 +32,18 @@ import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.AndroidMultiPartEntity;
+import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.HttpUpload;
 import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.SysEnumsResponse;
+import com.allipper.rentme.net.response.UpdateUserInforResponse;
 import com.allipper.rentme.net.response.UploadResult;
+import com.allipper.rentme.net.response.UserInfoEntity;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.CircleImageView;
 
 import java.io.File;
+import java.util.List;
 
 public class MineInfoActivity extends BaseActivity {
     private static final String TAG = MineInfoActivity.class.getSimpleName();
@@ -90,21 +96,37 @@ public class MineInfoActivity extends BaseActivity {
     private String[] heights;
     private int weightIndex;
     private String[] weights;
+    private int jobIndex;
+    private String[] jobs;
+    private boolean[] hobbyIndex;
+    private String[] hobbies;
+
 
     private int selectedIndex;
 
+    private UserInfoEntity userInfoEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_info);
-        constellations = getResources().getStringArray(R.array.select_constellation);
-        sexs = getResources().getStringArray(R.array.select_sex);
-        ages = getResources().getStringArray(R.array.select_age);
-        heights = getResources().getStringArray(R.array.select_height);
-        weights = getResources().getStringArray(R.array.select_weight);
+        initData();
         findViews();
         getDatas(false);
+    }
+
+    private void initData() {
+        if (userInfoEntity == null) {
+            userInfoEntity = Utils.getUserInfo(mContext);
+        }
+        constellations = ApplicationInit.getFormatStringArray(SysEnumsResponse.CONSTELLATION);
+        sexs = ApplicationInit.getFormatStringArray(SysEnumsResponse.GENDER);
+        ages = ApplicationInit.getFormatStringArray(SysEnumsResponse.AGE);
+        heights = ApplicationInit.getFormatStringArray(SysEnumsResponse.HEIGHT);
+        weights = ApplicationInit.getFormatStringArray(SysEnumsResponse.WEIGHT);
+        jobs = ApplicationInit.getFormatStringArray(SysEnumsResponse.JOB);
+        hobbies = ApplicationInit.getFormatStringArray(SysEnumsResponse.INTEREST);
+        hobbyIndex = new boolean[hobbies.length];
     }
 
     private void getData(boolean isShowDialog) {
@@ -199,11 +221,6 @@ public class MineInfoActivity extends BaseActivity {
         }
     }
 
-    public void changeHobbi(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_HOBBI, hobby_valueTextView.getText().toString
-                ());
-    }
-
     public void changeHead(View view) {
         View contentView = LayoutInflater.from(this).inflate(
                 R.layout.popupwindow_usericon, null);
@@ -277,34 +294,62 @@ public class MineInfoActivity extends BaseActivity {
     public void changeConstellatione(View view) {
         selectedIndex = constellationIndex = processIndex(constellation_valueTextView.getText()
                 .toString(), constellations);
-        showAlertDialog(constellationIndex, constellations, "请选择星座", constellation_valueTextView);
+        showAlertDialog(constellationIndex, constellations, "请选择星座", constellation_valueTextView,
+                ApplicationInit.getConstellationEntities().items, SysEnumsResponse.CONSTELLATION);
+    }
+
+    public void changeHobbi(View view) {
+        for (int i = 0; i < hobbyIndex.length; i++) {
+            hobbyIndex[i] = false;
+        }
+        String str = hobby_valueTextView.getText().toString();
+        if (!TextUtils.isEmpty(str)) {
+            String[] strs = str.split("、");
+            for (String temp : strs) {
+                int i = 0;
+                for (String temp1 : hobbies) {
+                    if (temp.equals(temp1)) {
+                        hobbyIndex[i] = true;
+                        break;
+                    }
+                    i++;
+                }
+            }
+        }
+        showAlertDialog(hobbyIndex, hobbies, "请选择兴趣爱好", hobby_valueTextView,
+                ApplicationInit.getInterestEntities().items, SysEnumsResponse.INTEREST);
     }
 
     public void changeSex(View view) {
         selectedIndex = sexIndex = processIndex(sex_valueTextView.getText().toString(), sexs);
-        showAlertDialog(sexIndex, sexs, "请选择性别", sex_valueTextView);
+        showAlertDialog(sexIndex, sexs, "请选择性别", sex_valueTextView, ApplicationInit
+                .getGenderEntities().items, SysEnumsResponse.GENDER);
     }
 
     public void changeCareer(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_CAREER, career_valueTextView.getText()
-                .toString());
+        selectedIndex = jobIndex = processIndex(career_valueTextView.getText().toString(), jobs);
+        showAlertDialog(jobIndex, jobs, "请选择职业", career_valueTextView, ApplicationInit
+                .getJobEntities().items, SysEnumsResponse.JOB);
     }
 
     public void changeAge(View view) {
         selectedIndex = ageIndex = processIndex(age_valueTextView.getText().toString(), ages);
-        showAlertDialog(ageIndex, ages, "请选择年龄", age_valueTextView);
+        showAlertDialog(ageIndex, ages, "请选择年龄", age_valueTextView, ApplicationInit
+                .getAgeEntities().items, SysEnumsResponse.AGE);
     }
 
     public void changeHeight(View view) {
         selectedIndex = heightIndex = processIndex(height_valueTextView.getText().toString(),
                 heights);
-        showAlertDialog(heightIndex, heights, "请选择身高", height_valueTextView);
+        showAlertDialog(heightIndex, heights, "请选择身高", height_valueTextView, ApplicationInit
+                .getHeightEntities().items, SysEnumsResponse.HEIGHT);
     }
 
     public void changeWeight(View view) {
         selectedIndex = weightIndex = processIndex(weight_valueTextView.getText().toString(),
                 weights);
-        showAlertDialog(weightIndex, weights, "请选择体重", weight_valueTextView);
+        showAlertDialog(weightIndex, weights, "请选择体重", weight_valueTextView, ApplicationInit
+                .getWeightEntities().items, SysEnumsResponse.WEIGHT);
     }
 
 
@@ -324,8 +369,13 @@ public class MineInfoActivity extends BaseActivity {
     /**
      * 创建选择对话框
      */
-    private void showAlertDialog(final int index, final String[] datas, String title, final
-    TextView view) {
+    private void showAlertDialog(final int index,
+                                 final String[] datas,
+                                 String title,
+                                 final TextView view,
+                                 final List<SysEnumsResponse.DataEntity.ItemsEntity>
+                                         itemsEntities,
+                                 final String type) {
         Dialog dialog = null;
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style
                 .CommonDialog);
@@ -347,7 +397,8 @@ public class MineInfoActivity extends BaseActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                view.setText(datas[selectedIndex]);
+                view.setText(itemsEntities.get(selectedIndex).displayName);
+                updateUserInfo(type, itemsEntities.get(selectedIndex).value);
             }
         });
         dialog = builder.create();
@@ -358,8 +409,12 @@ public class MineInfoActivity extends BaseActivity {
     /**
      * 创建选择对话框
      */
-    private void showAlertDialog(final boolean[] indexs, final String[] datas, String title, final
-    TextView view) {
+    private void showAlertDialog(final boolean[] indexs,
+                                 final String[] datas,
+                                 String title,
+                                 final TextView view,
+                                 final List<SysEnumsResponse.DataEntity.ItemsEntity> itemsEntities,
+                                 final String type) {
         Dialog dialog = null;
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style
                 .CommonDialog);
@@ -382,16 +437,20 @@ public class MineInfoActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 StringBuffer sb = new StringBuffer();
+                StringBuffer paramSb = new StringBuffer();
                 int i = 0;
                 for (boolean index : indexs) {
                     if (index) {
-                        sb.append(datas[i++]).append("、");
+                        sb.append(itemsEntities.get(i++).displayName).append("、");
+                        paramSb.append(itemsEntities.get(i++).value).append(",");
                     } else {
                         i++;
                     }
                 }
                 if (sb.length() > 0) {
                     view.setText(sb.deleteCharAt(sb.length() - 1));
+                    paramSb.deleteCharAt(paramSb.length() - 1);
+                    updateUserInfo(type, paramSb.toString());
                 }
             }
         });
@@ -473,12 +532,34 @@ public class MineInfoActivity extends BaseActivity {
             case ModifyInfoActivity.TYPE_STATUS:
                 status_valueTextView.setText(value);
                 break;
-            case ModifyInfoActivity.TYPE_CAREER:
-                career_valueTextView.setText(value);
-                break;
-            case ModifyInfoActivity.TYPE_HOBBI:
-                hobby_valueTextView.setText(value);
-                break;
+        }
+    }
+
+    private void updateUserInfo(String type, int value) {
+        updateUserInfo(type, String.valueOf(value));
+    }
+
+    private void updateUserInfo(String type, String value) {
+        if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.updating);
+            dialog.show();
+            HttpLoad.UserModule.updateUserInfor(TAG, type, value, Utils.getToken
+                    (mContext), new
+                    ResponseCallback<UpdateUserInforResponse>(mContext) {
+
+                        @Override
+                        public void onRequestSuccess(UpdateUserInforResponse result) {
+                            Utils.saveUserInfor(mContext, result.data);
+                            dialog.dismiss();
+                        }
+
+                        @Override
+                        public void onReuquestFailed(String error) {
+                            dialog.dismiss();
+                            ToastUtils.show(mContext, error);
+                        }
+                    });
+
         }
     }
 
@@ -486,16 +567,16 @@ public class MineInfoActivity extends BaseActivity {
         if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
             dialog.show();
-            HttpUpload.uploadUserHeadImg(mContext, TAG, new File(CropUtils.getPath(mContext,
-                    imageUri)), "", new ResponseCallback<UploadResult>(mContext) {
+            HttpUpload.uploadUserHeadImg(TAG, new File(CropUtils.getPath(mContext,
+                    imageUri)), Utils.getToken
+                    (mContext), new ResponseCallback<UploadResult>(mContext) {
 
                 @Override
                 public void onRequestSuccess(UploadResult result) {
                     dialog.dismiss();
-                    SharedPreUtils.putString(mContext, SharedPre.User.AVATAR_URL, result
-                            .avatarurl);
+                    SharedPreUtils.putString(mContext, SharedPre.User.AVATARURL, result
+                            .data.avatarUrl);
                     CropUtils.setHeadFromDisk(mContext, head_cvCircleImageView);
-                    ToastUtils.show(mContext, "操作成功");
                 }
 
                 @Override

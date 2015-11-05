@@ -47,7 +47,7 @@ public class CropUtils {
     private static Uri uriPhoto;
 
     public static void setHeadFromDisk(Context context, ImageView imageView) {
-        String avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATAR_URL);
+        String avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
 
         if (!TextUtils.isEmpty(avatarUrl)) {
             HttpLoad.getImage(avatarUrl.startsWith(Constant.SHARE_HOST) ? avatarUrl :

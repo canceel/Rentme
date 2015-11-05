@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.allipper.rentme.bean.BeanCountry;
 import com.allipper.rentme.common.util.Logger;
+import com.allipper.rentme.net.response.SysEnumsResponse;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
 
 import java.util.ArrayList;
@@ -48,6 +49,72 @@ public class DbManager {
             db.endTransaction();
             db.close();
         }
+    }
+
+    /**
+     * 初始化系统枚举列表数据
+     */
+    public void insertSysEnums(SysEnumsResponse.DataEntity.EnumEntity enumEntity, String type) {
+        db = helper.getWritableDatabase();
+        db.beginTransaction();
+        try {
+            for (SysEnumsResponse.DataEntity.ItemsEntity item : enumEntity.items) {
+                ContentValues values = new ContentValues();
+                values.put(SysEnumEntry.COLUMN_TYPE, type);
+                values.put(SysEnumEntry.COLUMN_MULTI, enumEntity.multi);
+                values.put(SysEnumEntry.COLUMN_DISPLAY_NAME, item.displayName);
+                values.put(SysEnumEntry.COLUMN_NAME, item.name);
+                values.put(SysEnumEntry.COLUMN_VALUE, item.value);
+                db.replace(SysEnumEntry.TABLE_NAME, null, values);
+            }
+            db.setTransactionSuccessful();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            db.endTransaction();
+            db.close();
+        }
+    }
+
+    /**
+     * 查询制定类型枚举
+     *
+     * @param type
+     * @return
+     */
+
+    public SysEnumsResponse.DataEntity.EnumEntity queryEnumEntity(String type) {
+        db = helper.getReadableDatabase();
+        SysEnumsResponse.DataEntity.EnumEntity enumEntity = new SysEnumsResponse.DataEntity
+                .EnumEntity();
+        String[] columns = {SysEnumEntry.COLUMN_MULTI, SysEnumEntry.COLUMN_DISPLAY_NAME,
+                SysEnumEntry.COLUMN_NAME, SysEnumEntry.COLUMN_VALUE};
+        String orderBy = SysEnumEntry.COLUMN_VALUE + " ASC ";
+        String[] select = {type};
+        String whereCla = SysEnumEntry.COLUMN_TYPE + " = ?";
+        Cursor cursor = db.query(true, SysEnumEntry.TABLE_NAME, columns, whereCla, select, null,
+                null,
+                orderBy, null);
+        List<SysEnumsResponse.DataEntity.ItemsEntity> items = new ArrayList<>();
+        boolean isInit = false;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            if (!isInit) {
+                enumEntity.multi = cursor.getInt(cursor.getColumnIndex(SysEnumEntry
+                        .COLUMN_DISPLAY_NAME)) == 1 ? true : false;
+                isInit = true;
+            }
+            SysEnumsResponse.DataEntity.ItemsEntity item = new SysEnumsResponse.DataEntity
+                    .ItemsEntity();
+            item.displayName = cursor.getString(cursor.getColumnIndex(SysEnumEntry
+                    .COLUMN_DISPLAY_NAME));
+            item.value = cursor.getInt(cursor.getColumnIndex(SysEnumEntry.COLUMN_VALUE));
+            item.name = cursor.getString(cursor.getColumnIndex(SysEnumEntry.COLUMN_NAME));
+            items.add(item);
+        }
+        enumEntity.items = items;
+        cursor.close();
+        db.close();
+        return enumEntity;
     }
 
 
@@ -121,7 +188,6 @@ public class DbManager {
         Logger.d("CONDITION END", "---");
         return beanCountry;
     }
-
 
 
 }

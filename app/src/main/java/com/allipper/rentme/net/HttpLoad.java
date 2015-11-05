@@ -1,6 +1,5 @@
 package com.allipper.rentme.net;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.ImageView;
@@ -13,6 +12,8 @@ import com.allipper.rentme.net.response.RefresTockenResponse;
 import com.allipper.rentme.net.response.RegistResult;
 import com.allipper.rentme.net.response.ResponseAppVersion;
 import com.allipper.rentme.net.response.ResponseMessageBean;
+import com.allipper.rentme.net.response.SysEnumsResponse;
+import com.allipper.rentme.net.response.UpdateUserInforResponse;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -21,7 +22,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.Format;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -112,6 +112,10 @@ public class HttpLoad {
         void onSuccess();
     }
 
+    public static String signUrl(String token, String timestamp) {
+        return Utils.MD5(token + timestamp + "7f99261538576fec");
+    }
+
     public static abstract class AppVersion {
         /**
          * 获取最新版本
@@ -127,6 +131,22 @@ public class HttpLoad {
 //                    Constant.API_VERSION_UPDATE,
                     "",
                     ResponseAppVersion.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+    }
+
+    public static abstract class SysModule {
+        public static void getSysEnum(
+                String tag,
+                ResponseCallback<SysEnumsResponse> callback) {
+            GsonRequest<SysEnumsResponse> request = new GsonRequest<>(
+                    Request.Method.GET,
+                    Constant.API_GET_SYS_ENUMS,
+                    SysEnumsResponse.class,
                     null,
                     null,
                     callback,
@@ -198,10 +218,35 @@ public class HttpLoad {
                 ResponseCallback<LoginResult> callback) {
             final Map<String, String> params = new HashMap<>();
             params.put("mobile", mobile);
-            params.put("password",password);
+            params.put("password", password);
             GsonRequest<LoginResult> request = new GsonRequest<>(
                     Request.Method.POST, Constant.API_USER_LOGIN,
                     LoginResult.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 更新用户信息
+         */
+
+        public static void updateUserInfor(
+                String tag, String type,
+                String value,
+                String token,
+                ResponseCallback<UpdateUserInforResponse> callback) {
+            final Map<String, String> params = new HashMap<>();
+            params.put(type, value);
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_USER_MODIFY_INFO, token, timestamp, signUrl
+                    (token,
+                            timestamp));
+            GsonRequest<UpdateUserInforResponse> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    UpdateUserInforResponse.class,
                     null,
                     params,
                     callback,
@@ -224,8 +269,7 @@ public class HttpLoad {
             final Map<String, String> params = new HashMap<>();
             params.put("token", token);
             params.put("timestamp", timestamp);
-            String sign = Utils.MD5(token + timestamp + "7f99261538576fec");
-            params.put("sign", sign);
+            params.put("sign", signUrl(token, timestamp));
             GsonRequest<RefresTockenResponse> request = new GsonRequest<>(
                     Request.Method.POST, Constant.API_REFRESH_TOKEN,
                     RefresTockenResponse.class,

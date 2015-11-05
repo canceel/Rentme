@@ -15,6 +15,9 @@ import com.allipper.rentme.common.util.SharedPre;
 import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.database.DbManager;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.SysEnumsResponse;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -84,6 +87,7 @@ public class StartActivity extends BaseActivity implements Animation.AnimationLi
         protected Object doInBackground(Object[] params) {
             try {
                 updateCity();
+                updateSystemEnums();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -96,6 +100,29 @@ public class StartActivity extends BaseActivity implements Animation.AnimationLi
         }
     }
 
+    private void updateSystemEnums() {
+        if(Utils.isNetworkConnected(mContext)){
+            HttpLoad.SysModule.getSysEnum(TAG, new ResponseCallback<SysEnumsResponse>(mContext) {
+                @Override
+                public void onRequestSuccess(SysEnumsResponse result) {
+                    manager.insertSysEnums(result.data.ageRange,SysEnumsResponse.AGE);
+                    manager.insertSysEnums(result.data.constellation,SysEnumsResponse.CONSTELLATION);
+                    manager.insertSysEnums(result.data.gender,SysEnumsResponse.GENDER);
+                    manager.insertSysEnums(result.data.heightRange,SysEnumsResponse.HEIGHT);
+                    manager.insertSysEnums(result.data.weightRange,SysEnumsResponse.WEIGHT);
+                    manager.insertSysEnums(result.data.interest,SysEnumsResponse.INTEREST);
+                    manager.insertSysEnums(result.data.job,SysEnumsResponse.JOB);
+                    manager.insertSysEnums(result.data.rentRange,SysEnumsResponse.RENT);
+                    manager.insertSysEnums(result.data.schedule,SysEnumsResponse.SCHEDULE);
+                }
+
+                @Override
+                public void onReuquestFailed(String error) {
+
+                }
+            });
+        }
+    }
 
     private void enter() {
         boolean isGuide = SharedPreUtils.getBoolean(this, SharedPre.App.ISGUIDE, false);

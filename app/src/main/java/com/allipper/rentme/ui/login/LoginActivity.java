@@ -18,9 +18,6 @@ import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.ResponseCallback;
 import com.allipper.rentme.net.response.LoginResult;
 import com.allipper.rentme.ui.base.BaseLoginBusinessActivity;
-import com.allipper.rentme.ui.dynamic.MakeOrderActivity;
-
-import java.util.Map;
 
 
 public class LoginActivity extends BaseLoginBusinessActivity {
@@ -72,15 +69,13 @@ public class LoginActivity extends BaseLoginBusinessActivity {
 
                             @Override
                             public void onRequestSuccess(LoginResult result) {
-//                        loginSuccess(result.customer.account_uid, account, result
-//                                .access_token, SharedPre.Constant.APP_USER, result.customer,
-// mDialog, new LoginSuccessListener() {
-//                            @Override
-//                            public void onSuccessed(Dialog dialog) {
-//                                dialog.dismiss();
-//                                onBackPressed();
-//                            }
-//                        });
+                                loginSuccess(result.data, new LoginSuccessListener() {
+                                    @Override
+                                    public void onSuccessed(Dialog dialog) {
+                                        dialog.dismiss();
+                                        SharedPreUtils.putString(mContext, SharedPre.App.USER_TPE, "login");
+                                    }
+                                }, mDialog);
                             }
 
                             @Override
@@ -91,7 +86,6 @@ public class LoginActivity extends BaseLoginBusinessActivity {
                         });
             }
         }
-        SharedPreUtils.putString(mContext, SharedPre.App.USER_TPE, "login");
         onBackPressed();
     }
 

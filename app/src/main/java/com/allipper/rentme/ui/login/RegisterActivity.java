@@ -116,28 +116,7 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
 
                                             @Override
                                             public void onRequestSuccess(LoginResult result) {
-//                                                loginSuccess(result.customer.account_uid,
-//                                                        phoneNum, result.access_token, SharedPre
-//                                                                .Constant.APP_USER, result
-//                                                                .customer, mDialog, new
-//                                                                LoginSuccessListener() {
-//                                                                    @Override
-//                                                                    public void onSuccessed
-//                                                                            (Dialog dialog) {
-//                                                                        dialog.dismiss();
-//                                                                        Intent intent = new Intent
-//                                                                                (RegisterActivity
-//                                                                                        .this,
-//
-// LoginActivity
-//
-// .class);
-//                                                                        intent.setFlags(Intent
-//
-// .FLAG_ACTIVITY_CLEAR_TOP);
-//                                                                        startActivity(intent);
-//                                                                    }
-//                                                                });
+                                                loginSuccess(result.data, null, mDialog);
                                             }
 
                                             @Override

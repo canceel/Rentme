@@ -7,4 +7,5 @@ package com.allipper.rentme.net.response;
 public class ResponseBase {
     public int code;
     public String message;
+    public String request;
 }

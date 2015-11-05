@@ -1,8 +1,7 @@
 package com.allipper.rentme.net;
 
-import android.content.Context;
-
 import com.allipper.rentme.common.util.Constant;
+import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.request.GsonRequest;
 import com.allipper.rentme.net.response.UploadResult;
 
@@ -17,19 +16,25 @@ public class HttpUpload {
         HttpUtils.cancelAll(tag);
     }
 
+    public static String signUrl(String token, String timestamp) {
+        return Utils.MD5(token + timestamp + "7f99261538576fec");
+    }
+
     /**
      * 上传用户头像
-     * @param context
+     *
      * @param tag
      * @param file
-     * @param accessToken
+     * @param token
      * @param callback
      * @param listener
      */
-    public static void uploadUserHeadImg(Context context, String tag, File file, String accessToken,
+    public static void uploadUserHeadImg(String tag, File file, String token,
                                          ResponseCallback<UploadResult> callback,
                                          AndroidMultiPartEntity.ProgressListener listener) {
-        final String url = String.format(Constant.API_USER_UPLOAD_HEADIMG, accessToken);
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String url = String.format(Constant.API_USER_UPLOAD_HEADIMG, token, timestamp, signUrl(token,
+                timestamp));
         UploadFileRequest request = new UploadFileRequest(GsonRequest.Method.POST, tag, url,
                 file, UploadResult.class, callback, callback, listener);
         HttpUtils.getInstance().request(tag, request);
