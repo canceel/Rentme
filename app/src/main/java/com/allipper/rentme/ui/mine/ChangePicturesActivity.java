@@ -145,6 +145,25 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
 
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.upload:
+                uploadAlbum(view);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
+    }
+
+    private void uploadAlbum(View view) {
+        if(mAdapter == null || mAdapter.mSelectedImage == null){
+
+        }
+    }
+
     /**
      * 利用ContentProvider扫描手机中的图片，此方法在运行在子线程中 完成图片的扫描，最终获得jpg最多的那个文件夹
      */
@@ -200,8 +219,7 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
                         imageFloder.setDir(dirPath);
                         imageFloder.setFirstImagePath(path);
                     }
-
-                    int picSize = parentFile.list(new FilenameFilter() {
+                    String[] fileNames = parentFile.list(new FilenameFilter() {
                         @Override
                         public boolean accept(File dir, String filename) {
                             if (filename.endsWith(".jpg")
@@ -210,7 +228,8 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
                                 return true;
                             return false;
                         }
-                    }).length;
+                    });
+                    int picSize = fileNames == null ? 0 : fileNames.length;
                     totalCount += picSize;
 
                     imageFloder.setCount(picSize);
@@ -244,6 +263,8 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
 
         mBottomLy = (RelativeLayout) findViewById(R.id.id_bottom_ly);
 
+        findViewById(R.id.back).setOnClickListener(this);
+        findViewById(R.id.upload).setOnClickListener(this);
     }
 
     private void initEvent() {

@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.allipper.rentme.bean.BeanCountry;
 import com.allipper.rentme.common.util.Logger;
-import com.allipper.rentme.net.response.SysEnumsResponse;
+import com.allipper.rentme.net.response.EnumEntity;
+import com.allipper.rentme.net.response.ItemsEntity;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
 
 import java.util.ArrayList;
@@ -54,11 +55,11 @@ public class DbManager {
     /**
      * 初始化系统枚举列表数据
      */
-    public void insertSysEnums(SysEnumsResponse.DataEntity.EnumEntity enumEntity, String type) {
+    public void insertSysEnums(EnumEntity enumEntity, String type) {
         db = helper.getWritableDatabase();
         db.beginTransaction();
         try {
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : enumEntity.items) {
+            for (ItemsEntity item : enumEntity.items) {
                 ContentValues values = new ContentValues();
                 values.put(SysEnumEntry.COLUMN_TYPE, type);
                 values.put(SysEnumEntry.COLUMN_MULTI, enumEntity.multi);
@@ -83,10 +84,9 @@ public class DbManager {
      * @return
      */
 
-    public SysEnumsResponse.DataEntity.EnumEntity queryEnumEntity(String type) {
+    public EnumEntity queryEnumEntity(String type) {
         db = helper.getReadableDatabase();
-        SysEnumsResponse.DataEntity.EnumEntity enumEntity = new SysEnumsResponse.DataEntity
-                .EnumEntity();
+        EnumEntity enumEntity = new EnumEntity();
         String[] columns = {SysEnumEntry.COLUMN_MULTI, SysEnumEntry.COLUMN_DISPLAY_NAME,
                 SysEnumEntry.COLUMN_NAME, SysEnumEntry.COLUMN_VALUE};
         String orderBy = SysEnumEntry.COLUMN_VALUE + " ASC ";
@@ -95,7 +95,7 @@ public class DbManager {
         Cursor cursor = db.query(true, SysEnumEntry.TABLE_NAME, columns, whereCla, select, null,
                 null,
                 orderBy, null);
-        List<SysEnumsResponse.DataEntity.ItemsEntity> items = new ArrayList<>();
+        List<ItemsEntity> items = new ArrayList<>();
         boolean isInit = false;
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             if (!isInit) {
@@ -103,8 +103,7 @@ public class DbManager {
                         .COLUMN_DISPLAY_NAME)) == 1 ? true : false;
                 isInit = true;
             }
-            SysEnumsResponse.DataEntity.ItemsEntity item = new SysEnumsResponse.DataEntity
-                    .ItemsEntity();
+            ItemsEntity item = new ItemsEntity();
             item.displayName = cursor.getString(cursor.getColumnIndex(SysEnumEntry
                     .COLUMN_DISPLAY_NAME));
             item.value = cursor.getInt(cursor.getColumnIndex(SysEnumEntry.COLUMN_VALUE));

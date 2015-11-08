@@ -5,11 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.common.util.Constant;
+import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.widget.MyEmptyViewHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -58,12 +61,20 @@ public class BaseActivity extends Activity implements View.OnClickListener {
      * @param isShowDialog 是否要显示等待框
      */
     protected void getDatas(boolean isShowDialog) {
-        if (Constant.IS_DEBUG_MODE) {
+        if (Constant.IS_DEBUG_MODE_DATA) {
             getTestDatas(isShowDialog);
+            setDataToView(null);
         } else {
-            getRealDatas(isShowDialog);
+            if (Utils.isNetworkConnected(mContext)) {
+                final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string
+                        .loading);
+                if (isShowDialog) {
+                    dialog.show();
+                }
+                getRealDatas(isShowDialog);
+                setDataToView(dialog);
+            }
         }
-        setDataToView(null);
     }
 
 

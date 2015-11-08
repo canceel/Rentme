@@ -1,5 +1,8 @@
-package com.allipper.rentme.net;
+package com.allipper.rentme.net.upload;
 
+import com.allipper.rentme.common.util.FileUtils;
+import com.allipper.rentme.net.request.AndroidMultiPartEntity;
+import com.allipper.rentme.net.FakeX509TrustManager;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkResponse;
@@ -38,12 +41,11 @@ public class UploadFileRequest<T> extends Request<T> {
     private final static int TIME_OUT = 2 * 60 * 1000;
 
     public UploadFileRequest(int method, String tag, String url, File imageFile, Class<T> clz,
-                             Response
-                                     .Listener listener,
-                             Response.ErrorListener errorListener, AndroidMultiPartEntity
-                                     .ProgressListener progressListener) {
+                             Response.Listener listener,
+                             Response.ErrorListener errorListener,
+                             AndroidMultiPartEntity.ProgressListener progressListener) {
         super(method, url, errorListener);
-        FakeX509TrustManager.allowAllSSL();
+//        FakeX509TrustManager.allowAllSSL();
         this.mTag = tag;
         this.mErrorListener = errorListener;
         this.mListener = listener;
@@ -62,9 +64,9 @@ public class UploadFileRequest<T> extends Request<T> {
         if (mImageFile == null || !mImageFile.exists()) {
             return;
         }
-        FileBody fileBody = new FileBody(mImageFile);
-        entity = new AndroidMultiPartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, "xx", Charset
-                .forName("UTF-8"), progressListener);
+        FileBody fileBody = new FileBody(mImageFile, "image/" + FileUtils.getFileType(mImageFile));
+        entity = new AndroidMultiPartEntity(HttpMultipartMode.BROWSER_COMPATIBLE, null, null,
+                progressListener);
         entity.addPart(FILE_PART_NAME, fileBody);
     }
 

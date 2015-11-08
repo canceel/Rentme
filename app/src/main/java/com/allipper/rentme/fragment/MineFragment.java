@@ -17,6 +17,7 @@ import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.ui.GuideActivity;
 import com.allipper.rentme.ui.mine.AgreementActivity;
 import com.allipper.rentme.ui.mine.GiveBackActivity;
+import com.allipper.rentme.ui.mine.MineAuthActivity;
 import com.allipper.rentme.ui.mine.MineInfoActivity;
 import com.allipper.rentme.ui.mine.MinePocketActivity;
 import com.allipper.rentme.ui.mine.MinePublishInfoActivity;
@@ -36,6 +37,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
 
     private TextView nameTextView;
     private TextView statusTextView;
+    private TextView mine_authTextView;
     private TextView mine_publishTextView;
     private TextView mine_rentTextView;
     private TextView rent_meTextView;
@@ -72,6 +74,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
      */
     private void initView(View view) {
         nameTextView = (TextView) view.findViewById(R.id.name);
+        mine_authTextView = (TextView) view.findViewById(R.id.mine_auth);
         statusTextView = (TextView) view.findViewById(R.id.status);
         mine_publishTextView = (TextView) view.findViewById(R.id.mine_publish);
         mine_rentTextView = (TextView) view.findViewById(R.id.mine_rent);
@@ -84,6 +87,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         mineRelativeLayout = (RelativeLayout) view.findViewById(R.id.mine_rl);
 
         mine_publishTextView.setOnClickListener(this);
+        mine_authTextView.setOnClickListener(this);
         mine_rentTextView.setOnClickListener(this);
         rent_meTextView.setOnClickListener(this);
         givebackTextView.setOnClickListener(this);
@@ -99,17 +103,17 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         String string = SharedPreUtils.getString(getActivity(), SharedPre.User.NICKNAME);
         string = TextUtils.isEmpty(string) ? "昵称" : string;
         nameTextView.setText(string);
-        int gender = SharedPreUtils.getInt(getActivity(), SharedPre.User.GENDER, 0);
-        if (gender == 0) {
-            nameTextView.setCompoundDrawables(null, null, null, null);
-        } else if (gender == 1) {
+        String gender = SharedPreUtils.getString(getActivity(), SharedPre.User.GENDER);
+        if ("男".equals(gender)) {
             Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.sex_girl);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            nameTextView.setCompoundDrawables(null, drawable, null, null);
-        } else {
+            nameTextView.setCompoundDrawables(null, null, drawable, null);
+        } else if ("女".equals(gender)) {
             Drawable drawable = getActivity().getResources().getDrawable(R.mipmap.sex_man);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
-            nameTextView.setCompoundDrawables(null, drawable, null, null);
+            nameTextView.setCompoundDrawables(null, null, drawable, null);
+        } else {
+            nameTextView.setCompoundDrawables(null, null, null, null);
         }
         statusTextView.setText(SharedPreUtils.getString(getActivity(), SharedPre.User.USERDETAIL));
     }
@@ -121,6 +125,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         switch (id) {
             case R.id.mine_rl:
                 it = new Intent(getActivity(), MineInfoActivity.class);
+                startActivity(it);
+                break;
+            case R.id.mine_auth:
+                it = new Intent(getActivity(), MineAuthActivity.class);
                 startActivity(it);
                 break;
             case R.id.mine_publish:

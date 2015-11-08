@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.allipper.rentme.R;
 import com.allipper.rentme.net.response.LoginResult;
 import com.allipper.rentme.net.response.UpdateUserInforResponse;
+import com.allipper.rentme.net.response.UserInfo;
 import com.allipper.rentme.net.response.UserInfoEntity;
 
 import java.security.MessageDigest;
@@ -103,23 +104,23 @@ public class Utils {
      *
      * @param context
      */
-    public static UserInfoEntity getUserInfo(Context context) {
+    public static UserInfo getUserInfo(Context context) {
         if (SharedPreUtils.getInt(context, SharedPre.User.USERID, 0) == 0) {
             return null;
         }
-        UserInfoEntity customer = new UserInfoEntity();
+        UserInfo customer = new UserInfo();
         customer.album = getListData(context, SharedPre.User.ALBUM);
-        customer.interests = getListData(context, SharedPre.User.INTERESTS);
-        customer.ageRange = SharedPreUtils.getInt(context, SharedPre.User.AGERANGE, 0);
-        customer.constellation = SharedPreUtils.getInt(context, SharedPre.User.CONSTELLATION, 0);
-        customer.heightRange = SharedPreUtils.getInt(context, SharedPre.User.HEIGHTRANGE, 0);
+        customer.interests = SharedPreUtils.getString(context, SharedPre.User.INTERESTS);
+        customer.ageRange = SharedPreUtils.getString(context, SharedPre.User.AGERANGE);
+        customer.constellation = SharedPreUtils.getString(context, SharedPre.User.CONSTELLATION);
+        customer.heightRange = SharedPreUtils.getString(context, SharedPre.User.HEIGHTRANGE);
         customer.nickName = SharedPreUtils.getString(context, SharedPre.User.NICKNAME);
         customer.realName = SharedPreUtils.getString(context, SharedPre.User.REALNAME);
         customer.userDetail = SharedPreUtils.getString(context, SharedPre.User.USERDETAIL);
-        customer.weightRange = SharedPreUtils.getInt(context, SharedPre.User.WEIGHTRANGE, 0);
-        customer.gender = SharedPreUtils.getInt(context, SharedPre.User.GENDER, 0);
+        customer.weightRange = SharedPreUtils.getString(context, SharedPre.User.WEIGHTRANGE);
+        customer.gender = SharedPreUtils.getString(context, SharedPre.User.GENDER);
         customer.mobile = SharedPreUtils.getString(context, SharedPre.User.MOBILE);
-        customer.job = SharedPreUtils.getInt(context, SharedPre.User.JOB, 0);
+        customer.job = SharedPreUtils.getString(context, SharedPre.User.JOB);
         customer.avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
         return customer;
     }
@@ -334,14 +335,15 @@ public class Utils {
     }
 
     public static void saveUserInfor(Context context, UserInfoEntity userInfoEntity) {
-        SharedPreUtils.putInt(context, SharedPre.User.AGERANGE, userInfoEntity.ageRange);
+        UserInfo userInfo = userInfoEntity.entityToInfo();
+        SharedPreUtils.putString(context, SharedPre.User.AGERANGE, userInfo.ageRange);
         saveListData(context, userInfoEntity.album, SharedPre.User.ALBUM);
-        SharedPreUtils.putInt(context, SharedPre.User.CONSTELLATION, userInfoEntity.constellation);
-        SharedPreUtils.putInt(context, SharedPre.User.GENDER, userInfoEntity.gender);
-        SharedPreUtils.putInt(context, SharedPre.User.HEIGHTRANGE, userInfoEntity.heightRange);
-        SharedPreUtils.putInt(context, SharedPre.User.WEIGHTRANGE, userInfoEntity.weightRange);
-        saveListData(context, userInfoEntity.interests, SharedPre.User.INTERESTS);
-        SharedPreUtils.putInt(context, SharedPre.User.JOB, userInfoEntity.job);
+        SharedPreUtils.putString(context, SharedPre.User.CONSTELLATION, userInfo.constellation);
+        SharedPreUtils.putString(context, SharedPre.User.GENDER, userInfo.gender);
+        SharedPreUtils.putString(context, SharedPre.User.HEIGHTRANGE, userInfo.heightRange);
+        SharedPreUtils.putString(context, SharedPre.User.WEIGHTRANGE, userInfo.weightRange);
+        SharedPreUtils.putString(context, SharedPre.User.INTERESTS, userInfo.interests);
+        SharedPreUtils.putString(context, SharedPre.User.JOB, userInfo.job);
         SharedPreUtils.putString(context, SharedPre.User.MOBILE, userInfoEntity.mobile);
         SharedPreUtils.putString(context, SharedPre.User.NICKNAME, userInfoEntity.nickName);
         SharedPreUtils.putString(context, SharedPre.User.REALNAME, userInfoEntity.realName);

@@ -22,6 +22,8 @@ public class Constant {
      */
     //系统日志Debug模式开关，默认打开，可以打印日志，发布时设置为false
     public static final boolean IS_DEBUG_MODE = true;
+    //系统日志Debug模式开关，默认打开，可以打印日志，发布时设置为false
+    public static final boolean IS_DEBUG_MODE_DATA = false;
     //测试用，后续改掉:分配至各渠道的唯一ID
     public static final String CLIENT_ID = "mobile_android";
     //    //测试用，后续改掉

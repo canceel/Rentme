@@ -1,4 +1,4 @@
-package com.allipper.rentme.net;
+package com.allipper.rentme.net.request;
 
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;

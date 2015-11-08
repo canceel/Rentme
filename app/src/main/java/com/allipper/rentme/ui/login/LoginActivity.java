@@ -86,7 +86,6 @@ public class LoginActivity extends BaseLoginBusinessActivity {
                         });
             }
         }
-        onBackPressed();
     }
 
     @Override

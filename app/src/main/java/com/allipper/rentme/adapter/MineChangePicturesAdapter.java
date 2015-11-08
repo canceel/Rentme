@@ -7,6 +7,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
 
 import java.util.LinkedList;
@@ -70,6 +71,10 @@ public class MineChangePicturesAdapter extends CommonAdapter<String> {
                 } else
                 // 未选择该图片
                 {
+                    if(mSelectedImage.size() > 4){
+                        ToastUtils.show(context,"最多只能上传四张相片");
+                        return;
+                    }
                     mSelectedImage.add(mDirPath + "/" + s);
                     mSelect.setImageResource(R.mipmap.pictures_selected);
                     mImageView.setColorFilter(Color.parseColor("#77000000"));

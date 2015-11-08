@@ -31,14 +31,15 @@ import com.allipper.rentme.common.util.SharedPre;
 import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
-import com.allipper.rentme.net.AndroidMultiPartEntity;
+import com.allipper.rentme.net.request.AndroidMultiPartEntity;
 import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.HttpUpload;
 import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.ItemsEntity;
 import com.allipper.rentme.net.response.SysEnumsResponse;
 import com.allipper.rentme.net.response.UpdateUserInforResponse;
 import com.allipper.rentme.net.response.UploadResult;
-import com.allipper.rentme.net.response.UserInfoEntity;
+import com.allipper.rentme.net.response.UserInfo;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.CircleImageView;
 
@@ -104,7 +105,7 @@ public class MineInfoActivity extends BaseActivity {
 
     private int selectedIndex;
 
-    private UserInfoEntity userInfoEntity;
+    private UserInfo userInfoEntity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,16 +122,24 @@ public class MineInfoActivity extends BaseActivity {
         }
         constellations = ApplicationInit.getFormatStringArray(SysEnumsResponse.CONSTELLATION);
         sexs = ApplicationInit.getFormatStringArray(SysEnumsResponse.GENDER);
-        ages = ApplicationInit.getFormatStringArray(SysEnumsResponse.AGE);
-        heights = ApplicationInit.getFormatStringArray(SysEnumsResponse.HEIGHT);
-        weights = ApplicationInit.getFormatStringArray(SysEnumsResponse.WEIGHT);
+        ages = ApplicationInit.getFormatStringArray(SysEnumsResponse.AGE_RANGE);
+        heights = ApplicationInit.getFormatStringArray(SysEnumsResponse.HEIGHT_RANGE);
+        weights = ApplicationInit.getFormatStringArray(SysEnumsResponse.WEIGH_RANGE);
         jobs = ApplicationInit.getFormatStringArray(SysEnumsResponse.JOB);
-        hobbies = ApplicationInit.getFormatStringArray(SysEnumsResponse.INTEREST);
+        hobbies = ApplicationInit.getFormatStringArray(SysEnumsResponse.INTERESTS);
         hobbyIndex = new boolean[hobbies.length];
     }
 
-    private void getData(boolean isShowDialog) {
-
+    public void getDatas(boolean isShowDialog) {
+        name_valueTextView.setText(userInfoEntity.nickName);
+        status_valueTextView.setText(userInfoEntity.userDetail);
+        constellation_valueTextView.setText(userInfoEntity.constellation);
+        sex_valueTextView.setText(userInfoEntity.gender);
+        career_valueTextView.setText(userInfoEntity.job);
+        age_valueTextView.setText(userInfoEntity.ageRange);
+        height_valueTextView.setText(userInfoEntity.heightRange);
+        weight_valueTextView.setText(userInfoEntity.weightRange);
+        hobby_valueTextView.setText(userInfoEntity.interests);
     }
 
     private void findViews() {
@@ -293,7 +302,7 @@ public class MineInfoActivity extends BaseActivity {
 
     public void changeConstellatione(View view) {
         selectedIndex = constellationIndex = processIndex(constellation_valueTextView.getText()
-                .toString(), constellations);
+                .toString(), ApplicationInit.getConstellationEntities().items);
         showAlertDialog(constellationIndex, constellations, "请选择星座", constellation_valueTextView,
                 ApplicationInit.getConstellationEntities().items, SysEnumsResponse.CONSTELLATION);
     }
@@ -307,8 +316,8 @@ public class MineInfoActivity extends BaseActivity {
             String[] strs = str.split("、");
             for (String temp : strs) {
                 int i = 0;
-                for (String temp1 : hobbies) {
-                    if (temp.equals(temp1)) {
+                for (ItemsEntity temp1 : ApplicationInit.getInterestEntities().items) {
+                    if (temp.equals(temp1.name)) {
                         hobbyIndex[i] = true;
                         break;
                     }
@@ -317,47 +326,56 @@ public class MineInfoActivity extends BaseActivity {
             }
         }
         showAlertDialog(hobbyIndex, hobbies, "请选择兴趣爱好", hobby_valueTextView,
-                ApplicationInit.getInterestEntities().items, SysEnumsResponse.INTEREST);
+                ApplicationInit.getInterestEntities().items, SysEnumsResponse.INTERESTS);
     }
 
     public void changeSex(View view) {
-        selectedIndex = sexIndex = processIndex(sex_valueTextView.getText().toString(), sexs);
+        selectedIndex = sexIndex = processIndex(sex_valueTextView.getText().toString(),
+                ApplicationInit
+                        .getGenderEntities().items);
         showAlertDialog(sexIndex, sexs, "请选择性别", sex_valueTextView, ApplicationInit
                 .getGenderEntities().items, SysEnumsResponse.GENDER);
     }
 
     public void changeCareer(View view) {
-        selectedIndex = jobIndex = processIndex(career_valueTextView.getText().toString(), jobs);
+        selectedIndex = jobIndex = processIndex(career_valueTextView.getText().toString(),
+                ApplicationInit
+                        .getJobEntities().items);
         showAlertDialog(jobIndex, jobs, "请选择职业", career_valueTextView, ApplicationInit
                 .getJobEntities().items, SysEnumsResponse.JOB);
     }
 
     public void changeAge(View view) {
-        selectedIndex = ageIndex = processIndex(age_valueTextView.getText().toString(), ages);
+        selectedIndex = ageIndex = processIndex(age_valueTextView.getText().toString(),
+                ApplicationInit
+                        .getAgeEntities().items);
         showAlertDialog(ageIndex, ages, "请选择年龄", age_valueTextView, ApplicationInit
-                .getAgeEntities().items, SysEnumsResponse.AGE);
+                .getAgeEntities().items, SysEnumsResponse.AGE_RANGE);
     }
 
     public void changeHeight(View view) {
         selectedIndex = heightIndex = processIndex(height_valueTextView.getText().toString(),
-                heights);
+                ApplicationInit
+                        .getHeightEntities().items);
         showAlertDialog(heightIndex, heights, "请选择身高", height_valueTextView, ApplicationInit
-                .getHeightEntities().items, SysEnumsResponse.HEIGHT);
+                .getHeightEntities().items, SysEnumsResponse.HEIGHT_RANGE);
     }
 
     public void changeWeight(View view) {
         selectedIndex = weightIndex = processIndex(weight_valueTextView.getText().toString(),
-                weights);
+                ApplicationInit
+                        .getWeightEntities().items);
         showAlertDialog(weightIndex, weights, "请选择体重", weight_valueTextView, ApplicationInit
-                .getWeightEntities().items, SysEnumsResponse.WEIGHT);
+                .getWeightEntities().items, SysEnumsResponse.WEIGH_RANGE);
     }
 
 
-    private int processIndex(String value, String[] datas) {
+    private int processIndex(String value, final List<ItemsEntity>
+            itemsEntities) {
         int index = 0;
         if (!TextUtils.isEmpty(value)) {
-            for (String data : datas) {
-                if (data.equals(value)) {
+            for (ItemsEntity data : itemsEntities) {
+                if (data.name.equals(value)) {
                     break;
                 }
                 index++;
@@ -373,7 +391,7 @@ public class MineInfoActivity extends BaseActivity {
                                  final String[] datas,
                                  String title,
                                  final TextView view,
-                                 final List<SysEnumsResponse.DataEntity.ItemsEntity>
+                                 final List<ItemsEntity>
                                          itemsEntities,
                                  final String type) {
         Dialog dialog = null;
@@ -397,7 +415,7 @@ public class MineInfoActivity extends BaseActivity {
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                view.setText(itemsEntities.get(selectedIndex).displayName);
+                view.setText(itemsEntities.get(selectedIndex).name);
                 updateUserInfo(type, itemsEntities.get(selectedIndex).value);
             }
         });
@@ -413,7 +431,7 @@ public class MineInfoActivity extends BaseActivity {
                                  final String[] datas,
                                  String title,
                                  final TextView view,
-                                 final List<SysEnumsResponse.DataEntity.ItemsEntity> itemsEntities,
+                                 final List<ItemsEntity> itemsEntities,
                                  final String type) {
         Dialog dialog = null;
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style
@@ -441,7 +459,7 @@ public class MineInfoActivity extends BaseActivity {
                 int i = 0;
                 for (boolean index : indexs) {
                     if (index) {
-                        sb.append(itemsEntities.get(i++).displayName).append("、");
+                        sb.append(itemsEntities.get(i++).name).append("、");
                         paramSb.append(itemsEntities.get(i++).value).append(",");
                     } else {
                         i++;

@@ -1,8 +1,10 @@
 package com.allipper.rentme.ui.mine;
 
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,17 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.allipper.rentme.R;
-import com.allipper.rentme.adapter.MineChangePicturesAdapter;
 import com.allipper.rentme.adapter.MinePicturesAdapter;
 import com.allipper.rentme.adapter.PicturesAdapter;
 import com.allipper.rentme.bean.ActionBean;
 import com.allipper.rentme.bean.ImageBean;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.MinePicturesMenuPopupWindow;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 public class MinePicturesActivity extends BaseActivity implements MinePicturesMenuPopupWindow
@@ -35,11 +37,6 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     private GridView mGirdView;
     private RelativeLayout topTitleRl;
     private RelativeLayout bottomeRl;
-    private MineChangePicturesAdapter mAdapter;
-    /**
-     * 临时的辅助类，用于防止同一个文件夹的多次扫描
-     */
-    private HashSet<String> mDirPaths = new HashSet<String>();
 
     /**
      * 扫描拿到所有的图片文件夹
@@ -50,6 +47,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     private MinePicturesMenuPopupWindow picturesMenuPopupWindow;
 
     private MinePicturesAdapter adapter;
+    private PicturesAdapter picturesAdapter;
     private RelativeLayout pictrueBgRl;
     private GridView bigPictruesGv;
     private ImageView closeIv;
@@ -59,7 +57,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     private HorizontalScrollView pictureHsv;
 
     private List<ImageBean> pictureUrls = new ArrayList<>();
-
+    private List<String> pictureUrlStrs = new ArrayList<>();
 
     /**
      * 初始化展示文件夹的popupWindw
@@ -103,34 +101,55 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
             ib.url = "uri" + i;
             pictureUrls.add(ib);
         }
-
-        List<String> pictureUrlStrs = new ArrayList<>(15);
         pictureUrlStrs.add("1");
         pictureUrlStrs.add("2");
         pictureUrlStrs.add("2");
         pictureUrlStrs.add("2");
         pictureUrlStrs.add("2");
-        int ii = pictureUrls.size();
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ii * (Utils
-                .getScreenWidth(mContext)), ViewGroup.LayoutParams.WRAP_CONTENT);
-        bigPictruesGv.setLayoutParams(params);
-        bigPictruesGv.setColumnWidth(Utils.getScreenWidth(mContext) / 3 - 10);
-        bigPictruesGv.setVerticalSpacing(5);
-        bigPictruesGv.setNumColumns(ii);
-        bigPictruesGv.setAdapter(new PicturesAdapter(mContext, pictureUrlStrs, PicturesAdapter
-                .TYPE_OTHER));
+    }
 
-        if (adapter == null) {
-            adapter = new MinePicturesAdapter(mContext, pictureUrls, 0, this);
-            adapter.pictrueBgRl = pictrueBgRl;
-            adapter.pictureHsv = pictureHsv;
-            adapter.width = Utils.getScreenWidth(mContext);
-            mGirdView.setAdapter(adapter);
-        } else {
-            adapter.setData(pictureUrls);
+    public void getRealDatas(boolean isShowDialog) {
+        String albumStr = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
+        if (!TextUtils.isEmpty(albumStr)) {
+            String[] album = albumStr.split(",");
+            for (int i = 0; i < album.length; i++) {
+                ImageBean ib = new ImageBean();
+                ib.url = album[i];
+                pictureUrls.add(ib);
+                pictureUrlStrs.add(album[i]);
+            }
         }
     }
 
+    public void setDataToView(Dialog dialog) {
+        if (pictureUrls.size() > 0) {
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pictureUrls.size() *
+                    (Utils
+                            .getScreenWidth(mContext)), ViewGroup.LayoutParams.WRAP_CONTENT);
+            bigPictruesGv.setLayoutParams(params);
+            bigPictruesGv.setColumnWidth(Utils.getScreenWidth(mContext) / 3 - 10);
+            bigPictruesGv.setVerticalSpacing(5);
+            bigPictruesGv.setNumColumns(pictureUrls.size());
+            if (picturesAdapter == null) {
+                picturesAdapter = new PicturesAdapter(mContext, pictureUrlStrs, PicturesAdapter
+                        .TYPE_OTHER);
+                bigPictruesGv.setAdapter(picturesAdapter);
+            } else {
+                picturesAdapter.setData(pictureUrlStrs);
+            }
+
+            if (adapter == null) {
+                adapter = new MinePicturesAdapter(mContext, pictureUrls, 0, this);
+                adapter.pictrueBgRl = pictrueBgRl;
+                adapter.pictureHsv = pictureHsv;
+                adapter.width = Utils.getScreenWidth(mContext);
+                mGirdView.setAdapter(adapter);
+            } else {
+                adapter.setData(pictureUrls);
+            }
+        }
+        dialog.dismiss();
+    }
 
     /**
      * 初始化View

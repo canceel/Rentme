@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
     private Button btnSecurityCode;
     private CheckBox cbServeRule;
     private TextView tvInputCellNO;
+    private RelativeLayout agreementRl;
 
     private String messageCode;
 
@@ -51,11 +53,12 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
         btnSecurityCode = (Button) findViewById(R.id.security_code);
         cbServeRule = (CheckBox) findViewById(R.id.serve_rule);
         tvInputCellNO = (TextView) findViewById(R.id.input_cellno_tv);
+        agreementRl = (RelativeLayout) findViewById(R.id.agreementrl);
 
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.security_code).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);
-
+        agreementRl.setOnClickListener(this);
         time = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -148,6 +151,9 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
                 break;
             case R.id.confirm:
                 register_enter(view);
+                break;
+            case R.id.agreementrl:
+                cbServeRule.setChecked(!cbServeRule.isChecked());
                 break;
             default:
                 super.onClick(view);

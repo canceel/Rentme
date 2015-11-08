@@ -5,6 +5,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.allipper.rentme.database.DbManager;
+import com.allipper.rentme.net.response.EnumEntity;
+import com.allipper.rentme.net.response.ItemsEntity;
 import com.allipper.rentme.net.response.SysEnumsResponse;
 
 import io.rong.imkit.RongIM;
@@ -16,15 +18,15 @@ public class ApplicationInit extends Application {
 
     public static Context baseContext;
 
-    private static SysEnumsResponse.DataEntity.EnumEntity ageEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity constellationEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity genderEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity heightEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity weightEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity interestEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity jobEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity rentRangeEntities;
-    private static SysEnumsResponse.DataEntity.EnumEntity scheduleEntities;
+    private static EnumEntity ageEntities;
+    private static EnumEntity constellationEntities;
+    private static EnumEntity genderEntities;
+    private static EnumEntity heightEntities;
+    private static EnumEntity weightEntities;
+    private static EnumEntity interestEntities;
+    private static EnumEntity jobEntities;
+    private static EnumEntity rentRangeEntities;
+    private static EnumEntity scheduleEntities;
 
 
     @Override
@@ -64,14 +66,14 @@ public class ApplicationInit extends Application {
         return null;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getAgeEntities() {
+    public static EnumEntity getAgeEntities() {
         if (ageEntities == null) {
-            ageEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.AGE);
+            ageEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.AGE_RANGE);
         }
         return ageEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getConstellationEntities() {
+    public static EnumEntity getConstellationEntities() {
         if (constellationEntities == null) {
             constellationEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse
                     .CONSTELLATION);
@@ -79,50 +81,52 @@ public class ApplicationInit extends Application {
         return constellationEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getGenderEntities() {
+    public static EnumEntity getGenderEntities() {
         if (genderEntities == null) {
             genderEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.GENDER);
         }
         return genderEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getHeightEntities() {
+    public static EnumEntity getHeightEntities() {
         if (heightEntities == null) {
-            heightEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.HEIGHT);
+            heightEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse
+                    .HEIGHT_RANGE);
         }
         return heightEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getWeightEntities() {
+    public static EnumEntity getWeightEntities() {
         if (weightEntities == null) {
-            weightEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.WEIGHT);
+            weightEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse
+                    .WEIGH_RANGE);
         }
         return weightEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getInterestEntities() {
+    public static EnumEntity getInterestEntities() {
         if (interestEntities == null) {
             interestEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse
-                    .INTEREST);
+                    .INTERESTS);
         }
         return interestEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getJobEntities() {
+    public static EnumEntity getJobEntities() {
         if (jobEntities == null) {
             jobEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.JOB);
         }
         return jobEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getRentRangeEntities() {
+    public static EnumEntity getRentRangeEntities() {
         if (rentRangeEntities == null) {
             rentRangeEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse.RENT);
         }
         return rentRangeEntities;
     }
 
-    public static SysEnumsResponse.DataEntity.EnumEntity getScheduleEntities() {
+    public static EnumEntity getScheduleEntities() {
         if (scheduleEntities == null) {
             scheduleEntities = new DbManager(baseContext).queryEnumEntity(SysEnumsResponse
                     .SCHEDULE);
@@ -132,58 +136,58 @@ public class ApplicationInit extends Application {
 
     public static String[] getFormatStringArray(String type) {
         String[] strs = null;
-        if (type.equals(SysEnumsResponse.AGE)) {
+        if (type.equals(SysEnumsResponse.AGE_RANGE)) {
             strs = new String[getAgeEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getAgeEntities().items) {
+            for (ItemsEntity item : getAgeEntities().items) {
                 strs[i++] = item.displayName;
             }
         } else if (type.equals(SysEnumsResponse.CONSTELLATION)) {
             strs = new String[getConstellationEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getConstellationEntities().items) {
+            for (ItemsEntity item : getConstellationEntities().items) {
                 strs[i++] = item.displayName;
             }
         } else if (type.equals(SysEnumsResponse.GENDER)) {
             strs = new String[getGenderEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getGenderEntities().items) {
+            for (ItemsEntity item : getGenderEntities().items) {
                 strs[i++] = item.displayName;
             }
-        } else if (type.equals(SysEnumsResponse.HEIGHT)) {
+        } else if (type.equals(SysEnumsResponse.HEIGHT_RANGE)) {
             strs = new String[getHeightEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getHeightEntities().items) {
+            for (ItemsEntity item : getHeightEntities().items) {
                 strs[i++] = item.displayName;
             }
-        } else if (type.equals(SysEnumsResponse.WEIGHT)) {
+        } else if (type.equals(SysEnumsResponse.WEIGH_RANGE)) {
             strs = new String[getWeightEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getWeightEntities().items) {
+            for (ItemsEntity item : getWeightEntities().items) {
                 strs[i++] = item.displayName;
             }
-        } else if (type.equals(SysEnumsResponse.INTEREST)) {
+        } else if (type.equals(SysEnumsResponse.INTERESTS)) {
             strs = new String[getInterestEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getInterestEntities().items) {
+            for (ItemsEntity item : getInterestEntities().items) {
                 strs[i++] = item.displayName;
             }
-        }else if (type.equals(SysEnumsResponse.JOB)) {
+        } else if (type.equals(SysEnumsResponse.JOB)) {
             strs = new String[getJobEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getJobEntities().items) {
+            for (ItemsEntity item : getJobEntities().items) {
                 strs[i++] = item.displayName;
             }
-        }else if (type.equals(SysEnumsResponse.RENT)) {
+        } else if (type.equals(SysEnumsResponse.RENT)) {
             strs = new String[getRentRangeEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getRentRangeEntities().items) {
+            for (ItemsEntity item : getRentRangeEntities().items) {
                 strs[i++] = item.displayName;
             }
-        }else if (type.equals(SysEnumsResponse.SCHEDULE)) {
+        } else if (type.equals(SysEnumsResponse.SCHEDULE)) {
             strs = new String[getScheduleEntities().items.size()];
             int i = 0;
-            for (SysEnumsResponse.DataEntity.ItemsEntity item : getScheduleEntities().items) {
+            for (ItemsEntity item : getScheduleEntities().items) {
                 strs[i++] = item.displayName;
             }
         }

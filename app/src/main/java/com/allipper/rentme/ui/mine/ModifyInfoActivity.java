@@ -48,6 +48,19 @@ public class ModifyInfoActivity extends BaseActivity {
         getDatas(false);
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.save:
+                save(view);
+                break;
+            default:
+                super.onClick(view);
+                break;
+        }
+    }
+
     public void getDatas(boolean isShowDialog) {
         Intent it = getIntent();
         type = it.getIntExtra(MODIFY_TYPE, -1);
@@ -75,6 +88,8 @@ public class ModifyInfoActivity extends BaseActivity {
         contentEditText = (EditText) findViewById(R.id.content);
         tipTextView = (TextView) findViewById(R.id.tip);
 
+        findViewById(R.id.back).setOnClickListener(this);
+        findViewById(R.id.save).setOnClickListener(this);
     }
 
 
@@ -91,9 +106,6 @@ public class ModifyInfoActivity extends BaseActivity {
                 updateUserInfo(SharedPre.User.USERDETAIL, contentEditText.getText().toString());
                 break;
         }
-
-
-        onSuccessed();
     }
 
     private void updateUserInfo(String type, String value) {

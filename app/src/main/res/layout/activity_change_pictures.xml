@@ -16,7 +16,6 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dp"
-            android:onClick="back"
             android:padding="12dp"
             android:src="@mipmap/back"/>
 
@@ -31,12 +30,11 @@
             android:textSize="@dimen/text_size_18sp"/>
 
         <Button
-            android:id="@+id/edit"
+            android:id="@+id/upload"
             style="@style/TopButtonStyle"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="16dp"
-            android:onClick="edit"
             android:text="上传"/>
     </RelativeLayout>
 

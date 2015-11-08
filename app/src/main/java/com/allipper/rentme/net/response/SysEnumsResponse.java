@@ -7,13 +7,13 @@ import java.util.List;
  */
 public class SysEnumsResponse extends ResponseBase {
 
-    public final static String AGE = "age";
+    public final static String AGE_RANGE = "ageRange";
     public final static String CONSTELLATION = "constellation";
     public final static String GENDER = "gender";
     public final static String JOB = "job";
-    public final static String HEIGHT = "height";
-    public final static String WEIGHT = "weight";
-    public final static String INTEREST = "interest";
+    public final static String HEIGHT_RANGE = "heightRange";
+    public final static String WEIGH_RANGE = "weighRange";
+    public final static String INTERESTS = "interests";
     public final static String RENT = "rent";
     public final static String SCHEDULE = "schedule";
     /**
@@ -237,22 +237,5 @@ public class SysEnumsResponse extends ResponseBase {
         public EnumEntity schedule;
 
 
-        public static class EnumEntity {
-            public boolean multi;
-            /**
-             * displayName : 水瓶座(1月20日～2月18日)
-             * name : 水瓶座
-             * value : 1
-             */
-
-            public List<ItemsEntity> items;
-
-        }
-
-        public static class ItemsEntity {
-            public String displayName;
-            public String name;
-            public int value;
-        }
     }
 }

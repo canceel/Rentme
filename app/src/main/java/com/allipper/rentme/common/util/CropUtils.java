@@ -50,12 +50,9 @@ public class CropUtils {
         String avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
 
         if (!TextUtils.isEmpty(avatarUrl)) {
-            HttpLoad.getImage(avatarUrl.startsWith(Constant.SHARE_HOST) ? avatarUrl :
-                            Constant.SHARE_HOST + avatarUrl,
-                    R.mipmap.icon_defaultheader, imageView);
+            HttpLoad.getImage(avatarUrl, R.mipmap.icon_defaultheader, imageView);
         } else {
             imageView.setImageResource(R.mipmap.icon_defaultheader);
-
         }
 
     }

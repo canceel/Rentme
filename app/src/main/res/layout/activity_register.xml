@@ -117,6 +117,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/agreementrl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -129,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_selector"
                 android:checked="true"
-                android:padding="10dp"
+                android:padding="4dp"
                 android:clickable="true"/>
 
             <TextView
@@ -158,6 +159,6 @@
             android:layout_marginRight="16dp"
             android:layout_marginTop="20dp"
             android:onClick="register_enter"
-            android:text="注册并登陆"/>
+            android:text="注册并登录"/>
     </LinearLayout>
 </RelativeLayout>

@@ -105,12 +105,12 @@ public class StartActivity extends BaseActivity implements Animation.AnimationLi
             HttpLoad.SysModule.getSysEnum(TAG, new ResponseCallback<SysEnumsResponse>(mContext) {
                 @Override
                 public void onRequestSuccess(SysEnumsResponse result) {
-                    manager.insertSysEnums(result.data.ageRange,SysEnumsResponse.AGE);
+                    manager.insertSysEnums(result.data.ageRange,SysEnumsResponse.AGE_RANGE);
                     manager.insertSysEnums(result.data.constellation,SysEnumsResponse.CONSTELLATION);
                     manager.insertSysEnums(result.data.gender,SysEnumsResponse.GENDER);
-                    manager.insertSysEnums(result.data.heightRange,SysEnumsResponse.HEIGHT);
-                    manager.insertSysEnums(result.data.weightRange,SysEnumsResponse.WEIGHT);
-                    manager.insertSysEnums(result.data.interest,SysEnumsResponse.INTEREST);
+                    manager.insertSysEnums(result.data.heightRange,SysEnumsResponse.HEIGHT_RANGE);
+                    manager.insertSysEnums(result.data.weightRange,SysEnumsResponse.WEIGH_RANGE);
+                    manager.insertSysEnums(result.data.interest,SysEnumsResponse.INTERESTS);
                     manager.insertSysEnums(result.data.job,SysEnumsResponse.JOB);
                     manager.insertSysEnums(result.data.rentRange,SysEnumsResponse.RENT);
                     manager.insertSysEnums(result.data.schedule,SysEnumsResponse.SCHEDULE);

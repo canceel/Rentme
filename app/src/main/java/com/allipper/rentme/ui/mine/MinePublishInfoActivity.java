@@ -29,18 +29,10 @@ import com.allipper.rentme.R;
 import com.allipper.rentme.common.util.CropUtils;
 import com.allipper.rentme.common.util.DialogUtils;
 import com.allipper.rentme.common.util.LoadDialogUtil;
-import com.allipper.rentme.common.util.SharedPre;
-import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
-import com.allipper.rentme.net.AndroidMultiPartEntity;
-import com.allipper.rentme.net.HttpUpload;
-import com.allipper.rentme.net.ResponseCallback;
-import com.allipper.rentme.net.response.UploadResult;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.NoRequsetGridView;
-
-import java.io.File;
 
 public class MinePublishInfoActivity extends BaseActivity {
     private static final String TAG = MinePublishInfoActivity.class.getSimpleName();

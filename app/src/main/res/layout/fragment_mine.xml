@@ -72,10 +72,29 @@
                     android:src="@mipmap/icon_row"/>
 
             </RelativeLayout>
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="8dp"
+                android:background="@color/rc_divider"/>
+
+
+            <TextView
+                android:id="@+id/mine_auth"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/status_check"
+                android:drawablePadding="16dp"
+                android:gravity="left|center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingTop="10dp"
+                android:text="我的认证"
+                android:textColor="@color/text_dark"
+                android:textSize="@dimen/text_size_16sp"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:background="@color/rc_divider"/>
 
 
@@ -137,7 +156,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/rc_divider"/>
+                android:background="@color/rc_divider"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/pocket"
@@ -152,7 +172,8 @@
                 android:paddingTop="10dp"
                 android:text="我的钱包"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_16sp"/>
+                android:textSize="@dimen/text_size_16sp"
+                android:visibility="gone"/>
 
             <View
                 android:layout_width="match_parent"

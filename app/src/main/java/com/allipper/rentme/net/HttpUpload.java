@@ -2,8 +2,10 @@ package com.allipper.rentme.net;
 
 import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.request.AndroidMultiPartEntity;
 import com.allipper.rentme.net.request.GsonRequest;
 import com.allipper.rentme.net.response.UploadResult;
+import com.allipper.rentme.net.upload.UploadFileRequest;
 
 import java.io.File;
 
