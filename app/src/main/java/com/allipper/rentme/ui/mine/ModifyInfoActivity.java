@@ -29,8 +29,7 @@ public class ModifyInfoActivity extends BaseActivity {
     public static final String MODIFY_VALUE = "modify_value";
     public static final int TYPE_NAME = 0;
     public static final int TYPE_STATUS = TYPE_NAME + 1;
-    public static final int TYPE_SCHEDULE = TYPE_STATUS + 1;
-    public static final int TYPE_FEE = TYPE_SCHEDULE + 1;
+    public static final int TYPE_FEE = TYPE_STATUS + 1;
 
     private RelativeLayout title_topRelativeLayout;
     private ImageView backImageView;
@@ -67,7 +66,7 @@ public class ModifyInfoActivity extends BaseActivity {
         type = it.getIntExtra(MODIFY_TYPE, -1);
         value = it.getStringExtra(MODIFY_VALUE);
         if (!TextUtils.isEmpty(value)) {
-            if ("设置昵称".equals(value) || "设置个性签名".equals(value)) {
+            if ("设置昵称".equals(value) || "设置个性签名".equals(value) || "请设置时薪".equals(value)) {
                 contentEditText.setHint(it.getStringExtra(MODIFY_VALUE));
             } else {
                 contentEditText.setText(it.getStringExtra(MODIFY_VALUE));
@@ -81,6 +80,10 @@ public class ModifyInfoActivity extends BaseActivity {
             case TYPE_STATUS:
                 titleTextView.setText("修改个性签名");
                 tipTextView.setVisibility(View.GONE);
+                break;
+            case TYPE_FEE:
+                titleTextView.setText("修改时薪");
+                tipTextView.setText("合理的时薪可以让别人更容易租到你");
                 break;
             default:
                 titleTextView.setText("修改");

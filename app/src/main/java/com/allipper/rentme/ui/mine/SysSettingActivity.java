@@ -110,6 +110,7 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra(EXIT_CURRENT_USER, true);
                             startActivity(intent);
+                            back(null);
                         }
                     }).setPositiveButton("取消", null).show();
         }

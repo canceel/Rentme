@@ -125,7 +125,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             nameTextView.setCompoundDrawables(null, null, null, null);
         }
         statusTextView.setText(SharedPreUtils.getString(getActivity(), SharedPre.User.USERDETAIL));
-        CropUtils.setHeadFromDisk(getActivity(),headCV);
+        CropUtils.setHeadFromDisk(getActivity(), headCV);
     }
 
     @Override
@@ -142,23 +142,22 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(it);
                 break;
             case R.id.mine_publish:
-//                UserInfo userInfo = Utils.getUserInfo(getActivity());
-//                if (userInfo == null || Utils.isUserInfoComplet(userInfo)) {
-//                    new AlertDialog.Builder(getActivity(), R.style.CommonDialog).setMessage
-//                            ("资料不完善，请您到个人资料中心设置？")
-//                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-//
-//
-//                                @Override
-//                                public void onClick(DialogInterface dialog, int which) {
-//                                    startActivity(new Intent(getActivity(), MineInfoActivity
-//                                            .class));
-//                                }
-//                            }).setPositiveButton("取消", null).show();
-//                } else {
+                UserInfo userInfo = Utils.getUserInfo(getActivity());
+                if (userInfo == null || Utils.isUserInfoNoneComplete(userInfo)) {
+                    new AlertDialog.Builder(getActivity(), R.style.CommonDialog).setMessage
+                            ("资料不完善，请您到个人资料中心设置？")
+                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    startActivity(new Intent(getActivity(), MineInfoActivity
+                                            .class));
+                                }
+                            }).setPositiveButton("取消", null).show();
+                } else {
                     it = new Intent(getActivity(), MinePublishInfoActivity.class);
                     startActivity(it);
-//                }
+                }
                 break;
             case R.id.mine_rent:
                 it = new Intent(getActivity(), MineRentActivity.class);

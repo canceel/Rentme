@@ -388,9 +388,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:text="吃饭、聊天、看电影"
+                        android:drawableRight="@mipmap/icon_row"
+                        android:text="设置出租范围"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
                 </LinearLayout>
@@ -422,9 +422,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:text="睡醒后"
+                        android:drawableRight="@mipmap/icon_row"
+                        android:text="设置档期"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
                 </LinearLayout>
@@ -457,10 +457,10 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
-                        android:text="300元/时"
+                        android:text="设置时薪"
                         android:textColor="@color/title_background"
+                        android:drawableRight="@mipmap/icon_row"
                         android:textSize="@dimen/text_size_15sp"/>
                 </LinearLayout>
             </LinearLayout>
