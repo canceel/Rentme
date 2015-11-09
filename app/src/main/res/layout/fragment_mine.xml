@@ -29,6 +29,7 @@
                 >
 
                 <com.allipper.rentme.widget.CircleImageView
+                    android:id="@+id/head_cv"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_centerVertical="true"
@@ -83,7 +84,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:drawableLeft="@mipmap/status_check"
+                android:drawableLeft="@mipmap/auth_icon"
                 android:drawablePadding="16dp"
                 android:gravity="left|center_vertical"
                 android:paddingBottom="10dp"

@@ -17,6 +17,7 @@ import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.ResponseCallback;
 import com.allipper.rentme.net.response.LoginResult;
+import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.ui.base.BaseLoginBusinessActivity;
 
 
@@ -73,7 +74,10 @@ public class LoginActivity extends BaseLoginBusinessActivity {
                                     @Override
                                     public void onSuccessed(Dialog dialog) {
                                         dialog.dismiss();
-                                        SharedPreUtils.putString(mContext, SharedPre.App.USER_TPE, "login");
+                                        SharedPreUtils.putString(mContext, SharedPre.App
+                                                .USER_TPE, "login");
+                                        setResult(RESULT_OK);
+                                        onBackPressed();
                                     }
                                 }, mDialog);
                             }

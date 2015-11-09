@@ -98,7 +98,6 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            //TODO 删除用户信息
                             SharedPreUtils.removeSharedKey(mContext, SharedPre.App.USER_TPE);
                             //删除SharedPreference中的用户信息
                             Utils.cleanUserInfo(SysSettingActivity.this);
@@ -111,7 +110,6 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
                             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             intent.putExtra(EXIT_CURRENT_USER, true);
                             startActivity(intent);
-                            onBackPressed();
                         }
                     }).setPositiveButton("取消", null).show();
         }

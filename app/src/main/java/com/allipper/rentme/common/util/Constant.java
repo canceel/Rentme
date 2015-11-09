@@ -76,7 +76,7 @@ public class Constant {
     //测试环境
     public static final String BASE_HOST = "http://www.zu5ba.com";
     public static final String BASE_URL = BASE_HOST + "/api/";
-//    public static final String BASE_URL = "https://10.1.6.205:9002/yonghuio2oocc/";
+    //    public static final String BASE_URL = "https://10.1.6.205:9002/yonghuio2oocc/";
     public static final String EDECA_URL = "http://10.0.140.103:8006/yonghuio2o-assembler/json";
     public static final String SHARE_HOST = "http://sit1.yonghuigo.com";
 
@@ -122,7 +122,15 @@ public class Constant {
             "v2/yonghuio2o/userstoken/changepassword";
     //获取用户信息
     public static final String API_USER_INFO = BASE_URL + "v2/yonghuio2o/userstoken/getuser";
-
+    //发布信息
+    public static final String API_PUBLISH_INFO = BASE_URL + "rentinfo/release" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
+    //取消发布信息
+    public static final String API_CANCEL_INFO = BASE_URL + "rentinfo/unrelease" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
+    //获取发布信息
+    public static final String API_GET_PUBLISH_INFO = BASE_URL + "rentinfo/getinfo" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
 
     // 获取系统的枚举配置项
     public static final String API_GET_SYS_ENUMS = BASE_URL + "common/getsysenums.json";

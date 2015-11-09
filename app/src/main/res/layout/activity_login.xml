@@ -46,13 +46,14 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@null"/>
+            android:src="@mipmap/icon_logo_black"/>
 
         <EditText
             android:id="@+id/cell_no"
             style="@style/EditTextStyle"
             android:background="@mipmap/input_bg"
             android:drawableLeft="@mipmap/cell"
+            android:layout_marginTop="40dp"
             android:drawablePadding="16dp"
             android:hint="@string/common_login_account_tip"
             android:imeOptions="actionNext"
@@ -83,7 +84,7 @@
                 android:text="@string/common_register_right_now_tip"
                 android:textColor="@color/text_blue"
                 android:gravity="left|center_vertical"
-                android:textSize="12sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <Button
                 android:id="@+id/forget"
@@ -95,7 +96,7 @@
                 android:text="@string/common_forget_password"
                 android:textColor="@color/text_blue"
                 android:gravity="right|center_vertical"
-                android:textSize="12sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
         </RelativeLayout>
 
         <Button

@@ -1,6 +1,9 @@
 package com.allipper.rentme.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -63,7 +66,7 @@ public class HomePagerViewPagerAdapter extends RecyclingPagerAdapter {
 //            }
 //        });
         holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        holder.imageView.setImageResource(R.mipmap.icon_image_default);
+        holder.imageView.setBackgroundResource(R.color.background);
 //        HttpLoad.getImage(context, themeItems.get(getPosition(position)).imageURL,
 //                holder.imageView);
         return view;

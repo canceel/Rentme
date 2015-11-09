@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -24,6 +25,7 @@ import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.AnalyticsConfig;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
+import com.umeng.message.UmengRegistrar;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -51,6 +53,10 @@ public class StartActivity extends BaseActivity implements Animation.AnimationLi
         PushAgent mPushAgent = PushAgent.getInstance(mContext);
         if(SharedPreUtils.getBoolean(mContext, SharedPre.App.MESSAGE_PUSH, true)){
             mPushAgent.enable();
+            String device_token = UmengRegistrar.getRegistrationId(mContext);
+            if(!TextUtils.isEmpty(device_token)){
+                SharedPreUtils.putString(mContext,SharedPre.App.DEVICE_TOKEN,device_token);
+            }
         }
         initView();
     }

@@ -111,18 +111,50 @@ public class Utils {
         UserInfo customer = new UserInfo();
         customer.album = getListData(context, SharedPre.User.ALBUM);
         customer.interests = SharedPreUtils.getString(context, SharedPre.User.INTERESTS);
+        customer.interestsValue = SharedPreUtils.getString(context, SharedPre.User.INTERESTS_VALUE);
         customer.ageRange = SharedPreUtils.getString(context, SharedPre.User.AGERANGE);
+        customer.ageRangeValue = SharedPreUtils.getInt(context, SharedPre.User.AGERANGE_VALUE, 0);
         customer.constellation = SharedPreUtils.getString(context, SharedPre.User.CONSTELLATION);
+        customer.constellationValue = SharedPreUtils.getInt(context, SharedPre.User
+                .CONSTELLATION_VALUE, 0);
         customer.heightRange = SharedPreUtils.getString(context, SharedPre.User.HEIGHTRANGE);
+        customer.heightRangeValue = SharedPreUtils.getInt(context, SharedPre.User
+                .HEIGHTRANGE_VALUE, 0);
         customer.nickName = SharedPreUtils.getString(context, SharedPre.User.NICKNAME);
+        customer.nickNameValue = SharedPreUtils.getString(context, SharedPre.User.NICKNAME_VALUE);
         customer.realName = SharedPreUtils.getString(context, SharedPre.User.REALNAME);
         customer.userDetail = SharedPreUtils.getString(context, SharedPre.User.USERDETAIL);
+        customer.userDetailValue = SharedPreUtils.getString(context, SharedPre.User
+                .USERDETAIL_VALUE);
         customer.weightRange = SharedPreUtils.getString(context, SharedPre.User.WEIGHTRANGE);
+        customer.weightRangeValue = SharedPreUtils.getInt(context, SharedPre.User
+                .WEIGHTRANGE_VALUE, 0);
         customer.gender = SharedPreUtils.getString(context, SharedPre.User.GENDER);
+        customer.genderValue = SharedPreUtils.getInt(context, SharedPre.User.GENDER_VALUE, 0);
         customer.mobile = SharedPreUtils.getString(context, SharedPre.User.MOBILE);
         customer.job = SharedPreUtils.getString(context, SharedPre.User.JOB);
+        customer.jobValue = SharedPreUtils.getInt(context, SharedPre.User.JOB_VALUE, 0);
         customer.avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
         return customer;
+    }
+
+    /**
+     * 用户信息不完整
+     * @param userInfo
+     * @return
+     */
+
+    public static boolean isUserInfoNoneComplete(UserInfo userInfo) {
+        boolean result = TextUtils.isEmpty(userInfo.nickNameValue)
+                || (userInfo.constellationValue == 0)
+                || TextUtils.isEmpty(userInfo.userDetailValue)
+                || (userInfo.jobValue == 0)
+                || (userInfo.genderValue == 0)
+                || (userInfo.ageRangeValue == 0)
+                || (userInfo.heightRangeValue == 0)
+                || (userInfo.weightRangeValue == 0)
+                || TextUtils.isEmpty(userInfo.interestsValue);
+        return result;
     }
 
 
@@ -130,17 +162,28 @@ public class Utils {
     public static void cleanUserInfo(Context context) {
         SharedPreUtils.removeSharedKey(context, SharedPre.User.ALBUM);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.INTERESTS);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.INTERESTS_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.AGERANGE);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.AGERANGE_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.CONSTELLATION);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.CONSTELLATION_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.HEIGHTRANGE);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.HEIGHTRANGE_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.NICKNAME);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.NICKNAME_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.REALNAME);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.USERDETAIL);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.USERDETAIL_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.WEIGHTRANGE);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.WEIGHTRANGE_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.GENDER);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.GENDER_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.MOBILE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.USERID);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.AVATARURL);
+        SharedPreUtils.removeSharedKey(context, SharedPre.App.ACCESS_TOKEN);
     }
 
 
@@ -337,18 +380,29 @@ public class Utils {
     public static void saveUserInfor(Context context, UserInfoEntity userInfoEntity) {
         UserInfo userInfo = userInfoEntity.entityToInfo();
         SharedPreUtils.putString(context, SharedPre.User.AGERANGE, userInfo.ageRange);
+        SharedPreUtils.putInt(context, SharedPre.User.AGERANGE_VALUE, userInfo.ageRangeValue);
         saveListData(context, userInfoEntity.album, SharedPre.User.ALBUM);
         SharedPreUtils.putString(context, SharedPre.User.CONSTELLATION, userInfo.constellation);
+        SharedPreUtils.putInt(context, SharedPre.User.CONSTELLATION_VALUE, userInfo
+                .constellationValue);
         SharedPreUtils.putString(context, SharedPre.User.GENDER, userInfo.gender);
+        SharedPreUtils.putInt(context, SharedPre.User.GENDER_VALUE, userInfo.genderValue);
         SharedPreUtils.putString(context, SharedPre.User.HEIGHTRANGE, userInfo.heightRange);
+        SharedPreUtils.putInt(context, SharedPre.User.HEIGHTRANGE_VALUE, userInfo.heightRangeValue);
         SharedPreUtils.putString(context, SharedPre.User.WEIGHTRANGE, userInfo.weightRange);
+        SharedPreUtils.putInt(context, SharedPre.User.WEIGHTRANGE_VALUE, userInfo.weightRangeValue);
         SharedPreUtils.putString(context, SharedPre.User.INTERESTS, userInfo.interests);
+        SharedPreUtils.putString(context, SharedPre.User.INTERESTS_VALUE, userInfo.interestsValue);
         SharedPreUtils.putString(context, SharedPre.User.JOB, userInfo.job);
-        SharedPreUtils.putString(context, SharedPre.User.MOBILE, userInfoEntity.mobile);
-        SharedPreUtils.putString(context, SharedPre.User.NICKNAME, userInfoEntity.nickName);
-        SharedPreUtils.putString(context, SharedPre.User.REALNAME, userInfoEntity.realName);
-        SharedPreUtils.putString(context, SharedPre.User.USERDETAIL, userInfoEntity.userDetail);
-        SharedPreUtils.putString(context, SharedPre.User.AVATARURL, userInfoEntity.avatarUrl);
-        SharedPreUtils.putInt(context, SharedPre.User.USERID, userInfoEntity.userId);
+        SharedPreUtils.putInt(context, SharedPre.User.JOB_VALUE, userInfo.jobValue);
+        SharedPreUtils.putString(context, SharedPre.User.MOBILE, userInfo.mobile);
+        SharedPreUtils.putString(context, SharedPre.User.NICKNAME, userInfo.nickName);
+        SharedPreUtils.putString(context, SharedPre.User.NICKNAME_VALUE, userInfo.nickNameValue);
+        SharedPreUtils.putString(context, SharedPre.User.REALNAME, userInfo.realName);
+        SharedPreUtils.putString(context, SharedPre.User.USERDETAIL, userInfo.userDetail);
+        SharedPreUtils.putString(context, SharedPre.User.USERDETAIL_VALUE, userInfo
+                .userDetailValue);
+        SharedPreUtils.putString(context, SharedPre.User.AVATARURL, userInfo.avatarUrl);
+        SharedPreUtils.putInt(context, SharedPre.User.USERID, userInfo.userId);
     }
 }

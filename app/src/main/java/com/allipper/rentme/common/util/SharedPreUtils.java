@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by Administrator on 2015/7/8.
  */
 public class SharedPreUtils {
-    private static final String SP_NAME = "haiwaigou";
+    private static final String SP_NAME = "yuehu";
 
     /**
      * 返回一个SharedPrefrence编辑对象

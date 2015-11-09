@@ -61,34 +61,8 @@ public class BaseActivity extends Activity implements View.OnClickListener {
      * @param isShowDialog 是否要显示等待框
      */
     protected void getDatas(boolean isShowDialog) {
-        if (Constant.IS_DEBUG_MODE_DATA) {
-            getTestDatas(isShowDialog);
-            setDataToView(null);
-        } else {
-            if (Utils.isNetworkConnected(mContext)) {
-                final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string
-                        .loading);
-                if (isShowDialog) {
-                    dialog.show();
-                }
-                getRealDatas(isShowDialog);
-                setDataToView(dialog);
-            }
-        }
     }
 
-
-    protected void getRealDatas(boolean isShowDialog) {
-
-    }
-
-    protected void getTestDatas(boolean isShowDialog) {
-
-    }
-
-    protected void setDataToView(Dialog dialog) {
-
-    }
 
     protected void processExit() {
         finish();

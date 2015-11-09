@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">组我Demo</string>
+    <string name="app_name">约乎</string>
 
     <string name="network_error_timeout">网络异常，请检查您的网络</string>
     <string name="network_error_parse">数据解析错误，请联系客服人员</string>
@@ -15,4 +15,6 @@
     <string name="uploading">正在上传&#8230;</string>
     <string name="updating">保存设置&#8230;</string>
     <string name="loadmore_foot_no_data_tip">没有更多数据</string>
+    <string name="publishing">正在发布&#8230;</string>
+    <string name="unpublishing">正在取消发布&#8230;</string>
 </resources>

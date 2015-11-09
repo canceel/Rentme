@@ -22,6 +22,7 @@ public class SharedPre {
         public static final String MESSAGE_PUSH = "message_push";//消息推送
         public static final String EXPIRES_IN = "expires_in";//过期时间
         public static final String START_IMAGE = "start_image";//启动页
+        public static final String DEVICE_TOKEN = "device_token";
     }
 
     public static abstract class User {
@@ -30,14 +31,23 @@ public class SharedPre {
         public static final String MOBILE = "mobile";//用户手机号啊
         public static final String REALNAME = "realName";
         public static final String USERDETAIL = "userDetail";
+        public static final String USERDETAIL_VALUE = "userDetail_value";
         public static final String NICKNAME = "nickName";
+        public static final String NICKNAME_VALUE = "nickName_value";
         public static final String CONSTELLATION = "constellation";
+        public static final String CONSTELLATION_VALUE = "constellation_value";
         public static final String GENDER = "gender";
+        public static final String GENDER_VALUE = "gender_value";
         public static final String JOB = "job";
+        public static final String JOB_VALUE = "job_value";
         public static final String AGERANGE = "ageRange";
-        public static final String HEIGHTRANGE = "heightRange";//用户手机
-        public static final String WEIGHTRANGE = "weightRange";//用户手机是否验证
+        public static final String AGERANGE_VALUE = "ageRange_value";
+        public static final String HEIGHTRANGE = "heightRange";
+        public static final String HEIGHTRANGE_VALUE = "heightRange_value";
+        public static final String WEIGHTRANGE = "weightRange";
+        public static final String WEIGHTRANGE_VALUE = "weightRange_value";
         public static final String INTERESTS = "interests";//用户邮箱
+        public static final String INTERESTS_VALUE = "interests_value";//用户邮箱
         public static final String ALBUM = "album";//用户邮箱是否验证
     }
 

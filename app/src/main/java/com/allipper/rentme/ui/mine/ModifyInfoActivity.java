@@ -39,6 +39,7 @@ public class ModifyInfoActivity extends BaseActivity {
     private TextView tipTextView;
 
     private int type;
+    private String value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,11 +65,18 @@ public class ModifyInfoActivity extends BaseActivity {
     public void getDatas(boolean isShowDialog) {
         Intent it = getIntent();
         type = it.getIntExtra(MODIFY_TYPE, -1);
-        contentEditText.setText(it.getStringExtra(MODIFY_VALUE));
+        value = it.getStringExtra(MODIFY_VALUE);
+        if (!TextUtils.isEmpty(value)) {
+            if ("设置昵称".equals(value) || "设置个性签名".equals(value)) {
+                contentEditText.setHint(it.getStringExtra(MODIFY_VALUE));
+            } else {
+                contentEditText.setText(it.getStringExtra(MODIFY_VALUE));
+            }
+        }
         switch (type) {
             case TYPE_NAME:
-                titleTextView.setText("修改姓名");
-                tipTextView.setText("好姓名可以让别人更容易记住你");
+                titleTextView.setText("修改昵称");
+                tipTextView.setText("好昵称可以让别人更容易记住你");
                 break;
             case TYPE_STATUS:
                 titleTextView.setText("修改个性签名");
@@ -98,39 +106,7 @@ public class ModifyInfoActivity extends BaseActivity {
             ToastUtils.show(mContext, "内容不能为空");
             return;
         }
-        switch (type) {
-            case TYPE_NAME:
-                updateUserInfo(SharedPre.User.NICKNAME, contentEditText.getText().toString());
-                break;
-            case TYPE_STATUS:
-                updateUserInfo(SharedPre.User.USERDETAIL, contentEditText.getText().toString());
-                break;
-        }
-    }
-
-    private void updateUserInfo(String type, String value) {
-        if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.updating);
-            dialog.show();
-            HttpLoad.UserModule.updateUserInfor(TAG, type, value, Utils.getToken
-                    (mContext), new
-                    ResponseCallback<UpdateUserInforResponse>(mContext) {
-
-                        @Override
-                        public void onRequestSuccess(UpdateUserInforResponse result) {
-                            Utils.saveUserInfor(mContext, result.data);
-                            dialog.dismiss();
-                            onSuccessed();
-                        }
-
-                        @Override
-                        public void onReuquestFailed(String error) {
-                            dialog.dismiss();
-                            ToastUtils.show(mContext, error);
-                        }
-                    });
-
-        }
+        onSuccessed();
     }
 
     private void onSuccessed() {

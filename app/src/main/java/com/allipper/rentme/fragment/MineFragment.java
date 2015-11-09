@@ -1,5 +1,7 @@
 package com.allipper.rentme.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -12,9 +14,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.common.util.CropUtils;
 import com.allipper.rentme.common.util.SharedPre;
 import com.allipper.rentme.common.util.SharedPreUtils;
+import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.response.UserInfo;
 import com.allipper.rentme.ui.GuideActivity;
+import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.ui.mine.AgreementActivity;
 import com.allipper.rentme.ui.mine.GiveBackActivity;
 import com.allipper.rentme.ui.mine.MineAuthActivity;
@@ -24,6 +30,7 @@ import com.allipper.rentme.ui.mine.MinePublishInfoActivity;
 import com.allipper.rentme.ui.mine.MineRentActivity;
 import com.allipper.rentme.ui.mine.RentMeActivity;
 import com.allipper.rentme.ui.mine.SysSettingActivity;
+import com.allipper.rentme.widget.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
 
 /**
@@ -36,6 +43,7 @@ import com.umeng.analytics.MobclickAgent;
 public class MineFragment extends Fragment implements View.OnClickListener {
 
     private TextView nameTextView;
+    private CircleImageView headCV;
     private TextView statusTextView;
     private TextView mine_authTextView;
     private TextView mine_publishTextView;
@@ -85,6 +93,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         settingTextView = (TextView) view.findViewById(R.id.setting);
         pocketTextView = (TextView) view.findViewById(R.id.pocket);
         mineRelativeLayout = (RelativeLayout) view.findViewById(R.id.mine_rl);
+        headCV = (CircleImageView) view.findViewById(R.id.head_cv);
 
         mine_publishTextView.setOnClickListener(this);
         mine_authTextView.setOnClickListener(this);
@@ -116,6 +125,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
             nameTextView.setCompoundDrawables(null, null, null, null);
         }
         statusTextView.setText(SharedPreUtils.getString(getActivity(), SharedPre.User.USERDETAIL));
+        CropUtils.setHeadFromDisk(getActivity(),headCV);
     }
 
     @Override
@@ -132,8 +142,23 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(it);
                 break;
             case R.id.mine_publish:
-                it = new Intent(getActivity(), MinePublishInfoActivity.class);
-                startActivity(it);
+//                UserInfo userInfo = Utils.getUserInfo(getActivity());
+//                if (userInfo == null || Utils.isUserInfoComplet(userInfo)) {
+//                    new AlertDialog.Builder(getActivity(), R.style.CommonDialog).setMessage
+//                            ("资料不完善，请您到个人资料中心设置？")
+//                            .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+//
+//
+//                                @Override
+//                                public void onClick(DialogInterface dialog, int which) {
+//                                    startActivity(new Intent(getActivity(), MineInfoActivity
+//                                            .class));
+//                                }
+//                            }).setPositiveButton("取消", null).show();
+//                } else {
+                    it = new Intent(getActivity(), MinePublishInfoActivity.class);
+                    startActivity(it);
+//                }
                 break;
             case R.id.mine_rent:
                 it = new Intent(getActivity(), MineRentActivity.class);

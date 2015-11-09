@@ -1,6 +1,9 @@
 package com.allipper.rentme.ui;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +28,7 @@ import com.allipper.rentme.fragment.MineFragment;
 import com.allipper.rentme.ui.base.FragmentBaseActivity;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
 import com.allipper.rentme.ui.login.LoginActivity;
+import com.allipper.rentme.ui.mine.SysSettingActivity;
 import com.allipper.rentme.widget.MyFilterPopupWindow;
 
 import java.util.ArrayList;
@@ -39,6 +43,8 @@ import io.rong.imlib.model.UserInfo;
 public class IndexActivity extends FragmentBaseActivity implements View.OnClickListener {
 
     public static final String UPDATE_USER_INFO = "update_user_info";
+    public final static int ACTIVITY_LOGIN = 100;
+
     String Token = "/vF9at/zPgLACf2atvUXXLSUXIuhYrpnL2rv6v3TqMTdk6sO8EkeHI7KLV0+vJQqQ90T/Ijz" +
             "+lKSO4/TnNq1Hw==";//test
     private static long BACK_PRESSED;
@@ -63,17 +69,36 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     private int position = 0;
     private ArrayList<FilterItem> filterItems = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
         fragmentManager = getSupportFragmentManager();
         db = new DbManager(this);
+        registerAction();
         findViews();
         setIMkitConnection();
         setIMkitUserInfo();
         setTabSelection(position);
     }
+
+    private void registerAction() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(UPDATE_USER_INFO);
+        registerReceiver(mReceiver, filter);
+    }
+
+    private BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(UPDATE_USER_INFO.equals(intent.getAction())){
+                if(mineFragment != null){
+                    mineFragment.updateUserInfo();
+                }
+            }
+        }
+    };
 
     private void setIMkitUserInfo() {
         /**
@@ -232,7 +257,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 break;
             case R.id.mine_tab_ll:
                 if (Utils.isGuestUser(mContext)) { // 匿名用户不可进入个人中心
-                    startActivity(new Intent(this, LoginActivity.class));
+                    startActivityForResult(new Intent(this, LoginActivity.class), ACTIVITY_LOGIN);
                 } else {
                     setTabSelection(TAB_MINE);
                 }
@@ -363,12 +388,15 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     }
 
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         Uri data = intent.getData();
         if (data != null && !TextUtils.isEmpty(data.getPath()) && data.getPath().equals
                 ("/conversationlist")) {
             setTabSelection(TAB_MESSAGE);
         }
-        Logger.d("xxx", "sss");
+        if (intent.getBooleanExtra(SysSettingActivity.EXIT_CURRENT_USER, false)) {
+            setTabSelection(TAB_HOME);
+        }
     }
 
     @Override
@@ -378,6 +406,10 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
             // Make sure the request was successful
             if (resultCode == RESULT_OK) {
                 titleBtn.setText(data.getStringExtra("city"));
+            }
+        } else if (ACTIVITY_LOGIN == requestCode) {
+            if (resultCode == RESULT_OK) {
+                setTabSelection(TAB_MINE);
             }
         }
     }

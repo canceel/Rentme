@@ -7,13 +7,16 @@ import android.widget.ImageView;
 import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.request.GsonRequest;
+import com.allipper.rentme.net.response.GetPublishInfoResponse;
 import com.allipper.rentme.net.response.LoginResult;
 import com.allipper.rentme.net.response.RefresTockenResponse;
 import com.allipper.rentme.net.response.RegistResult;
 import com.allipper.rentme.net.response.ResponseAppVersion;
+import com.allipper.rentme.net.response.ResponseBase;
 import com.allipper.rentme.net.response.ResponseMessageBean;
 import com.allipper.rentme.net.response.SysEnumsResponse;
 import com.allipper.rentme.net.response.UpdateUserInforResponse;
+import com.allipper.rentme.net.response.UserInfo;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
@@ -231,15 +234,35 @@ public class HttpLoad {
 
         /**
          * 更新用户信息
+         * <p/>
+         * {
+         * "nickName": "Air",
+         * "userDetail":"我的生活,我做主!",
+         * "gender":2,
+         * "constellation":11,
+         * "job":1,
+         * "ageRange":3,
+         * "heightRange":7,
+         * "weighRange":6,
+         * "interests":"1,2,4,6"
+         * }
          */
 
         public static void updateUserInfor(
-                String tag, String type,
-                String value,
+                String tag,
+                UserInfo userInfo,
                 String token,
                 ResponseCallback<UpdateUserInforResponse> callback) {
             final Map<String, String> params = new HashMap<>();
-            params.put(type, value);
+            params.put("nickName", userInfo.nickNameValue);
+            params.put("userDetail", userInfo.userDetailValue);
+            params.put("gender", String.valueOf(userInfo.genderValue));
+            params.put("constellation", String.valueOf(userInfo.constellationValue));
+            params.put("job", String.valueOf(userInfo.jobValue));
+            params.put("ageRange", String.valueOf(userInfo.ageRangeValue));
+            params.put("heightRange", String.valueOf(userInfo.heightRangeValue));
+            params.put("weighRange", String.valueOf(userInfo.weightRangeValue));
+            params.put("interests", userInfo.interestsValue);
             String timestamp = String.valueOf(System.currentTimeMillis());
             String url = String.format(Constant.API_USER_MODIFY_INFO, token, timestamp, signUrl
                     (token,
@@ -279,5 +302,78 @@ public class HttpLoad {
                     callback);
             HttpUtils.getInstance().request(tag, request);
         }
+
+        /**
+         * 发布信息
+         */
+
+        public static void publishInfo(
+                String tag, String rentRange,
+                String schedule,
+                String perHourPrice,
+                String token,
+                ResponseCallback<ResponseBase> callback) {
+            final Map<String, String> params = new HashMap<>();
+            params.put("rentRange", rentRange);
+            params.put("schedule", schedule);
+            params.put("perHourPrice", perHourPrice);
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_PUBLISH_INFO, token, timestamp, signUrl
+                    (token,
+                            timestamp));
+            GsonRequest<ResponseBase> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    ResponseBase.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 取消信息
+         */
+
+        public static void cancelInfo(
+                String tag,
+                String token,
+                ResponseCallback<ResponseBase> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_CANCEL_INFO, token, timestamp, signUrl
+                    (token,
+                            timestamp));
+            GsonRequest<ResponseBase> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    ResponseBase.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 获取信息
+         */
+
+        public static void getPublishInfo(
+                String tag,
+                String token,
+                ResponseCallback<GetPublishInfoResponse> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_GET_PUBLISH_INFO, token, timestamp, signUrl
+                    (token,
+                            timestamp));
+            GsonRequest<GetPublishInfoResponse> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    GetPublishInfoResponse.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
     }
 }

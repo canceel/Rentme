@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
@@ -26,13 +27,24 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.application.ApplicationInit;
 import com.allipper.rentme.common.util.CropUtils;
 import com.allipper.rentme.common.util.DialogUtils;
 import com.allipper.rentme.common.util.LoadDialogUtil;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.GetPublishInfoResponse;
+import com.allipper.rentme.net.response.ItemsEntity;
+import com.allipper.rentme.net.response.ResponseBase;
+import com.allipper.rentme.net.response.SysEnumsResponse;
+import com.allipper.rentme.net.response.UserInfo;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.widget.CircleImageView;
 import com.allipper.rentme.widget.NoRequsetGridView;
+
+import java.util.List;
 
 public class MinePublishInfoActivity extends BaseActivity {
     private static final String TAG = MinePublishInfoActivity.class.getSimpleName();
@@ -42,6 +54,12 @@ public class MinePublishInfoActivity extends BaseActivity {
     private static final int PHOTO_REQUEST_CUT = 2;
 
     public static final int CUSTOMER_INFO_MODIFY = 3;
+
+
+    public static final int MODIDFY_STATUS = 0;
+    public static final int NORMAL_STATUS = 1;
+    public static final int NODATA_STATUS = 2;
+    public static final int CREATE_STATUS = 3;
 
     //用于保存剪裁后图片的URI
     private Uri imageUri = CropUtils.buildSavedUri();
@@ -57,6 +75,7 @@ public class MinePublishInfoActivity extends BaseActivity {
     private TextView constellationTextView;
     private TextView locationTextView;
     private LinearLayout persen_pictureLinearLayout;
+    private CircleImageView headCircleImageView;
     private TextView careerTextView;
     private TextView ageTextView;
     private TextView tallTextView;
@@ -66,34 +85,101 @@ public class MinePublishInfoActivity extends BaseActivity {
     private TextView hobbyTextView;
     private TextView feeTextView;
     private TextView statusTextView;
+    private TextView toPictureTextView;
     private RelativeLayout picturebgRelativeLayout;
     private ImageView deleteImageView;
+    private Button editButton;
     private HorizontalScrollView hsvHorizontalScrollView;
     private NoRequsetGridView bigPicturesNoRequsetGridView;
+    private LinearLayout bottomLinearLayout;
 
     private boolean[] offerContentIndex;
     private String[] offerContents;
+    private boolean[] scheduleIndex;
+    private String[] schedules;
 
-    private int selectedIndex;
+    private String rentRange;
+    private String scheduleRange;
+    private String perHourPrice;
+    private UserInfo userInfo;
+    private int currentStatus = NORMAL_STATUS;
+    private GetPublishInfoResponse.DataEntity data;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine_publish_info);
-        offerContents = getResources().getStringArray(R.array.select_offercontent);
-        offerContentIndex = new boolean[offerContents.length];
+        initData();
         findViews();
-        getData(false);
+        getDatas(true);
     }
 
-    private void getData(boolean isShowDialog) {
-
+    private void initData() {
+        if (userInfo == null) {
+            userInfo = Utils.getUserInfo(mContext);
+        }
+        offerContents = ApplicationInit.getFormatStringArray(SysEnumsResponse.RENT);
+        offerContentIndex = new boolean[offerContents.length];
+        schedules = ApplicationInit.getFormatStringArray(SysEnumsResponse.SCHEDULE);
+        scheduleIndex = new boolean[schedules.length];
     }
+
+    public void getDatas(boolean isShowDialog) {
+        if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string
+                    .loading);
+            if (isShowDialog) {
+                dialog.show();
+            }
+            HttpLoad.UserModule.getPublishInfo(TAG, Utils.getToken(mContext), new
+                    ResponseCallback<GetPublishInfoResponse>(mContext) {
+                        @Override
+                        public void onRequestSuccess(GetPublishInfoResponse result) {
+                            dialog.dismiss();
+                            data = result.data;
+                            if (data == null) {
+                                scrollViewScrollView.setVisibility(View.GONE);
+                                editButton.setText("新增");
+                                currentStatus = NODATA_STATUS;
+                            } else {
+                                scrollViewScrollView.setVisibility(View.VISIBLE);
+                                StringBuffer sb = new StringBuffer();
+                                StringBuffer sb1 = new StringBuffer();
+
+                                for (ItemsEntity item : data.rentRange.items) {
+                                    sb.append("、").append(item.name);
+                                    sb1.append(",").append(item.value);
+                                }
+                                rentRange = sb1.deleteCharAt(0).toString();
+                                offercontentTextView.setText(sb.deleteCharAt(0));
+                                sb.delete(0, sb.length() - 1);
+                                sb1.delete(0, sb1.length() - 1);
+                                for (ItemsEntity item : data.schedule.items) {
+                                    sb.append("、").append(item.name);
+                                }
+                                scheduleRange = sb1.deleteCharAt(0).toString();
+                                scheduleTextView.setText(sb.deleteCharAt(0));
+
+                                perHourPrice = data.perHourPrice;
+                                feeTextView.setText(data.perHourPrice + "元/时");
+                            }
+                        }
+
+                        @Override
+                        public void onReuquestFailed(String error) {
+                            ToastUtils.show(mContext, error);
+                            dialog.dismiss();
+                        }
+                    });
+        }
+    }
+
 
     private void findViews() {
         backImageView = (ImageView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
+        toPictureTextView = (TextView) findViewById(R.id.toPicture);
         scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
         imageViewImageView = (ImageView) findViewById(R.id.imageView);
         first_flFrameLayout = (FrameLayout) findViewById(R.id.first_fl);
@@ -114,12 +200,33 @@ public class MinePublishInfoActivity extends BaseActivity {
         deleteImageView = (ImageView) findViewById(R.id.delete);
         hsvHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
         bigPicturesNoRequsetGridView = (NoRequsetGridView) findViewById(R.id.bigPictures);
+        editButton = (Button) findViewById(R.id.edit);
+        headCircleImageView = (CircleImageView) findViewById(R.id.head);
+        bottomLinearLayout = (LinearLayout) findViewById(R.id.bottom);
+
 
         backImageView.setOnClickListener(this);
         imageViewImageView.setOnClickListener(this);
         feeTextView.setOnClickListener(this);
         offercontentTextView.setOnClickListener(this);
         scheduleTextView.setOnClickListener(this);
+        toPictureTextView.setOnClickListener(this);
+        findViewById(R.id.dating).setOnClickListener(this);
+        findViewById(R.id.cancel).setOnClickListener(this);
+        editButton.setOnClickListener(this);
+
+        if (userInfo != null) {
+            nameTextView.setText(userInfo.nickName);
+            constellationTextView.setText(userInfo.userDetail);
+            careerTextView.setText(userInfo.job);
+            ageTextView.setText(userInfo.ageRange);
+            tallTextView.setText(userInfo.heightRange);
+            weightTextView.setText(userInfo.weightRange);
+            hobbyTextView.setText(userInfo.interests);
+            CropUtils.setHeadFromDisk(mContext, headCircleImageView);
+        }
+
+        scrollViewScrollView.setVisibility(View.GONE);
 
     }
 
@@ -127,11 +234,23 @@ public class MinePublishInfoActivity extends BaseActivity {
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
+            case R.id.edit:
+                changeStatus(view);
+                break;
+            case R.id.dating:
+                confirm(view);
+                break;
+            case R.id.cancel:
+                cancel(view);
+                break;
             case R.id.imageView:
                 changeBackgroud(view);
                 break;
             case R.id.fee:
                 changeFee(view);
+                break;
+            case R.id.toPicture:
+                changePicture(view);
                 break;
             case R.id.offercontent:
                 changeOfferContent(view);
@@ -144,6 +263,67 @@ public class MinePublishInfoActivity extends BaseActivity {
                 break;
         }
     }
+
+    private void cancel(View view) {
+        if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string
+                    .unpublishing);
+            dialog.show();
+            HttpLoad.UserModule.cancelInfo(TAG, Utils
+                    .getToken(mContext), new ResponseCallback<ResponseBase>(mContext) {
+
+
+                @Override
+                public void onRequestSuccess(ResponseBase result) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, "取消发布成功");
+                    scrollViewScrollView.setVisibility(View.GONE);
+                    scrollViewScrollView.setVisibility(View.GONE);
+                    editButton.setText("新增");
+                    currentStatus = NODATA_STATUS;
+                }
+
+                @Override
+                public void onReuquestFailed(String error) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, error);
+                }
+            });
+        }
+    }
+
+    private void changeStatus(View view) {
+        if (NODATA_STATUS == currentStatus) {
+            editButton.setText("取消");
+            bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .slide_in));
+            bottomLinearLayout.setVisibility(View.VISIBLE);
+            currentStatus = CREATE_STATUS;
+            scrollViewScrollView.setVisibility(View.VISIBLE);
+        } else if (CREATE_STATUS == currentStatus) {
+            editButton.setText("新增");
+            bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .slide_in));
+            bottomLinearLayout.setVisibility(View.VISIBLE);
+            scrollViewScrollView.setVisibility(View.VISIBLE);
+            currentStatus = NORMAL_STATUS;
+        } else if (NORMAL_STATUS == currentStatus) {
+            editButton.setText("取消");
+            bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .slide_in));
+            bottomLinearLayout.setVisibility(View.VISIBLE);
+            currentStatus = MODIDFY_STATUS;
+            scrollViewScrollView.setVisibility(View.VISIBLE);
+        } else {
+            editButton.setText("编辑");
+            bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .slide_out));
+            bottomLinearLayout.setVisibility(View.GONE);
+            currentStatus = NORMAL_STATUS;
+            scrollViewScrollView.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     public void changeBackgroud(View view) {
         View contentView = LayoutInflater.from(this).inflate(
@@ -215,8 +395,8 @@ public class MinePublishInfoActivity extends BaseActivity {
             String[] strs = str.split("、");
             for (String temp : strs) {
                 int i = 0;
-                for (String temp1 : offerContents) {
-                    if (temp.equals(temp1)) {
+                for (ItemsEntity temp1 : ApplicationInit.getInterestEntities().items) {
+                    if (temp.equals(temp1.name)) {
                         offerContentIndex[i] = true;
                         break;
                     }
@@ -224,66 +404,45 @@ public class MinePublishInfoActivity extends BaseActivity {
                 }
             }
         }
-        showAlertDialog(offerContentIndex, offerContents, "请选择出租范围", offercontentTextView);
+        showAlertDialog(offerContentIndex, offerContents, "请选择出租范围", offercontentTextView,
+                ApplicationInit.getRentRangeEntities().items, SysEnumsResponse.RENT);
     }
 
     public void changeSchedule(View view) {
-        startIntentActivity(ModifyInfoActivity.TYPE_SCHEDULE, scheduleTextView.getText()
-                .toString());
-    }
-
-    private int processIndex(String value, String[] datas) {
-        int index = 0;
-        if (!TextUtils.isEmpty(value)) {
-            for (String data : datas) {
-                if (data.equals(value)) {
-                    break;
+        for (int i = 0; i < scheduleIndex.length; i++) {
+            scheduleIndex[i] = false;
+        }
+        String str = scheduleTextView.getText().toString();
+        if (!TextUtils.isEmpty(str)) {
+            String[] strs = str.split("、");
+            for (String temp : strs) {
+                int i = 0;
+                for (ItemsEntity temp1 : ApplicationInit.getInterestEntities().items) {
+                    if (temp.equals(temp1.name)) {
+                        scheduleIndex[i] = true;
+                        break;
+                    }
+                    i++;
                 }
-                index++;
             }
         }
-        return index;
+        showAlertDialog(scheduleIndex, schedules, "请选择档期范围", scheduleTextView,
+                ApplicationInit.getScheduleEntities().items, SysEnumsResponse.SCHEDULE);
     }
+
 
     /**
      * 创建选择对话框
      */
-    private void showAlertDialog(final int index, final String[] datas, String title, final
-    TextView view) {
-        Dialog dialog = null;
-        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style
-                .CommonDialog);
-        builder.setSingleChoiceItems(datas, index, new
-                DialogInterface
-                        .OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        selectedIndex = which;
-                    }
-                });
-        builder.setTitle(title);
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                view.setText(datas[selectedIndex]);
-            }
-        });
-        dialog = builder.create();
-        dialog.show();
-        DialogUtils.dialogTitleLineColor(dialog);
-    }
-
     /**
      * 创建选择对话框
      */
-    private void showAlertDialog(final boolean[] indexs, final String[] datas, String title, final
-    TextView view) {
+    private void showAlertDialog(final boolean[] indexs,
+                                 final String[] datas,
+                                 String title,
+                                 final TextView view,
+                                 final List<ItemsEntity> itemsEntities,
+                                 final String type) {
         Dialog dialog = null;
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style
                 .CommonDialog);
@@ -306,22 +465,34 @@ public class MinePublishInfoActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 StringBuffer sb = new StringBuffer();
+                StringBuffer paramSb = new StringBuffer();
                 int i = 0;
                 for (boolean index : indexs) {
                     if (index) {
-                        sb.append(datas[i++]).append("、");
+                        sb.append(itemsEntities.get(i++).name).append("、");
+                        paramSb.append(itemsEntities.get(i++).value).append(",");
                     } else {
                         i++;
                     }
                 }
                 if (sb.length() > 0) {
                     view.setText(sb.deleteCharAt(sb.length() - 1));
+                    paramSb.deleteCharAt(paramSb.length() - 1);
+                    setData(type, paramSb.toString());
                 }
             }
         });
         dialog = builder.create();
         dialog.show();
         DialogUtils.dialogTitleLineColor(dialog);
+    }
+
+    private void setData(String type, String s) {
+        if (type.equals(SysEnumsResponse.RENT)) {
+            rentRange = s;
+        } else if (type.equals(SysEnumsResponse.SCHEDULE)) {
+            scheduleRange = s;
+        }
     }
 
 
@@ -337,12 +508,33 @@ public class MinePublishInfoActivity extends BaseActivity {
         startIntentActivity(ModifyInfoActivity.TYPE_FEE, feeTextView.getText().toString());
     }
 
-    public void delete(View view) {
-    }
-
     public void confirm(View view) {
-        ToastUtils.show(mContext, "发布成功");
-        finish();
+        if (TextUtils.isEmpty(rentRange)) {
+            ToastUtils.show(mContext, "请设置出租范围");
+        } else if (TextUtils.isEmpty(scheduleRange)) {
+            ToastUtils.show(mContext, "请设置档期");
+        } else if (TextUtils.isEmpty(perHourPrice)) {
+            ToastUtils.show(mContext, "请设置时薪");
+        } else if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.publishing);
+            dialog.show();
+            HttpLoad.UserModule.publishInfo(TAG, rentRange, scheduleRange, perHourPrice, Utils
+                    .getToken(mContext), new ResponseCallback<ResponseBase>(mContext) {
+
+
+                @Override
+                public void onRequestSuccess(ResponseBase result) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, "发布成功");
+                }
+
+                @Override
+                public void onReuquestFailed(String error) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, error);
+                }
+            });
+        }
     }
 
 
@@ -354,13 +546,13 @@ public class MinePublishInfoActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     //从相册选取成功后，需要从Uri中拿出图片的绝对路径，再调用剪切
                     Uri newUri = Uri.parse("file:///" + CropUtils.getPath(this, data.getData()));
-//                    if (newUri != null) {
-//                        CropUtils.cropImageUri(this, newUri, imageUri, head_cvCircleImageView
-//                                        .getWidth(),
-//                                head_cvCircleImageView.getHeight(), PHOTO_REQUEST_CUT);
-//                    } else {
-//                        ToastUtils.show(this, "没有得到相册图片");
-//                    }
+                    if (newUri != null) {
+                        CropUtils.cropImageUri(this, newUri, imageUri, imageViewImageView
+                                        .getWidth(),
+                                imageViewImageView.getHeight(), PHOTO_REQUEST_CUT);
+                    } else {
+                        ToastUtils.show(this, "没有得到相册图片");
+                    }
                 } else if (resultCode == RESULT_CANCELED) {
                     ToastUtils.show(this, "从相册选取取消");
                 } else {
@@ -406,11 +598,9 @@ public class MinePublishInfoActivity extends BaseActivity {
 
     private void updateInfo(int type, String value) {
         switch (type) {
-            case ModifyInfoActivity.TYPE_SCHEDULE:
-                scheduleTextView.setText(value);
-                break;
             case ModifyInfoActivity.TYPE_FEE:
-                feeTextView.setText(value);
+                feeTextView.setText(value+"元/时");
+                perHourPrice = value;
                 break;
         }
     }

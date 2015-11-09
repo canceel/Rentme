@@ -22,6 +22,7 @@ import com.allipper.rentme.adapter.MinePicturesAdapter;
 import com.allipper.rentme.adapter.PicturesAdapter;
 import com.allipper.rentme.bean.ActionBean;
 import com.allipper.rentme.bean.ImageBean;
+import com.allipper.rentme.common.util.LoadDialogUtil;
 import com.allipper.rentme.common.util.SharedPre;
 import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
@@ -91,24 +92,12 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
 
     }
 
-    /**
-     * 利用ContentProvider扫描手机中的图片，此方法在运行在子线程中 完成图片的扫描，最终获得jpg最多的那个文件夹
-     */
-    @Override
-    public void getTestDatas(boolean isShowDialog) {
-        for (int i = 0; i < 5; i++) {
-            ImageBean ib = new ImageBean();
-            ib.url = "uri" + i;
-            pictureUrls.add(ib);
-        }
-        pictureUrlStrs.add("1");
-        pictureUrlStrs.add("2");
-        pictureUrlStrs.add("2");
-        pictureUrlStrs.add("2");
-        pictureUrlStrs.add("2");
-    }
 
-    public void getRealDatas(boolean isShowDialog) {
+    public void getDatas(boolean isShowDialog) {
+        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+        if (isShowDialog) {
+            dialog.show();
+        }
         String albumStr = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
         if (!TextUtils.isEmpty(albumStr)) {
             String[] album = albumStr.split(",");
@@ -119,6 +108,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
                 pictureUrlStrs.add(album[i]);
             }
         }
+        setDataToView(dialog);
     }
 
     public void setDataToView(Dialog dialog) {
