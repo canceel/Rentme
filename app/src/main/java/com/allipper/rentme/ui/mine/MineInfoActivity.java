@@ -16,12 +16,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.application.ApplicationInit;
@@ -90,7 +94,9 @@ public class MineInfoActivity extends BaseActivity {
     private TextView weight_valueTextView;
     private LinearLayout hobbyLinearLayout;
     private TextView hobby_valueTextView;
+    private TextSwitcher editButton;
     private Button saveButton;
+    private View bottomDividerView;
 
     private int constellationIndex;
     private String[] constellations;
@@ -111,6 +117,8 @@ public class MineInfoActivity extends BaseActivity {
 
     private UserInfo userInfoEntity;
     private int currentStatus = NORMAL_STATUS;
+    private ScrollView scrollViewScrollView;
+    private LinearLayout bottomLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,9 +182,27 @@ public class MineInfoActivity extends BaseActivity {
         hobbyLinearLayout = (LinearLayout) findViewById(R.id.hobby);
         hobby_valueTextView = (TextView) findViewById(R.id.hobby_value);
         saveButton = (Button) findViewById(R.id.save);
-
+        scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
+        bottomLinearLayout = (LinearLayout) findViewById(R.id.bottom);
+        bottomDividerView = findViewById(R.id.bottom_divider);
+        editButton = (TextSwitcher) findViewById(R.id.edit);
+        editButton.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView tv = new TextView(MineInfoActivity.this);
+                tv.setTextColor(getResources().getColor(R.color.white));
+                tv.setGravity(Gravity.CENTER);
+                return tv;
+            }
+        });
+        editButton.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                .rotate_in));
+        editButton.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                .rotate_out));
+        editButton.setText("编辑");
 
         backImageView.setOnClickListener(this);
+        editButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         findViewById(R.id.toPicture).setOnClickListener(this);
 
@@ -190,6 +216,9 @@ public class MineInfoActivity extends BaseActivity {
         switch (id) {
             case R.id.head_cv:
                 changeHead(view);
+                break;
+            case R.id.edit:
+                changeEditStatus(view);
                 break;
             case R.id.save:
                 save(view);
@@ -227,6 +256,80 @@ public class MineInfoActivity extends BaseActivity {
             default:
                 super.onClick(view);
                 break;
+        }
+    }
+
+    private void changeEditStatus(View view) {
+        if (currentStatus == NORMAL_STATUS) {
+            currentStatus = EDIT_STATUS;
+            editButton.setText("取消");
+            head_cvCircleImageView.setOnClickListener(this);
+            name_valueTextView.setOnClickListener(this);
+            status_valueTextView.setOnClickListener(this);
+            constellation_valueTextView.setOnClickListener(this);
+            sex_valueTextView.setOnClickListener(this);
+            career_valueTextView.setOnClickListener(this);
+            age_valueTextView.setOnClickListener(this);
+            height_valueTextView.setOnClickListener(this);
+            weight_valueTextView.setOnClickListener(this);
+            hobby_valueTextView.setOnClickListener(this);
+            iconImageView.setVisibility(View.VISIBLE);
+            Drawable drawable = getResources().getDrawable(R.mipmap.icon_row);
+            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
+                    null);
+            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                    drawable, null);
+            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
+                    null);
+            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
+                    null);
+            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
+                    null);
+            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+
+            bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .slide_in));
+            bottomLinearLayout.setVisibility(View.VISIBLE);
+            bottomDividerView.setVisibility(View.VISIBLE);
+        } else {
+            currentStatus = NORMAL_STATUS;
+            editButton.setText("编辑");
+            head_cvCircleImageView.setOnClickListener(null);
+            name_valueTextView.setOnClickListener(null);
+            status_valueTextView.setOnClickListener(null);
+            constellation_valueTextView.setOnClickListener(null);
+            sex_valueTextView.setOnClickListener(null);
+            career_valueTextView.setOnClickListener(null);
+            age_valueTextView.setOnClickListener(null);
+            height_valueTextView.setOnClickListener(null);
+            weight_valueTextView.setOnClickListener(null);
+            hobby_valueTextView.setOnClickListener(null);
+            iconImageView.setVisibility(View.INVISIBLE);
+            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds
+                    (null, null, null, null);
+            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                    null, null);
+            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                    null, null);
+            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .slide_out));
+            bottomLinearLayout.setVisibility(View.GONE);
+            bottomDividerView.setVisibility(View.GONE);
         }
     }
 
@@ -459,8 +562,9 @@ public class MineInfoActivity extends BaseActivity {
                 int i = 0;
                 for (boolean index : indexs) {
                     if (index) {
-                        sb.append(itemsEntities.get(i++).name).append("、");
-                        paramSb.append(itemsEntities.get(i++).value).append(",");
+                        sb.append(itemsEntities.get(i).name).append("、");
+                        paramSb.append(itemsEntities.get(i).value).append(",");
+                        i++;
                     } else {
                         i++;
                     }
@@ -573,38 +677,6 @@ public class MineInfoActivity extends BaseActivity {
     }
 
     public void save(View view) {
-        if (currentStatus == NORMAL_STATUS) {
-            currentStatus = EDIT_STATUS;
-            saveButton.setText("保存");
-            head_cvCircleImageView.setOnClickListener(this);
-            name_valueTextView.setOnClickListener(this);
-            status_valueTextView.setOnClickListener(this);
-            constellation_valueTextView.setOnClickListener(this);
-            sex_valueTextView.setOnClickListener(this);
-            career_valueTextView.setOnClickListener(this);
-            age_valueTextView.setOnClickListener(this);
-            height_valueTextView.setOnClickListener(this);
-            weight_valueTextView.setOnClickListener(this);
-            hobby_valueTextView.setOnClickListener(this);
-            iconImageView.setVisibility(View.VISIBLE);
-            Drawable drawable = getResources().getDrawable(R.mipmap.icon_row);
-            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    drawable, null);
-            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            return;
-        }
-
         if (Utils.isUserInfoNoneComplete(userInfoEntity)) {
             ToastUtils.show(mContext, "用户信息不完整！");
         } else if (Utils.isNetworkConnected(mContext)) {
@@ -617,37 +689,8 @@ public class MineInfoActivity extends BaseActivity {
                         @Override
                         public void onRequestSuccess(UpdateUserInforResponse result) {
                             Utils.saveUserInfor(mContext, result.data);
-                            currentStatus = NORMAL_STATUS;
-                            saveButton.setText("编辑");
-                            head_cvCircleImageView.setOnClickListener(null);
-                            name_valueTextView.setOnClickListener(null);
-                            status_valueTextView.setOnClickListener(null);
-                            constellation_valueTextView.setOnClickListener(null);
-                            sex_valueTextView.setOnClickListener(null);
-                            career_valueTextView.setOnClickListener(null);
-                            age_valueTextView.setOnClickListener(null);
-                            height_valueTextView.setOnClickListener(null);
-                            weight_valueTextView.setOnClickListener(null);
-                            hobby_valueTextView.setOnClickListener(null);
-                            iconImageView.setVisibility(View.INVISIBLE);
-                            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                    null, null, null);
-                            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                    null, null, null);
-                            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds
-                                    (null, null, null, null);
-                            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                                    null, null);
-                            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                    null, null, null);
-                            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                                    null, null);
-                            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                    null, null, null);
-                            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                    null, null, null);
-                            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                    null, null, null);
+                            currentStatus = EDIT_STATUS;
+                            changeEditStatus(null);
                             dialog.dismiss();
                         }
 
@@ -661,31 +704,9 @@ public class MineInfoActivity extends BaseActivity {
         }
     }
 
-    protected void processExit() {
+    public void processExit() {
         if (currentStatus == EDIT_STATUS) {
-            currentStatus = NORMAL_STATUS;
-            saveButton.setText("编辑");
-            head_cvCircleImageView.setOnClickListener(null);
-            name_valueTextView.setOnClickListener(null);
-            status_valueTextView.setOnClickListener(null);
-            constellation_valueTextView.setOnClickListener(null);
-            sex_valueTextView.setOnClickListener(null);
-            career_valueTextView.setOnClickListener(null);
-            age_valueTextView.setOnClickListener(null);
-            height_valueTextView.setOnClickListener(null);
-            weight_valueTextView.setOnClickListener(null);
-            hobby_valueTextView.setOnClickListener(null);
-            iconImageView.setVisibility(View.INVISIBLE);
-            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null,
-                    null);
-            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
-            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+            changeEditStatus(null);
         } else {
             super.processExit();
         }

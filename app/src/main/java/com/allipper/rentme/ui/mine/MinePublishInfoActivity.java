@@ -25,7 +25,9 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
+import android.widget.ViewSwitcher;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.application.ApplicationInit;
@@ -89,10 +91,11 @@ public class MinePublishInfoActivity extends BaseActivity {
     private TextView toPictureTextView;
     private RelativeLayout picturebgRelativeLayout;
     private ImageView deleteImageView;
-    private Button editButton;
+    private TextSwitcher editButton;
     private HorizontalScrollView hsvHorizontalScrollView;
     private NoRequsetGridView bigPicturesNoRequsetGridView;
     private LinearLayout bottomLinearLayout;
+    private View bottomDividerView;
 
     private boolean[] offerContentIndex;
     private String[] offerContents;
@@ -139,45 +142,7 @@ public class MinePublishInfoActivity extends BaseActivity {
                         public void onRequestSuccess(GetPublishInfoResponse result) {
                             dialog.dismiss();
                             data = result.data;
-                            if (data == null) {
-                                scrollViewScrollView.setVisibility(View.GONE);
-                                editButton.setText("新增");
-                                currentStatus = NODATA_STATUS;
-                            } else {
-                                editButton.setText("编辑");
-                                currentStatus = NORMAL_STATUS;
-                                scrollViewScrollView.setVisibility(View.VISIBLE);
-                                StringBuffer sb = new StringBuffer();
-                                StringBuffer sb1 = new StringBuffer();
-
-                                for (ItemsEntity item : data.rentRange.items) {
-                                    sb.append("、").append(item.name);
-                                    sb1.append(",").append(item.value);
-                                }
-                                rentRange = sb1.deleteCharAt(0).toString();
-                                offercontentTextView.setText(sb.deleteCharAt(0));
-                                sb.delete(0, sb.length());
-                                sb1.delete(0, sb1.length());
-                                for (ItemsEntity item : data.schedule.items) {
-                                    sb.append("、").append(item.name);
-                                    sb1.append(",").append(item.value);
-                                }
-                                scheduleRange = sb1.deleteCharAt(0).toString();
-                                scheduleTextView.setText(sb.deleteCharAt(0));
-
-                                perHourPrice = data.perHourPrice;
-                                feeTextView.setText(data.perHourPrice + "元/时");
-                                offercontentTextView.setCompoundDrawablesWithIntrinsicBounds
-                                        (null, null, null, null);
-                                scheduleTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                                        null, null, null);
-                                feeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                                        null, null);
-                                imageViewImageView.setOnClickListener(null);
-                                feeTextView.setOnClickListener(null);
-                                offercontentTextView.setOnClickListener(null);
-                                scheduleTextView.setOnClickListener(null);
-                            }
+                            processResult();
                         }
 
                         @Override
@@ -186,6 +151,48 @@ public class MinePublishInfoActivity extends BaseActivity {
                             dialog.dismiss();
                         }
                     });
+        }
+    }
+
+    private void processResult() {
+        if (data == null) {
+            scrollViewScrollView.setVisibility(View.GONE);
+            editButton.setText("新增");
+            currentStatus = NODATA_STATUS;
+        } else {
+            editButton.setText("编辑");
+            currentStatus = NORMAL_STATUS;
+            scrollViewScrollView.setVisibility(View.VISIBLE);
+            StringBuffer sb = new StringBuffer();
+            StringBuffer sb1 = new StringBuffer();
+
+            for (ItemsEntity item : data.rentRange.items) {
+                sb.append("、").append(item.name);
+                sb1.append(",").append(item.value);
+            }
+            rentRange = sb1.deleteCharAt(0).toString();
+            offercontentTextView.setText(sb.deleteCharAt(0));
+            sb.delete(0, sb.length());
+            sb1.delete(0, sb1.length());
+            for (ItemsEntity item : data.schedule.items) {
+                sb.append("、").append(item.name);
+                sb1.append(",").append(item.value);
+            }
+            scheduleRange = sb1.deleteCharAt(0).toString();
+            scheduleTextView.setText(sb.deleteCharAt(0));
+
+            perHourPrice = data.perHourPrice;
+            feeTextView.setText(data.perHourPrice + "元/时");
+            offercontentTextView.setCompoundDrawablesWithIntrinsicBounds
+                    (null, null, null, null);
+            scheduleTextView.setCompoundDrawablesWithIntrinsicBounds(null,
+                    null, null, null);
+            feeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
+                    null, null);
+            imageViewImageView.setOnClickListener(null);
+            feeTextView.setOnClickListener(null);
+            offercontentTextView.setOnClickListener(null);
+            scheduleTextView.setOnClickListener(null);
         }
     }
 
@@ -214,7 +221,21 @@ public class MinePublishInfoActivity extends BaseActivity {
         deleteImageView = (ImageView) findViewById(R.id.delete);
         hsvHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
         bigPicturesNoRequsetGridView = (NoRequsetGridView) findViewById(R.id.bigPictures);
-        editButton = (Button) findViewById(R.id.edit);
+        bottomDividerView = findViewById(R.id.bottom_divider);
+        editButton = (TextSwitcher) findViewById(R.id.edit);
+        editButton.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                TextView tv = new TextView(MinePublishInfoActivity.this);
+                tv.setTextColor(getResources().getColor(R.color.white));
+                tv.setGravity(Gravity.CENTER);
+                return tv;
+            }
+        });
+        editButton.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                .rotate_in));
+        editButton.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                .rotate_out));
         headCircleImageView = (CircleImageView) findViewById(R.id.head);
         bottomLinearLayout = (LinearLayout) findViewById(R.id.bottom);
 
@@ -224,7 +245,12 @@ public class MinePublishInfoActivity extends BaseActivity {
         findViewById(R.id.dating).setOnClickListener(this);
         findViewById(R.id.cancel).setOnClickListener(this);
         editButton.setOnClickListener(this);
+        setDataToView();
+        scrollViewScrollView.setVisibility(View.GONE);
 
+    }
+
+    public void setDataToView() {
         if (userInfo != null) {
             nameTextView.setText(userInfo.nickName);
             constellationTextView.setText(userInfo.constellation);
@@ -236,9 +262,6 @@ public class MinePublishInfoActivity extends BaseActivity {
             hobbyTextView.setText(userInfo.interests);
             CropUtils.setHeadFromDisk(mContext, headCircleImageView);
         }
-
-        scrollViewScrollView.setVisibility(View.GONE);
-
     }
 
     @Override
@@ -308,30 +331,31 @@ public class MinePublishInfoActivity extends BaseActivity {
             scrollViewScrollView.setVisibility(View.VISIBLE);
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_in));
+            bottomDividerView.setVisibility(View.VISIBLE);
             bottomLinearLayout.setVisibility(View.VISIBLE);
             imageViewImageView.setOnClickListener(MinePublishInfoActivity.this);
             feeTextView.setOnClickListener(MinePublishInfoActivity.this);
             offercontentTextView.setOnClickListener(MinePublishInfoActivity.this);
             scheduleTextView.setOnClickListener(MinePublishInfoActivity.this);
-
         } else if (CREATE_STATUS == currentStatus) {
             currentStatus = NODATA_STATUS;
             editButton.setText("新增");
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_out));
             bottomLinearLayout.setVisibility(View.GONE);
+            bottomDividerView.setVisibility(View.GONE);
             scrollViewScrollView.setVisibility(View.GONE);
             imageViewImageView.setOnClickListener(null);
             feeTextView.setOnClickListener(null);
             offercontentTextView.setOnClickListener(null);
             scheduleTextView.setOnClickListener(null);
-
         } else if (NORMAL_STATUS == currentStatus) {
             editButton.setText("取消");
             currentStatus = MODIDFY_STATUS;
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_in));
             bottomLinearLayout.setVisibility(View.VISIBLE);
+            bottomDividerView.setVisibility(View.VISIBLE);
             scrollViewScrollView.setVisibility(View.VISIBLE);
             Drawable drawable = getResources().getDrawable(R.mipmap.icon_row);
             offercontentTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
@@ -349,6 +373,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_out));
             bottomLinearLayout.setVisibility(View.GONE);
+            bottomDividerView.setVisibility(View.GONE);
             offercontentTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             scheduleTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             feeTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
@@ -505,8 +530,9 @@ public class MinePublishInfoActivity extends BaseActivity {
                 int i = 0;
                 for (boolean index : indexs) {
                     if (index) {
-                        sb.append(itemsEntities.get(i++).name).append("、");
-                        paramSb.append(itemsEntities.get(i++).value).append(",");
+                        sb.append(itemsEntities.get(i).name).append("、");
+                        paramSb.append(itemsEntities.get(i).value).append(",");
+                        ++i;
                     } else {
                         i++;
                     }
@@ -675,8 +701,9 @@ public class MinePublishInfoActivity extends BaseActivity {
     }
 
 
-    protected void processExit() {
-        if (currentStatus == MODIDFY_STATUS || currentStatus == NODATA_STATUS) {
+    public void processExit() {
+        if (currentStatus == MODIDFY_STATUS || currentStatus ==
+                CREATE_STATUS) {
             changeStatus(null);
         } else {
             super.processExit();

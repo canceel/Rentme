@@ -30,7 +30,7 @@
             android:textColor="@color/msg_title_text_color"
             android:textSize="@dimen/text_size_18sp"/>
 
-        <Button
+        <TextSwitcher
             android:id="@+id/edit"
             style="@style/TopButtonStyle"
             android:layout_alignParentRight="true"
@@ -59,7 +59,7 @@
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@color/text_red"/>
+                android:src="@color/grey"/>
 
             <FrameLayout
                 android:id="@+id/first_fl"
@@ -118,11 +118,11 @@
 
 
             <LinearLayout
+                android:id="@+id/container_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/first_fl"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="42dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:background="@color/white"
@@ -388,8 +388,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:gravity="left|center_vertical"
                         android:drawableRight="@mipmap/icon_row"
+                        android:gravity="left|center_vertical"
                         android:text="设置出租范围"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -422,8 +422,8 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
-                        android:gravity="left|center_vertical"
                         android:drawableRight="@mipmap/icon_row"
+                        android:gravity="left|center_vertical"
                         android:text="设置档期"
                         android:textColor="@color/text_dark"
                         android:textSize="@dimen/text_size_15sp"/>
@@ -457,13 +457,22 @@
                         android:layout_height="match_parent"
                         android:layout_marginRight="11dp"
                         android:layout_weight="1"
+                        android:drawableRight="@mipmap/icon_row"
                         android:gravity="left|center_vertical"
                         android:text="设置时薪"
                         android:textColor="@color/title_background"
-                        android:drawableRight="@mipmap/icon_row"
                         android:textSize="@dimen/text_size_15sp"/>
                 </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:id="@+id/bottom_divider"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_below="@+id/container_ll"
+                android:background="@color/rc_divider"
+                android:visibility="gone"/>
+
 
             <com.allipper.rentme.widget.CircleImageView
                 android:id="@+id/head"
@@ -506,7 +515,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="16dp"
             android:layout_marginTop="8dp"
-            android:onClick="confirm"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
             android:text="确定发布"
