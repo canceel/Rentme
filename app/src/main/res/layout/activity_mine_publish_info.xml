@@ -59,7 +59,7 @@
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@color/grey"/>
+                android:src="@color/background"/>
 
             <FrameLayout
                 android:id="@+id/first_fl"

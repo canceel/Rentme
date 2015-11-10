@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/background">
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/background">
 
     <RelativeLayout
         android:id="@+id/title_top"
@@ -76,14 +76,14 @@
                     android:id="@+id/head_cv"
                     android:layout_width="64dp"
                     android:layout_height="64dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="6dp"
                     android:layout_toLeftOf="@+id/icon"
                     android:src="@mipmap/icon_defaultheader"/>
 
                 <ImageView
                     android:id="@+id/icon"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="6dp"
@@ -120,14 +120,21 @@
                     android:id="@+id/name_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="杨颖"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
 
             </LinearLayout>
 
@@ -159,14 +166,21 @@
                     android:id="@+id/status_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="我的生活我做主"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -197,14 +211,21 @@
                     android:id="@+id/constellation_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="双鱼座"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -235,14 +256,21 @@
                     android:id="@+id/sex_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="女"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -311,14 +339,21 @@
                     android:id="@+id/career_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="大学生"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -349,14 +384,21 @@
                     android:id="@+id/age_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="21~25"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -387,14 +429,21 @@
                     android:id="@+id/height_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:text="180cm以上"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -425,13 +474,20 @@
                     android:id="@+id/weight_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
+                <ImageView
+                    android:id="@+id/icon8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
             </LinearLayout>
 
             <View
@@ -462,15 +518,24 @@
                     android:id="@+id/hobby_value"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="6dp"
                     android:layout_weight="1"
-                    android:drawablePadding="20dp"
-                    android:gravity="left|center_vertical"
+                    android:gravity="right|center_vertical"
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"
                     />
 
+                <ImageView
+                    android:id="@+id/icon9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_row"
+                    android:visibility="invisible"/>
+
             </LinearLayout>
+
             <View
                 android:id="@+id/bottom_divider"
                 android:layout_width="match_parent"

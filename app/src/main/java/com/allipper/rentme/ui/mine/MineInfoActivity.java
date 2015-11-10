@@ -97,6 +97,15 @@ public class MineInfoActivity extends BaseActivity {
     private TextSwitcher editButton;
     private Button saveButton;
     private View bottomDividerView;
+    private ImageView iconImageView1;
+    private ImageView iconImageView2;
+    private ImageView iconImageView3;
+    private ImageView iconImageView4;
+    private ImageView iconImageView5;
+    private ImageView iconImageView6;
+    private ImageView iconImageView7;
+    private ImageView iconImageView8;
+    private ImageView iconImageView9;
 
     private int constellationIndex;
     private String[] constellations;
@@ -162,6 +171,15 @@ public class MineInfoActivity extends BaseActivity {
         head_rlRelativeLayout = (RelativeLayout) findViewById(R.id.head_rl);
         head_cvCircleImageView = (CircleImageView) findViewById(R.id.head_cv);
         iconImageView = (ImageView) findViewById(R.id.icon);
+        iconImageView1 =(ImageView) findViewById(R.id.icon1);
+        iconImageView2 = (ImageView) findViewById(R.id.icon2);
+        iconImageView3 = (ImageView) findViewById(R.id.icon3);
+        iconImageView4 = (ImageView) findViewById(R.id.icon4);
+        iconImageView5 = (ImageView) findViewById(R.id.icon5);
+        iconImageView6 = (ImageView) findViewById(R.id.icon6);
+        iconImageView7 = (ImageView) findViewById(R.id.icon7);
+        iconImageView8 = (ImageView) findViewById(R.id.icon8);
+        iconImageView9 =  (ImageView) findViewById(R.id.icon9);
         nameLinearLayout = (LinearLayout) findViewById(R.id.name);
         name_valueTextView = (TextView) findViewById(R.id.name_value);
         statusLinearLayout = (LinearLayout) findViewById(R.id.status);
@@ -224,33 +242,42 @@ public class MineInfoActivity extends BaseActivity {
                 save(view);
                 break;
             case R.id.name_value:
+            case R.id.icon1:
                 changeName(view);
                 break;
             case R.id.status_value:
+            case R.id.icon2:
                 changeStatus(view);
                 break;
             case R.id.constellation_value:
+            case R.id.icon3:
                 changeConstellatione(view);
                 break;
             case R.id.sex_value:
+            case R.id.icon4:
                 changeSex(view);
                 break;
             case R.id.toPicture:
                 changePicture(view);
                 break;
             case R.id.career_value:
+            case R.id.icon5:
                 changeCareer(view);
                 break;
             case R.id.age_value:
+            case R.id.icon6:
                 changeAge(view);
                 break;
             case R.id.height_value:
+            case R.id.icon7:
                 changeHeight(view);
                 break;
             case R.id.weight_value:
+            case R.id.icon8:
                 changeWeight(view);
                 break;
             case R.id.hobby_value:
+            case R.id.icon9:
                 changeHobbi(view);
                 break;
             default:
@@ -274,21 +301,24 @@ public class MineInfoActivity extends BaseActivity {
             weight_valueTextView.setOnClickListener(this);
             hobby_valueTextView.setOnClickListener(this);
             iconImageView.setVisibility(View.VISIBLE);
-            Drawable drawable = getResources().getDrawable(R.mipmap.icon_row);
-            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    drawable, null);
-            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
-            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
-                    null);
-            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable, null);
+            iconImageView1.setVisibility(View.VISIBLE);
+            iconImageView2.setVisibility(View.VISIBLE);
+            iconImageView3.setVisibility(View.VISIBLE);
+            iconImageView4.setVisibility(View.VISIBLE);
+            iconImageView5.setVisibility(View.VISIBLE);
+            iconImageView6.setVisibility(View.VISIBLE);
+            iconImageView7.setVisibility(View.VISIBLE);
+            iconImageView8.setVisibility(View.VISIBLE);
+            iconImageView9.setVisibility(View.VISIBLE);
+            iconImageView1.setOnClickListener(this);
+            iconImageView2.setOnClickListener(this);
+            iconImageView3.setOnClickListener(this);
+            iconImageView4.setOnClickListener(this);
+            iconImageView5.setOnClickListener(this);
+            iconImageView6.setOnClickListener(this);
+            iconImageView7.setOnClickListener(this);
+            iconImageView8.setOnClickListener(this);
+            iconImageView9.setOnClickListener(this);
 
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_in));
@@ -308,24 +338,24 @@ public class MineInfoActivity extends BaseActivity {
             weight_valueTextView.setOnClickListener(null);
             hobby_valueTextView.setOnClickListener(null);
             iconImageView.setVisibility(View.INVISIBLE);
-            name_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            status_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            constellation_valueTextView.setCompoundDrawablesWithIntrinsicBounds
-                    (null, null, null, null);
-            sex_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    null, null);
-            career_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            age_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null, null,
-                    null, null);
-            height_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            weight_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
-            hobby_valueTextView.setCompoundDrawablesWithIntrinsicBounds(null,
-                    null, null, null);
+            iconImageView1.setVisibility(View.INVISIBLE);
+            iconImageView2.setVisibility(View.INVISIBLE);
+            iconImageView3.setVisibility(View.INVISIBLE);
+            iconImageView4.setVisibility(View.INVISIBLE);
+            iconImageView5.setVisibility(View.INVISIBLE);
+            iconImageView6.setVisibility(View.INVISIBLE);
+            iconImageView7.setVisibility(View.INVISIBLE);
+            iconImageView8.setVisibility(View.INVISIBLE);
+            iconImageView9.setVisibility(View.INVISIBLE);
+            iconImageView1.setOnClickListener(null);
+            iconImageView2.setOnClickListener(null);
+            iconImageView3.setOnClickListener(null);
+            iconImageView4.setOnClickListener(null);
+            iconImageView5.setOnClickListener(null);
+            iconImageView6.setOnClickListener(null);
+            iconImageView7.setOnClickListener(null);
+            iconImageView8.setOnClickListener(null);
+            iconImageView9.setOnClickListener(null);
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_out));
             bottomLinearLayout.setVisibility(View.GONE);
