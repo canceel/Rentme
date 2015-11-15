@@ -100,7 +100,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
         }
         String albumStr = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
         if (!TextUtils.isEmpty(albumStr)) {
-            String[] album = albumStr.split(",");
+            String[] album = albumStr.split(";");
             for (int i = 0; i < album.length; i++) {
                 ImageBean ib = new ImageBean();
                 ib.url = album[i];

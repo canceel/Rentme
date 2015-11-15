@@ -65,7 +65,6 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
      */
     private void initView(View view) {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        swipeRefreshLayout.setDirection(SwipyRefreshLayoutDirection.TOP);
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_red_light,
                 android.R.color.holo_green_light,

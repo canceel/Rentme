@@ -71,7 +71,7 @@ public class MineChangePicturesAdapter extends CommonAdapter<String> {
                 } else
                 // 未选择该图片
                 {
-                    if(mSelectedImage.size() > 4){
+                    if(mSelectedImage.size() >= 4){
                         ToastUtils.show(context,"最多只能上传四张相片");
                         return;
                     }

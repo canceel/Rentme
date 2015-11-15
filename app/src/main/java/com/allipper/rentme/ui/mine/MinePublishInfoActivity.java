@@ -86,6 +86,7 @@ public class MinePublishInfoActivity extends BaseActivity {
     private TextView offercontentTextView;
     private TextView scheduleTextView;
     private TextView hobbyTextView;
+    private TextView emptyTextView;
     private TextView feeTextView;
     private TextView statusTextView;
     private TextView toPictureTextView;
@@ -157,9 +158,11 @@ public class MinePublishInfoActivity extends BaseActivity {
     private void processResult() {
         if (data == null) {
             scrollViewScrollView.setVisibility(View.GONE);
+            emptyTextView.setVisibility(View.VISIBLE);
             editButton.setText("新增");
             currentStatus = NODATA_STATUS;
         } else {
+            emptyTextView.setVisibility(View.GONE);
             editButton.setText("编辑");
             currentStatus = NORMAL_STATUS;
             scrollViewScrollView.setVisibility(View.VISIBLE);
@@ -205,6 +208,7 @@ public class MinePublishInfoActivity extends BaseActivity {
         imageViewImageView = (ImageView) findViewById(R.id.imageView);
         first_flFrameLayout = (FrameLayout) findViewById(R.id.first_fl);
         nameTextView = (TextView) findViewById(R.id.name);
+        emptyTextView = (TextView) findViewById(R.id.empty);
         constellationTextView = (TextView) findViewById(R.id.constellation);
         locationTextView = (TextView) findViewById(R.id.location);
         persen_pictureLinearLayout = (LinearLayout) findViewById(R.id.persen_picture);
@@ -246,7 +250,7 @@ public class MinePublishInfoActivity extends BaseActivity {
         findViewById(R.id.cancel).setOnClickListener(this);
         editButton.setOnClickListener(this);
         setDataToView();
-        scrollViewScrollView.setVisibility(View.GONE);
+        emptyTextView.setVisibility(View.VISIBLE);
 
     }
 
@@ -329,6 +333,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             editButton.setText("取消");
             currentStatus = CREATE_STATUS;
             scrollViewScrollView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
             bottomLinearLayout.setAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .slide_in));
             bottomDividerView.setVisibility(View.VISIBLE);
@@ -345,6 +350,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             bottomLinearLayout.setVisibility(View.GONE);
             bottomDividerView.setVisibility(View.GONE);
             scrollViewScrollView.setVisibility(View.GONE);
+            emptyTextView.setVisibility(View.VISIBLE);
             imageViewImageView.setOnClickListener(null);
             feeTextView.setOnClickListener(null);
             offercontentTextView.setOnClickListener(null);
@@ -357,6 +363,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             bottomLinearLayout.setVisibility(View.VISIBLE);
             bottomDividerView.setVisibility(View.VISIBLE);
             scrollViewScrollView.setVisibility(View.VISIBLE);
+            emptyTextView.setVisibility(View.GONE);
             Drawable drawable = getResources().getDrawable(R.mipmap.icon_row);
             offercontentTextView.setCompoundDrawablesWithIntrinsicBounds(null, null, drawable,
                     null);

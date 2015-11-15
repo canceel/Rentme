@@ -45,6 +45,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="46dp"
+        android:visibility="gone"
         >
 
         <RelativeLayout
@@ -484,6 +485,16 @@
                 android:src="@mipmap/icon_defaultheader"/>
         </RelativeLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="您没有发布出租信息"
+        android:textColor="@color/text_dark"
+        android:textSize="@dimen/text_size_19sp"
+        android:visibility="gone"/>
 
     <LinearLayout
         android:id="@+id/bottom"

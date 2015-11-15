@@ -1,6 +1,7 @@
 package com.allipper.rentme.ui.mine;
 
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.database.Cursor;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,7 +26,17 @@ import android.widget.TextView;
 import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.MineChangePicturesAdapter;
 import com.allipper.rentme.bean.ImageFloder;
+import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.ToastUtils;
+import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.HttpUpload;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.request.AndroidMultiPartEntity;
+import com.allipper.rentme.net.response.UploadPictureResult;
+import com.allipper.rentme.net.response.UploadResult;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.ListImageDirPopupWindow;
 
@@ -159,9 +171,53 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
     }
 
     private void uploadAlbum(View view) {
-        if(mAdapter == null || mAdapter.mSelectedImage == null){
-
+        if (mAdapter == null || mAdapter.mSelectedImage == null || mAdapter.mSelectedImage.size()
+                == 0) {
+            ToastUtils.show(mContext, "请选择上传图片");
+        } else if (mAdapter.mSelectedImage.size() > 5) {
+            ToastUtils.show(mContext, "最多只能上传5张照片");
+        } else if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
+            dialog.show();
+            uploadOne(0, mAdapter.mSelectedImage.size() - 1 == 0, dialog);
         }
+    }
+
+    private void uploadOne(int i, final boolean isLast, final Dialog dialog) {
+        final int next = i + 1;
+        HttpUpload.uploadUserPicture(TAG, new File(mAdapter.mSelectedImage.get(i)), Utils
+                .getToken(mContext), new ResponseCallback<UploadPictureResult>(mContext) {
+            @Override
+            public void onRequestSuccess(UploadPictureResult result) {
+                String album = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
+                if (TextUtils.isEmpty(album)) {
+                    album = result.data;
+                } else {
+                    album += (";" + result.data);
+                }
+                SharedPreUtils.putString(mContext, SharedPre.User.ALBUM, album);
+                if (isLast) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, "上传成功");
+                    mAdapter.mSelectedImage.clear();
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    uploadOne(next, next == mAdapter.mSelectedImage.size() - 1, dialog);
+                }
+            }
+
+            @Override
+            public void onReuquestFailed(String error) {
+                dialog.dismiss();
+                ToastUtils.show(mContext, error);
+            }
+        }, new AndroidMultiPartEntity.ProgressListener() {
+
+            @Override
+            public void transferred(long num) {
+
+            }
+        });
     }
 
     /**

@@ -105,6 +105,11 @@ public class Constant {
      */
     public static final String API_USER_UPLOAD_HEADIMG = BASE_URL +
             "account/uploadavatar.json?token=%1$s&timestamp=%2$s&sign=%3$s";
+    /**
+     * 上传相册
+     */
+    public static final String API_USER_UPLOAD_PICTURE = BASE_URL +
+            "account/uploadalbum.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //用户注册
     public static final String API_USER_REGIST = BASE_URL + "account/register.json";
     //用户登录

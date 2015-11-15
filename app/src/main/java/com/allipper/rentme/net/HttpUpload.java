@@ -4,6 +4,7 @@ import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.request.AndroidMultiPartEntity;
 import com.allipper.rentme.net.request.GsonRequest;
+import com.allipper.rentme.net.response.UploadPictureResult;
 import com.allipper.rentme.net.response.UploadResult;
 import com.allipper.rentme.net.upload.UploadFileRequest;
 
@@ -39,6 +40,26 @@ public class HttpUpload {
                 timestamp));
         UploadFileRequest request = new UploadFileRequest(GsonRequest.Method.POST, tag, url,
                 file, UploadResult.class, callback, callback, listener);
+        HttpUtils.getInstance().request(tag, request);
+    }
+
+    /**
+     * 上传相册
+     *
+     * @param tag
+     * @param file
+     * @param token
+     * @param callback
+     * @param listener
+     */
+    public static void uploadUserPicture(String tag, File file, String token,
+                                         ResponseCallback<UploadPictureResult> callback,
+                                         AndroidMultiPartEntity.ProgressListener listener) {
+        String timestamp = String.valueOf(System.currentTimeMillis());
+        String url = String.format(Constant.API_USER_UPLOAD_PICTURE, token, timestamp, signUrl(token,
+                timestamp));
+        UploadFileRequest request = new UploadFileRequest(GsonRequest.Method.POST, tag, url,
+                file, UploadPictureResult.class, callback, callback, listener);
         HttpUtils.getInstance().request(tag, request);
     }
 }
