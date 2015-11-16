@@ -26,6 +26,7 @@ public class PicturesAdapter extends CommonAdapter<String> {
     @Override
     public void convert(ViewHolder holder, String s) {
         ImageView pictureImageView = holder.getView(R.id.picture);
+        holder.setImageByUrl(s, R.id.picture);
         switch (type) {
             case TYPE_THREE:
                 holder.getConvertView().setLayoutParams(new AbsListView.LayoutParams(Utils

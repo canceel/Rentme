@@ -171,6 +171,14 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
     }
 
     private void uploadAlbum(View view) {
+        String album = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
+        if (!TextUtils.isEmpty(album)) {
+            String[] strs = album.split(";");
+            if (strs.length + mAdapter.mSelectedImage.size() > 5) {
+                ToastUtils.show(mContext, "目前相册只支持最多5张");
+                return;
+            }
+        }
         if (mAdapter == null || mAdapter.mSelectedImage == null || mAdapter.mSelectedImage.size()
                 == 0) {
             ToastUtils.show(mContext, "请选择上传图片");
@@ -189,12 +197,11 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
                 .getToken(mContext), new ResponseCallback<UploadPictureResult>(mContext) {
             @Override
             public void onRequestSuccess(UploadPictureResult result) {
-                String album = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
-                if (TextUtils.isEmpty(album)) {
-                    album = result.data;
-                } else {
-                    album += (";" + result.data);
+                if(result.data.album != null && result.data.album.size() > 0){
+
                 }
+                String album = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
+
                 SharedPreUtils.putString(mContext, SharedPre.User.ALBUM, album);
                 if (isLast) {
                     dialog.dismiss();

@@ -108,6 +108,12 @@ public class Constant {
     /**
      * 上传相册
      */
+    public static final String API_USER_UPLOAD_BACKGROUD = BASE_URL +
+            "account/backgroudImg.json?token=%1$s&timestamp=%2$s&sign=%3$s";
+
+    /**
+     * 上传相册
+     */
     public static final String API_USER_UPLOAD_PICTURE = BASE_URL +
             "account/uploadalbum.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //用户注册
@@ -139,4 +145,18 @@ public class Constant {
 
     // 获取系统的枚举配置项
     public static final String API_GET_SYS_ENUMS = BASE_URL + "common/getsysenums.json";
+
+    // 创建订单
+    public static final String API_ORDER_CREATE = BASE_URL + "orderInfo/create" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
+    // 查询我租到的
+    public static final String API_ORDER_GET_MINE_RENT = BASE_URL + "orderInfo/myTarget" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s&pageIndex=%4$s&pageSize=%5$s";
+    // 查询租到我的
+    public static final String API_ORDER_GET_RENT_MINE = BASE_URL + "orderInfo/myProvider" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s&pageIndex=%4$s&pageSize=%5$s";
+
+    // 查询我租到的
+    public static final String API_HOME_GET_RENT = BASE_URL + "rentInfo/getRentList" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s&pageIndex=%4$s&pageSize=%5$s";
 }

@@ -69,8 +69,8 @@ public abstract class SwipeRefreshBaseActivity extends BaseActivity implements S
      */
     protected void initPageInfo() {
         pagination = new Pagination();
-        pagination.setCurrentPage(0);
-        pagination.setPageSize(10);
+        pagination.currentPage = 1;
+        pagination.pageSize = 10;
     }
 
     /**
@@ -82,7 +82,7 @@ public abstract class SwipeRefreshBaseActivity extends BaseActivity implements S
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {//上拉则是刷新；需要设置页码为0，并且设置是刷新
             isRefresh = true;
-            pagination.setCurrentPage(0);
+            pagination.currentPage = 1;
             getDatas(false);
         } else {//下拉则是加载更多；需要设置页码加1
             isRefresh = false;
@@ -91,7 +91,7 @@ public abstract class SwipeRefreshBaseActivity extends BaseActivity implements S
                 ToastUtils.show(mContext, R.string.loadmore_foot_no_data_tip);
                 return;
             }
-            pagination.setCurrentPage(pagination.getCurrentPage() + 1);
+            pagination.currentPage++;
             getDatas(false);
         }
     }

@@ -4,11 +4,13 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.allipper.rentme.bean.RentMeResponse;
 import com.allipper.rentme.common.util.Constant;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.request.GsonRequest;
 import com.allipper.rentme.net.response.GetPublishInfoResponse;
 import com.allipper.rentme.net.response.LoginResult;
+import com.allipper.rentme.net.response.PulishInfoResponse;
 import com.allipper.rentme.net.response.RefresTockenResponse;
 import com.allipper.rentme.net.response.RegistResult;
 import com.allipper.rentme.net.response.ResponseAppVersion;
@@ -42,7 +44,7 @@ public class HttpLoad {
     }
 
     //获取图片，并指定默认图片的资源ID
-    public static void getImage(String url, int defaultRes, ImageView
+    public static void getImage(String url, final int defaultRes, final ImageView
             imageView, int width, int height) {
         if (TextUtils.isEmpty(url)) {
             imageView.setImageResource(Utils.getDefaultImage(defaultRes));
@@ -52,9 +54,29 @@ public class HttpLoad {
                 .getImageLoader()
                 .get(
                         url,
-                        ImageLoader.getImageListener(imageView,
-                                Utils.getDefaultImage(defaultRes),
-                                Utils.getDefaultImage(defaultRes)),
+                        new ImageLoader.ImageListener() {
+                            public void onErrorResponse(VolleyError error) {
+                                int errorImageResId = Utils.getDefaultImage(defaultRes);
+                                if (errorImageResId != 0) {
+                                    imageView.setImageResource(errorImageResId);
+                                } else {
+                                    imageView.setBackgroundColor(0xffffffff);
+                                }
+                            }
+
+                            public void onResponse(ImageLoader.ImageContainer response, boolean
+                                    isImmediate) {
+                                int defaultImageResId = Utils.getDefaultImage(defaultRes);
+                                if (response.getBitmap() != null) {
+                                    imageView.setImageBitmap(response.getBitmap());
+                                } else if (defaultImageResId != 0) {
+                                    imageView.setImageResource(defaultImageResId);
+                                } else {
+                                    imageView.setBackgroundColor(0xffffffff);
+                                }
+
+                            }
+                        },
                         width,
                         height);
 
@@ -68,13 +90,13 @@ public class HttpLoad {
 
     //获取图片，并使用特定的默认图片
     public static void getImage(String url, ImageView imageView) {
-        getImage(url, -1, imageView);
+        getImage(url, 0, imageView);
     }
 
     //获取图片，指定特定的默认图片，指定高宽
     public static void getImage(String url, ImageView imageView, int width,
                                 int height) {
-        getImage(url, -1, imageView, width, height);
+        getImage(url, 0, imageView, width, height);
     }
 
     public static void downloadImage(String url, final String filePath, final
@@ -375,5 +397,116 @@ public class HttpLoad {
             HttpUtils.getInstance().request(tag, request);
         }
 
+    }
+
+    public abstract static class Order {
+
+        /**
+         * 创建订单
+         */
+        public static void createOrder(
+                String tag,
+                String token,
+                String providerUserId,
+                String targetUserId,
+                String perHourPrice,
+                String meetTime,
+                String meetAddress,
+                String totalPrice,
+                ResponseCallback<ResponseBase> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_ORDER_CREATE, token, timestamp, signUrl
+                    (token,
+                            timestamp));
+            final Map<String, String> params = new HashMap<>();
+            params.put("providerUserId", providerUserId);
+            params.put("targetUserId", targetUserId);
+            params.put("perHourPrice", perHourPrice);
+            params.put("meetTime", meetTime);
+            params.put("meetAddress", meetAddress);
+            params.put("totalPrice", totalPrice);
+            GsonRequest<ResponseBase> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    ResponseBase.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 获取我租到的
+         *
+         * @param tag
+         * @param token
+         * @param pageIndex
+         * @param pageSize
+         */
+        public static void getMineRent(String tag,
+                                       String token,
+                                       String pageIndex,
+                                       String pageSize, ResponseCallback<RentMeResponse> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_ORDER_GET_MINE_RENT, token, timestamp, signUrl
+                    (token,
+                            timestamp), pageIndex, pageSize);
+            GsonRequest<RentMeResponse> request = new GsonRequest<>(
+                    Request.Method.GET, url,
+                    RentMeResponse.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 获取我租到的
+         *
+         * @param tag
+         * @param token
+         * @param pageIndex
+         * @param pageSize
+         */
+        public static void getRentMine(String tag,
+                                       String token,
+                                       String pageIndex,
+                                       String pageSize, ResponseCallback<RentMeResponse> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_ORDER_GET_MINE_RENT, token, timestamp, signUrl
+                    (token,
+                            timestamp), pageIndex, pageSize);
+            GsonRequest<RentMeResponse> request = new GsonRequest<>(
+                    Request.Method.GET, url,
+                    RentMeResponse.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+    }
+
+    public abstract static class HomePage {
+
+        public static void getHomepage(String tag,
+                                       String token,
+                                       String pageIndex,
+                                       String pageSize, ResponseCallback<PulishInfoResponse>
+                                               callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_HOME_GET_RENT, token, timestamp, signUrl
+                    (token,
+                            timestamp), pageIndex, pageSize);
+            GsonRequest<PulishInfoResponse> request = new GsonRequest<>(
+                    Request.Method.GET, url,
+                    PulishInfoResponse.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
     }
 }

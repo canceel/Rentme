@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.allipper.rentme.common.Constant;
 import com.allipper.rentme.common.util.Logger;
+import com.allipper.rentme.net.response.GetPublishInfoResponse;
 import com.allipper.rentme.net.response.ResponseBase;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -38,7 +39,10 @@ public abstract class ResponseCallback<E> implements Response.ErrorListener, Res
         if (result instanceof ResponseBase) {
             //处理用户相关返回体
             ResponseBase userResultBase = (ResponseBase) result;
-            if (0 == userResultBase.code || 10001 == userResultBase.code) {
+            if (0 == userResultBase.code) {
+                onRequestSuccess(result);
+            } else if (userResultBase instanceof GetPublishInfoResponse && 10001 ==
+                    userResultBase.code) {
                 onRequestSuccess(result);
             } else {
                 onReuquestFailed(userResultBase.message);

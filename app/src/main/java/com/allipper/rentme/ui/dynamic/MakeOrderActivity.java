@@ -8,6 +8,7 @@ import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -19,9 +20,23 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.common.util.CropUtils;
 import com.allipper.rentme.common.util.DialogUtils;
+import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
+import com.allipper.rentme.common.util.ToastUtils;
+import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.GetPublishInfoResponse;
+import com.allipper.rentme.net.response.PulishInfoResponse;
+import com.allipper.rentme.net.response.ResponseBase;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.base.ParameterConstant;
 import com.allipper.rentme.ui.login.CurrentCityActivity;
+import com.allipper.rentme.ui.mine.MineRentActivity;
+import com.allipper.rentme.widget.CircleImageView;
 import com.allipper.rentme.widget.MyDatePickerUtils;
 import com.allipper.rentme.widget.MyTimePickerUtils;
 
@@ -45,16 +60,25 @@ public class MakeOrderActivity extends BaseActivity {
     private TextView dateTextView;
     private TextView timeTextView;
     private TextView durationTextView;
-    private EditText telphoneEditText;
-    private TextView cityTextView;
+    private TextView telphoneTextView;
     private EditText addressEditText;
     private TextView costTextView;
     private TextView totalTextView;
     private TextView total_feeTextView;
     private Button datingButton;
+    private CircleImageView headCv;
 
     private String[] datas;
     private int selectedIndex = 0;
+
+    private String providerUserId;
+    private String targetUserId = "1";
+    private String perHourPrice = "100";
+    private String meetDate;
+    private String meetTime;
+    private String meetAddress;
+    private String totalPrice;
+    private PulishInfoResponse.DataEntity.ItemsEntity data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +87,23 @@ public class MakeOrderActivity extends BaseActivity {
         datas = getResources().getStringArray(R.array
                 .select_durations);
         findViews();
-        getData(false);
+        getData();
+        setDataToView();
     }
 
-    private void getData(boolean isShowDialog) {
+    private void getData() {
+        data = getIntent().getExtras().getParcelable(ParameterConstant.PARAM_ITEM_DATA);
+        providerUserId = "" + SharedPreUtils.getInt(mContext, SharedPre.User.USERID, 0);
+        targetUserId = data.userId + "";
+        perHourPrice = data.perHourPrice + "";
+    }
 
+    private void setDataToView() {
+        nameTextView.setText(data.nickName);
+        constellationTextView.setText("双鱼座");
+        fee_tvTextView.setText("￥" + data.perHourPrice);
+        telphoneTextView.setText(SharedPreUtils.getString(mContext, SharedPre.User.MOBILE));
+        CropUtils.setHeadFromDisk(mContext, headCv);
     }
 
     private void findViews() {
@@ -81,10 +117,10 @@ public class MakeOrderActivity extends BaseActivity {
         locationTextView = (TextView) findViewById(R.id.location);
         fee_tvTextView = (TextView) findViewById(R.id.fee_tv);
         dateTextView = (TextView) findViewById(R.id.date);
+        headCv = (CircleImageView) findViewById(R.id.head_cv);
         timeTextView = (TextView) findViewById(R.id.time);
         durationTextView = (TextView) findViewById(R.id.duration);
-        telphoneEditText = (EditText) findViewById(R.id.telphone);
-        cityTextView = (TextView) findViewById(R.id.city);
+        telphoneTextView = (TextView) findViewById(R.id.telphone);
         addressEditText = (EditText) findViewById(R.id.address);
         costTextView = (TextView) findViewById(R.id.cost);
         totalTextView = (TextView) findViewById(R.id.total);
@@ -94,9 +130,9 @@ public class MakeOrderActivity extends BaseActivity {
         backImageView.setOnClickListener(this);
         dateTextView.setOnClickListener(this);
         timeTextView.setOnClickListener(this);
-        cityTextView.setOnClickListener(this);
         durationTextView.setOnClickListener(this);
         datingButton.setOnClickListener(this);
+
     }
 
     /**
@@ -114,6 +150,7 @@ public class MakeOrderActivity extends BaseActivity {
                             public void onDateSet(DatePicker dp, int year, int month, int
                                     dayOfMonth) {
                                 dateTextView.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+                                meetDate = year + "-" + (month + 1) + "-" + dayOfMonth;
                             }
                         },
                         c.get(Calendar.YEAR), // 传入年份
@@ -131,6 +168,7 @@ public class MakeOrderActivity extends BaseActivity {
                         new TimePickerDialog.OnTimeSetListener() {
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                 timeTextView.setText(hourOfDay + ":" + minute);
+                                meetTime = hourOfDay + ":" + minute;
                             }
                         },
                         c.get(Calendar.HOUR_OF_DAY),
@@ -162,6 +200,9 @@ public class MakeOrderActivity extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         durationTextView.setText(datas[selectedIndex] + "小时");
+                        totalPrice = Integer.valueOf(datas[selectedIndex]) * Float.valueOf
+                                (perHourPrice) + "";
+                        total_feeTextView.setText("￥" + totalPrice);
                     }
                 });
                 dialog = builder.create();
@@ -169,17 +210,6 @@ public class MakeOrderActivity extends BaseActivity {
         }
         dialog.show();
         DialogUtils.dialogTitleLineColor(dialog);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == CurrentCityActivity.CURRENT_ACTIVITY_RESULT) {
-            // Make sure the request was successful
-            if (resultCode == RESULT_OK) {
-                cityTextView.setText(data.getStringExtra("city"));
-            }
-        }
     }
 
     @Override
@@ -192,21 +222,50 @@ public class MakeOrderActivity extends BaseActivity {
             case R.id.time:
                 showAlertDialog(TIME_DIALOG);
                 break;
-            case R.id.city:
-                startActivityForResult(new Intent(this, CurrentCityActivity.class),
-                        CurrentCityActivity.CURRENT_ACTIVITY_RESULT);
-                break;
             case R.id.duration:
                 showAlertDialog(DURATION_DIALOG);
                 break;
             case R.id.dating:
-                Intent it = new Intent(mContext, OrderDetailActivity.class);
-                startActivity(it);
+                dating(view);
                 break;
             default:
                 super.onClick(view);
                 break;
         }
+    }
+
+    private void dating(View view) {
+        meetAddress = addressEditText.getText().toString();
+        if (TextUtils.isEmpty(meetDate)) {
+            ToastUtils.show(mContext, "请选择日期");
+        } else if (TextUtils.isEmpty(meetTime)) {
+            ToastUtils.show(mContext, "请选择时间");
+        } else if (TextUtils.isEmpty(meetAddress)) {
+            ToastUtils.show(mContext, "请设置见面地址");
+        } else if (TextUtils.isEmpty(totalPrice)) {
+            ToastUtils.show(mContext, "请设置预约时长");
+        } else if (Utils.isNetworkConnected(mContext)) {
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+            dialog.show();
+            HttpLoad.Order.createOrder(TAG, Utils.getToken(mContext), providerUserId,
+                    targetUserId, perHourPrice, meetDate + " " + meetTime, meetAddress,
+                    totalPrice, new ResponseCallback<ResponseBase>(mContext) {
+
+                        @Override
+                        public void onRequestSuccess(ResponseBase result) {
+                            dialog.dismiss();
+                            startActivity(new Intent(mContext, MineRentActivity.class));
+                            finish();
+                        }
+
+                        @Override
+                        public void onReuquestFailed(String error) {
+                            dialog.dismiss();
+                            ToastUtils.show(mContext, error);
+                        }
+                    });
+        }
+
     }
 }
 

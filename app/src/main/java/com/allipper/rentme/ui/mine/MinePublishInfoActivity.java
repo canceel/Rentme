@@ -34,19 +34,25 @@ import com.allipper.rentme.application.ApplicationInit;
 import com.allipper.rentme.common.util.CropUtils;
 import com.allipper.rentme.common.util.DialogUtils;
 import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.HttpUpload;
 import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.request.AndroidMultiPartEntity;
 import com.allipper.rentme.net.response.GetPublishInfoResponse;
 import com.allipper.rentme.net.response.ItemsEntity;
 import com.allipper.rentme.net.response.ResponseBase;
 import com.allipper.rentme.net.response.SysEnumsResponse;
+import com.allipper.rentme.net.response.UploadResult;
 import com.allipper.rentme.net.response.UserInfo;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.widget.CircleImageView;
 import com.allipper.rentme.widget.NoRequsetGridView;
 
+import java.io.File;
 import java.util.List;
 
 public class MinePublishInfoActivity extends BaseActivity {
@@ -342,6 +348,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             feeTextView.setOnClickListener(MinePublishInfoActivity.this);
             offercontentTextView.setOnClickListener(MinePublishInfoActivity.this);
             scheduleTextView.setOnClickListener(MinePublishInfoActivity.this);
+            imageViewImageView.setOnClickListener(this);
         } else if (CREATE_STATUS == currentStatus) {
             currentStatus = NODATA_STATUS;
             editButton.setText("新增");
@@ -355,6 +362,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             feeTextView.setOnClickListener(null);
             offercontentTextView.setOnClickListener(null);
             scheduleTextView.setOnClickListener(null);
+            imageViewImageView.setOnClickListener(null);
         } else if (NORMAL_STATUS == currentStatus) {
             editButton.setText("取消");
             currentStatus = MODIDFY_STATUS;
@@ -374,6 +382,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             feeTextView.setOnClickListener(MinePublishInfoActivity.this);
             offercontentTextView.setOnClickListener(MinePublishInfoActivity.this);
             scheduleTextView.setOnClickListener(MinePublishInfoActivity.this);
+            imageViewImageView.setOnClickListener(this);
         } else if (MODIDFY_STATUS == currentStatus) {
             currentStatus = NORMAL_STATUS;
             editButton.setText("编辑");
@@ -389,6 +398,7 @@ public class MinePublishInfoActivity extends BaseActivity {
             feeTextView.setOnClickListener(null);
             offercontentTextView.setOnClickListener(null);
             scheduleTextView.setOnClickListener(null);
+            imageViewImageView.setOnClickListener(null);
         }
     }
 
@@ -634,10 +644,10 @@ public class MinePublishInfoActivity extends BaseActivity {
                 if (resultCode == RESULT_OK) {
                     //从相册选取成功后，需要从Uri中拿出图片的绝对路径，再调用剪切
                     if (imagePhotoUri != null) {
-//                        CropUtils.cropImageUri(this, imagePhotoUri, imageUri,
-//                                head_cvCircleImageView.getWidth
-//                                        (), head_cvCircleImageView.getHeight(),
-// PHOTO_REQUEST_CUT);
+                        CropUtils.cropImageUri(this, imagePhotoUri, imageUri,
+                                imageViewImageView.getWidth
+                                        (), imageViewImageView.getHeight(),
+                                PHOTO_REQUEST_CUT);
                     } else {
                         ToastUtils.show(this, "没有得到拍照图片");
                     }
@@ -680,29 +690,29 @@ public class MinePublishInfoActivity extends BaseActivity {
         if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
             dialog.show();
-//            HttpUpload.uploadUserHeadImg(mContext, TAG, new File(CropUtils.getPath(mContext,
-//                    imageUri)), "", new ResponseCallback<UploadResult>(mContext) {
-//
-//                @Override
-//                public void onRequestSuccess(UploadResult result) {
-//                    dialog.dismiss();
-////                    SharedPreUtils.putString(mContext, SharedPre.User.AVATARURL, result
-////                            .avatarurl);
-////                    CropUtils.setHeadFromDisk(mContext, head_cvCircleImageView);
-//                    ToastUtils.show(mContext, "操作成功");
-//                }
-//
-//                @Override
-//                public void onReuquestFailed(String error) {
-//                    dialog.dismiss();
-//                    ToastUtils.show(mContext, error);
-//                }
-//            }, new AndroidMultiPartEntity.ProgressListener() {
-//                @Override
-//                public void transferred(long num) {
-//
-//                }
-//            });
+            HttpUpload.uploadUserHeadImg(TAG, new File(CropUtils.getPath(mContext,
+                    imageUri)), Utils.getToken
+                    (mContext), new ResponseCallback<UploadResult>(mContext) {
+
+                @Override
+                public void onRequestSuccess(UploadResult result) {
+                    dialog.dismiss();
+                    SharedPreUtils.putString(mContext, SharedPre.User.AVATARURL, result
+                            .data.avatarUrl);
+                    CropUtils.setHeadFromDisk(mContext, imageViewImageView);
+                }
+
+                @Override
+                public void onReuquestFailed(String error) {
+                    dialog.dismiss();
+                    ToastUtils.show(mContext, error);
+                }
+            }, new AndroidMultiPartEntity.ProgressListener() {
+                @Override
+                public void transferred(long num) {
+
+                }
+            });
 
         }
     }

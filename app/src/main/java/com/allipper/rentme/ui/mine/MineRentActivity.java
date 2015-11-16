@@ -13,6 +13,12 @@ import android.widget.TextView;
 import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.MineRentAdapter;
 import com.allipper.rentme.bean.OrderInfo;
+import com.allipper.rentme.bean.RentMeResponse;
+import com.allipper.rentme.common.util.LoadDialogUtil;
+import com.allipper.rentme.common.util.ToastUtils;
+import com.allipper.rentme.common.util.Utils;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.ui.base.SwipeRefreshBaseActivity;
 import com.allipper.rentme.ui.dynamic.OrderDetailActivity;
@@ -34,20 +40,30 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
         setContentView(R.layout.activity_mine_rent);
         findViews();
         setSwipeLayout();
-        getDatas(false);
+        getDatas(true);
     }
 
 
-    public void getRealDatas(boolean isShowDialog) {
+    public void getDatas(boolean isShowDialog) {
+        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+        if (isShowDialog) {
+            dialog.show();
+        }
+        HttpLoad.Order.getMineRent(TAG, Utils.getToken(mContext), pagination.currentPage + "",
+                pagination.pageSize + "", new ResponseCallback<RentMeResponse>(mContext) {
 
-    }
 
-    public void getTestDatas(boolean isShowDialog) {
-        list.add(new OrderInfo());
-        list.add(new OrderInfo());
-        list.add(new OrderInfo());
-        list.add(new OrderInfo());
-        swipeLayout.setRefreshing(false);
+                    @Override
+                    public void onRequestSuccess(RentMeResponse result) {
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void onReuquestFailed(String error) {
+                        dialog.dismiss();
+                        ToastUtils.show(mContext, error);
+                    }
+                });
     }
 
     public void setDataToView(Dialog dialog) {
@@ -58,7 +74,6 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
             adapter.setData(list);
         }
     }
-
 
 
     private void findViews() {

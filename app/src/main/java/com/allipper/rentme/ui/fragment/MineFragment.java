@@ -1,4 +1,4 @@
-package com.allipper.rentme.fragment;
+package com.allipper.rentme.ui.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,7 +20,6 @@ import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.response.UserInfo;
 import com.allipper.rentme.ui.GuideActivity;
-import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.ui.mine.AgreementActivity;
 import com.allipper.rentme.ui.mine.GiveBackActivity;
 import com.allipper.rentme.ui.mine.MineAuthActivity;
