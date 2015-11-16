@@ -29,6 +29,7 @@ import com.allipper.rentme.ui.login.CurrentCityActivity;
 import com.allipper.rentme.ui.login.LoginActivity;
 import com.allipper.rentme.ui.mine.SysSettingActivity;
 import com.allipper.rentme.widget.MyFilterPopupWindow;
+import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
 
     public static final String UPDATE_USER_INFO = "update_user_info";
     public final static int ACTIVITY_LOGIN = 100;
+    public final static int MESSAGE_LOGIN = 101;
 
     String Token = "/vF9at/zPgLACf2atvUXXLSUXIuhYrpnL2rv6v3TqMTdk6sO8EkeHI7KLV0+vJQqQ90T/Ijz" +
             "+lKSO4/TnNq1Hw==";//test
@@ -80,6 +82,8 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         setIMkitConnection();
         setIMkitUserInfo();
         setTabSelection(position);
+        UmengUpdateAgent.setUpdateCheckConfig(false);
+        UmengUpdateAgent.update(this);
     }
 
     private void registerAction() {
@@ -91,8 +95,8 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(UPDATE_USER_INFO.equals(intent.getAction())){
-                if(mineFragment != null){
+            if (UPDATE_USER_INFO.equals(intent.getAction())) {
+                if (mineFragment != null) {
                     mineFragment.updateUserInfo();
                 }
             }
@@ -251,8 +255,12 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 setTabSelection(TAB_HOME);
                 break;
             case R.id.msg_tab_ll:
-                if (RongIM.getInstance() != null)
-                    RongIM.getInstance().startConversationList(this);
+                if (Utils.isGuestUser(mContext)) { // 匿名用户不可进入消息
+                    startActivityForResult(new Intent(this, LoginActivity.class), MESSAGE_LOGIN);
+                } else {
+                    if (RongIM.getInstance() != null)
+                        RongIM.getInstance().startConversationList(this);
+                }
                 break;
             case R.id.mine_tab_ll:
                 if (Utils.isGuestUser(mContext)) { // 匿名用户不可进入个人中心
@@ -409,6 +417,10 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         } else if (ACTIVITY_LOGIN == requestCode) {
             if (resultCode == RESULT_OK) {
                 setTabSelection(TAB_MINE);
+            }
+        } else if (MESSAGE_LOGIN == requestCode) {
+            if (resultCode == RESULT_OK) {
+                setTabSelection(TAB_MESSAGE);
             }
         }
     }

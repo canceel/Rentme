@@ -8,7 +8,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.bean.RentMeResponse;
+import com.allipper.rentme.net.response.PulishInfoResponse;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.base.ParameterConstant;
 
 public class RentMeOrderDetailActivity extends BaseActivity {
     private static final String TAG = RentMeOrderDetailActivity.class.getSimpleName();
@@ -30,18 +33,21 @@ public class RentMeOrderDetailActivity extends BaseActivity {
     private TextView total_feeTextView;
     private RelativeLayout bottomRelativeLayout;
 
+    private RentMeResponse.DataEntity.ItemsEntity data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rent_me_order_detail);
         findViews();
-        getData(false);
+        getData();
+        setDataToView();
     }
 
-    private void getData(boolean isShowDialog) {
-
+    private void getData() {
+        data = getIntent().getExtras().getParcelable(ParameterConstant.PARAM_ITEM_DATA);
     }
+
 
     private void findViews() {
         backImageView = (ImageView) findViewById(R.id.back);
@@ -64,7 +70,18 @@ public class RentMeOrderDetailActivity extends BaseActivity {
     }
 
 
-    public void confirm(View view) {
+    private void setDataToView() {
+        numberTextView.setText(data.orderId);
+        orderDateTextView.setText(data.createTime);
+        nameTextView.setText(data.nickName);
+        dateTextView.setText(data.meetTime);
+        timeTextView.setText(data.meetTime);
+        durationTextView.setText("2小时");
+        telphoneTextView.setText(data.mobile);
+        addressTextView.setText(data.meetAddress);
+        costTextView.setText("￥"+data.totalPrice);
+        total_feeTextView.setText("￥"+data.totalPrice);
     }
+
 }
 

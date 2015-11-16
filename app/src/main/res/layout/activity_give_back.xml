@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/title_top"
         style="@style/TitleStyle"
@@ -30,33 +31,13 @@
             android:textColor="@color/msg_title_text_color"
             android:textSize="@dimen/text_size_18sp"/>
     </RelativeLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="欢迎将您任何优秀的建议或意见反馈给我们，我们将不遗余力的改进本产品，让您和您的小伙伴们用的舒心顺手"
-        android:textColor="@color/text_normal"
-        android:textSize="@dimen/text_size_13sp"/>
 
-    <EditText
-        android:id="@+id/message"
+    <FrameLayout
+        android:id="@+id/container"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/separator"
-        android:gravity="start"
-        android:hint="请输入你的留言，字数可能无法超过300字"
-        android:padding="8dp"
-        android:textColor="@color/text_normal"
-        android:textSize="@dimen/text_size_13sp"/>
-
-    <Button
-        style="@style/ButtonStyle"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="120dp"
-        android:onClick="confirm"
-        android:text="提交留言"/>
+        android:layout_height="match_parent"
+        tools:context="com.allipper.rentme.ui.mine.GiveBackActivity"
+        tools:ignore="MergeRootFrame"
+        android:background="@color/white"/>
 </LinearLayout>

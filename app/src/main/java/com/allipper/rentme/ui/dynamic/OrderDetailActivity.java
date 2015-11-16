@@ -10,7 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
+import com.allipper.rentme.bean.RentMeResponse;
 import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.base.ParameterConstant;
 import com.allipper.rentme.ui.mine.MinePayActivity;
 
 public class OrderDetailActivity extends BaseActivity {
@@ -34,17 +36,32 @@ public class OrderDetailActivity extends BaseActivity {
     private RelativeLayout bottomRelativeLayout;
     private Button datingButton;
 
+    private RentMeResponse.DataEntity.ItemsEntity data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
         findViews();
-        getData(false);
+        getData();
+        setDataToView();
     }
 
-    private void getData(boolean isShowDialog) {
+    private void setDataToView() {
+        numberTextView.setText(data.orderId);
+        orderDateTextView.setText(data.createTime);
+        nameTextView.setText(data.nickName);
+        dateTextView.setText(data.meetTime);
+        timeTextView.setText(data.meetTime);
+        durationTextView.setText("2小时");
+        telphoneTextView.setText(data.mobile);
+        addressTextView.setText(data.meetAddress);
+        costTextView.setText("￥" + data.totalPrice);
+        total_feeTextView.setText("￥" + data.totalPrice);
+    }
 
+    private void getData() {
+        data = getIntent().getExtras().getParcelable(ParameterConstant.PARAM_ITEM_DATA);
     }
 
     private void findViews() {
@@ -75,7 +92,7 @@ public class OrderDetailActivity extends BaseActivity {
         switch (id) {
             case R.id.dating:
                 Intent it = new Intent(mContext, MinePayActivity.class);
-                it.putExtra("isCharged",false);
+                it.putExtra("isCharged", false);
                 startActivity(it);
                 break;
             default:

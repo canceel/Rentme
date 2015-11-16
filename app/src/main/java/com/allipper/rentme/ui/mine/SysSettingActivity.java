@@ -28,6 +28,7 @@ import com.allipper.rentme.net.response.ResponseAppVersion;
 import com.allipper.rentme.ui.IndexActivity;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.umeng.message.PushAgent;
+import com.umeng.update.UmengUpdateAgent;
 
 /**
  * 系统设置
@@ -115,31 +116,8 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
                     }).setPositiveButton("取消", null).show();
         }
         if (id == R.id.check_version) {
-            if (Utils.isNetworkConnected(this)) {
-//                final Dialog dialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
-//                dialog.show();
-//                HttpLoad.AppVersion.getAppVersion(this, TAG, new
-//                        ResponseCallback<ResponseAppVersion>(SysSettingActivity.this) {
-//
-//                            @Override
-//                            public void onRequestSuccess(ResponseAppVersion result) {
-//                                dialog.dismiss();
-//                                if (result.versionCode > versionCode) {
-//                                    Intent intent = new Intent(Intent.ACTION_VIEW);
-//                                    intent.setData(Uri.parse(result.url));
-//                                    startActivity(intent);
-//                                } else {
-//                                    ToastUtils.show(SysSettingActivity.this, "目前已经是最新版本");
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onReuquestFailed(String error) {
-//                                dialog.dismiss();
-//                                ToastUtils.show(SysSettingActivity.this, error);
-//                            }
-//                        });
-            }
+            UmengUpdateAgent.setUpdateCheckConfig(false);
+            UmengUpdateAgent.update(this);
         }
         if (id == R.id.clear_cache) {
             new AlertDialog.Builder(this, R.style.CommonDialog).setMessage("确定要清除缓存吗？")

@@ -197,12 +197,13 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
                 .getToken(mContext), new ResponseCallback<UploadPictureResult>(mContext) {
             @Override
             public void onRequestSuccess(UploadPictureResult result) {
+                StringBuffer sb = new StringBuffer();
                 if(result.data.album != null && result.data.album.size() > 0){
-
+                    for(String str : result.data.album){
+                        sb.append(str).append(";");
+                    }
                 }
-                String album = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
-
-                SharedPreUtils.putString(mContext, SharedPre.User.ALBUM, album);
+                SharedPreUtils.putString(mContext, SharedPre.User.ALBUM, sb.toString());
                 if (isLast) {
                     dialog.dismiss();
                     ToastUtils.show(mContext, "上传成功");

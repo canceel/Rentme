@@ -80,7 +80,7 @@ public class Utils {
             StringBuffer album = new StringBuffer();
             for (T str : data
                     ) {
-                album.append(",").append(str);
+                album.append(";").append(str);
             }
             if (album.length() > 0) {
                 SharedPreUtils.putString(context, name, album.deleteCharAt(0)
@@ -140,6 +140,7 @@ public class Utils {
 
     /**
      * 用户信息不完整
+     *
      * @param userInfo
      * @return
      */
@@ -212,6 +213,20 @@ public class Utils {
         DisplayMetrics outMetrics = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(outMetrics);
         return outMetrics.widthPixels;
+    }
+
+    /**
+     * 获得屏幕高度
+     *
+     * @param context
+     * @return
+     */
+    public static int getScreenHeight(Context context) {
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+        return outMetrics.heightPixels;
     }
 
 

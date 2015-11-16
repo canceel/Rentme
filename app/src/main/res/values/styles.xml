@@ -3,18 +3,6 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <item name="android:windowBackground">@color/background</item>
-        <item name="android:windowAnimationStyle">@style/AnimationActivity</item>
-    </style>
-
-    <style name="AnimationActivity">
-        <!-- A1启动A2时，A2从屏幕上出现的动画-->
-        <item name="android:activityOpenEnterAnimation">@anim/open_main</item>
-        <!-- A1启动A2时，A1从屏幕上消失的动画-->
-        <item name="android:activityOpenExitAnimation">@anim/close_main</item>
-        <!-- A2回退A1时，A1从屏幕上出现的动画-->
-        <item name="@android:activityCloseEnterAnimation">@anim/open_next</item>
-        <!-- A2回退A1时，A2从屏幕上消失的动画-->
-        <item name="android:activityCloseExitAnimation">@anim/close_next</item>
     </style>
 
     <style name="LaunchTheme" parent="android:Theme">

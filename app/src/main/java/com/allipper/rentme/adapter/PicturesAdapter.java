@@ -35,7 +35,7 @@ public class PicturesAdapter extends CommonAdapter<String> {
             case TYPE_OTHER:
                 holder.getConvertView().setLayoutParams(new AbsListView.LayoutParams(Utils
                         .getScreenWidth
-                                (context), Utils.getScreenWidth(context) * 4 / 3));
+                                (context), Utils.getScreenHeight(context) * 2 / 3));
                 break;
         }
 

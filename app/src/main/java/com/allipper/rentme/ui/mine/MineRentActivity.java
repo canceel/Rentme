@@ -12,16 +12,16 @@ import android.widget.TextView;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.MineRentAdapter;
-import com.allipper.rentme.bean.OrderInfo;
 import com.allipper.rentme.bean.RentMeResponse;
 import com.allipper.rentme.common.util.LoadDialogUtil;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.ResponseCallback;
-import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.base.ParameterConstant;
 import com.allipper.rentme.ui.base.SwipeRefreshBaseActivity;
 import com.allipper.rentme.ui.dynamic.OrderDetailActivity;
+import com.allipper.rentme.ui.dynamic.PublishInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +31,7 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
 
     private ImageView backImageView;
     private TextView titleTextView;
-    private List<OrderInfo> list = new ArrayList<>();
+    private List<RentMeResponse.DataEntity.ItemsEntity> datas = new ArrayList<>();
     private MineRentAdapter adapter;
 
     @Override
@@ -56,25 +56,31 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
                     @Override
                     public void onRequestSuccess(RentMeResponse result) {
                         dialog.dismiss();
+                        swipeLayout.setRefreshing(false);
+                        if (isRefresh) {
+                            isRefresh = false;
+                            datas = result.data.items;
+                            pagination = result.data.pager;
+                        } else {
+                            datas.addAll(result.data.items);
+                        }
+
+                        if (adapter == null) {
+                            adapter = new MineRentAdapter(mContext, datas);
+                            listView.setAdapter(adapter);
+                        } else {
+                            adapter.setData(datas);
+                        }
                     }
 
                     @Override
                     public void onReuquestFailed(String error) {
                         dialog.dismiss();
+                        swipeLayout.setRefreshing(false);
                         ToastUtils.show(mContext, error);
                     }
                 });
     }
-
-    public void setDataToView(Dialog dialog) {
-        if (adapter == null) {
-            adapter = new MineRentAdapter(mContext, list);
-            listView.setAdapter(adapter);
-        } else {
-            adapter.setData(list);
-        }
-    }
-
 
     private void findViews() {
         backImageView = (ImageView) findViewById(R.id.back);
@@ -84,6 +90,9 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent it = new Intent(mContext, OrderDetailActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(ParameterConstant.PARAM_ITEM_DATA, datas.get(position));
+                it.putExtras(bundle);
                 startActivity(it);
             }
         });

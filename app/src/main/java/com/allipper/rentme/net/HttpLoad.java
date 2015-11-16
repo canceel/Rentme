@@ -491,14 +491,10 @@ public class HttpLoad {
     public abstract static class HomePage {
 
         public static void getHomepage(String tag,
-                                       String token,
                                        String pageIndex,
                                        String pageSize, ResponseCallback<PulishInfoResponse>
                                                callback) {
-            String timestamp = String.valueOf(System.currentTimeMillis());
-            String url = String.format(Constant.API_HOME_GET_RENT, token, timestamp, signUrl
-                    (token,
-                            timestamp), pageIndex, pageSize);
+            String url = String.format(Constant.API_HOME_GET_RENT, pageIndex, pageSize);
             GsonRequest<PulishInfoResponse> request = new GsonRequest<>(
                     Request.Method.GET, url,
                     PulishInfoResponse.class,

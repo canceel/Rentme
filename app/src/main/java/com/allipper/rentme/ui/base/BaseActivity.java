@@ -30,6 +30,7 @@ public class BaseActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         this.mContext = this;
         PushAgent.getInstance(mContext).onAppStart();
+        enterAnimation();
     }
 
     public void onResume() {
@@ -44,6 +45,7 @@ public class BaseActivity extends Activity implements View.OnClickListener {
 
     public void back(View view) {
         finish();
+        exitAnimation();
     }
 
     @Override
@@ -66,6 +68,7 @@ public class BaseActivity extends Activity implements View.OnClickListener {
 
     protected void processExit() {
         finish();
+        exitAnimation();
     }
 
     public void retry(int tab) {
@@ -82,5 +85,13 @@ public class BaseActivity extends Activity implements View.OnClickListener {
         if (view != null && view.getId() == R.id.back) {
             back(view);
         }
+    }
+
+    protected void enterAnimation() {
+        overridePendingTransition(R.anim.in_from_right, R.anim.hold);
+    }
+
+    protected void exitAnimation() {
+        overridePendingTransition(R.anim.hold, R.anim.out_to_right);
     }
 }

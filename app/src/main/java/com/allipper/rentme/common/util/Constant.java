@@ -158,5 +158,5 @@ public class Constant {
 
     // 查询我租到的
     public static final String API_HOME_GET_RENT = BASE_URL + "rentInfo/getRentList" +
-            ".json?token=%1$s&timestamp=%2$s&sign=%3$s&pageIndex=%4$s&pageSize=%5$s";
+            ".json?pageIndex=%1$s&pageSize=%2$s";
 }

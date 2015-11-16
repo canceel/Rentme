@@ -8,6 +8,7 @@ import com.allipper.rentme.database.DbManager;
 import com.allipper.rentme.net.response.EnumEntity;
 import com.allipper.rentme.net.response.ItemsEntity;
 import com.allipper.rentme.net.response.SysEnumsResponse;
+import com.umeng.fb.push.FeedbackPush;
 
 import io.rong.imkit.RongIM;
 
@@ -33,6 +34,7 @@ public class ApplicationInit extends Application {
     public void onCreate() {
         super.onCreate();
         baseContext = getApplicationContext();
+        FeedbackPush.getInstance(this).init(false);
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext())) ||
                 "io.rong.push".equals(getCurProcessName(getApplicationContext()))) {
 

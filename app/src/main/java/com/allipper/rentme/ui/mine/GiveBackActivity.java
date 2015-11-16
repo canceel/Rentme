@@ -2,50 +2,37 @@ package com.allipper.rentme.ui.mine;
 
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.allipper.rentme.R;
-import com.allipper.rentme.common.util.ToastUtils;
-import com.allipper.rentme.ui.base.BaseActivity;
+import com.allipper.rentme.ui.base.FragmentBaseActivity;
+import com.umeng.fb.fragment.FeedbackFragment;
 
-public class GiveBackActivity extends BaseActivity {
-    private static final String TAG = GiveBackActivity.class.getSimpleName();
+public class GiveBackActivity extends FragmentBaseActivity {
+    private static final String TAG = GiveBackActivity.class.getName();
 
-    private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
-    private EditText messageEditText;
-
+    private FeedbackFragment mFeedbackFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_give_back);
-        findViews();
-        getData(false);
+
+        if (savedInstanceState == null) {
+            // Create the detail fragment and add it to the activity
+            // using a fragment transaction.
+            String conversation_id = getIntent().getStringExtra(FeedbackFragment
+                    .BUNDLE_KEY_CONVERSATION_ID);
+            mFeedbackFragment = FeedbackFragment.newInstance(conversation_id);
+
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, mFeedbackFragment)
+                    .commit();
+        }
     }
 
-    private void getData(boolean isShowDialog) {
-
+    @Override
+    protected void onNewIntent(android.content.Intent intent) {
+        mFeedbackFragment.refresh();
     }
-
-    private void findViews() {
-        title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
-        titleTextView = (TextView) findViewById(R.id.title);
-        messageEditText = (EditText) findViewById(R.id.message);
-
-    }
-
-    public void confirm(View view) {
-        ToastUtils.show(mContext,"谢谢反馈");
-        finish();
-    }
-
-
 }
 

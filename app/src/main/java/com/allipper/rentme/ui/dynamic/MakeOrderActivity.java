@@ -255,7 +255,7 @@ public class MakeOrderActivity extends BaseActivity {
                         public void onRequestSuccess(ResponseBase result) {
                             dialog.dismiss();
                             startActivity(new Intent(mContext, MineRentActivity.class));
-                            finish();
+                            back(null);
                         }
 
                         @Override

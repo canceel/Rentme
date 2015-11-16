@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -120,7 +121,7 @@ public class PublishInfoActivity extends BaseActivity {
                 } else if (i == 1) {
                     icon2ImageView.setVisibility(View.VISIBLE);
                     HttpLoad.getImage(data.album.get(i).PictureUrl, icon2ImageView);
-                } else if (1 == 2) {
+                } else if (i == 2) {
                     icon3ImageView.setVisibility(View.VISIBLE);
                     HttpLoad.getImage(data.album.get(i).PictureUrl, icon3ImageView);
                 }
@@ -128,9 +129,9 @@ public class PublishInfoActivity extends BaseActivity {
             }
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(data.album.size()
                     * (Utils
-                    .getScreenWidth(mContext)), Utils.getScreenWidth(mContext) * 4 / 3);
+                    .getScreenWidth(mContext)), Utils.getScreenHeight(mContext) * 2 / 3);
             pictrues.setLayoutParams(params);
-            pictrues.setColumnWidth(Utils.getScreenWidth(mContext) / 3 - 2);
+            pictrues.setColumnWidth(Utils.getScreenWidth(mContext) / 3 - 10);
             pictrues.setNumColumns(data.album.size());
             pictrues.setAdapter(new PicturesAdapter(mContext, pictureUrls,
                     PicturesAdapter.TYPE_OTHER));
@@ -209,16 +210,19 @@ public class PublishInfoActivity extends BaseActivity {
                 bundle.putParcelable(ParameterConstant.PARAM_ITEM_DATA, data);
                 it.putExtras(bundle);
                 startActivity(it);
-                back(null);
                 break;
             case R.id.persen_picture:
                 if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.GONE) {
                     pictrueBgRl.setVisibility(View.VISIBLE);
+                    pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                            .alpha_in));
                 }
                 break;
             case R.id.delete:
                 if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
                     pictrueBgRl.setVisibility(View.GONE);
+                    pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                            .alpha_out));
                 }
             default:
                 super.onClick(view);
@@ -229,6 +233,8 @@ public class PublishInfoActivity extends BaseActivity {
     public void processExit() {
         if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
             pictrueBgRl.setVisibility(View.GONE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_out));
         } else {
             super.processExit();
         }

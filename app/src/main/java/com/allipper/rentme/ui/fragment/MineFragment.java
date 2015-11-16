@@ -31,6 +31,9 @@ import com.allipper.rentme.ui.mine.RentMeActivity;
 import com.allipper.rentme.ui.mine.SysSettingActivity;
 import com.allipper.rentme.widget.CircleImageView;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.fb.FeedbackAgent;
+import com.umeng.fb.fragment.FeedbackFragment;
+import com.umeng.message.PushAgent;
 
 /**
  * @author
@@ -54,6 +57,8 @@ public class MineFragment extends Fragment implements View.OnClickListener {
     private TextView settingTextView;
     private RelativeLayout mineRelativeLayout;
     private TextView pocketTextView;
+
+    private FeedbackAgent fb;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -105,6 +110,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         pocketTextView.setOnClickListener(this);
         mineRelativeLayout.setOnClickListener(this);
         updateUserInfo();
+        setUpUmengFeedback();
     }
 
     public void updateUserInfo() {
@@ -125,6 +131,29 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         }
         statusTextView.setText(SharedPreUtils.getString(getActivity(), SharedPre.User.USERDETAIL));
         CropUtils.setHeadFromDisk(getActivity(), headCV);
+    }
+
+    private void setUpUmengFeedback() {
+        fb = new FeedbackAgent(getActivity());
+        // check if the app developer has replied to the feedback or not.
+        fb.sync();
+        fb.openAudioFeedback();
+        fb.openFeedbackPush();
+        PushAgent.getInstance(getActivity()).setDebugMode(true);
+        PushAgent.getInstance(getActivity()).enable();
+
+        //fb.setWelcomeInfo();
+        //  fb.setWelcomeInfo("Welcome to use umeng feedback app");
+//        FeedbackPush.getInstance(this).init(true);
+//        PushAgent.getInstance(this).setPushIntentServiceClass(MyPushIntentService.class);
+
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean result = fb.updateUserInfo();
+            }
+        }).start();
     }
 
     @Override
@@ -171,7 +200,10 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(it);
                 break;
             case R.id.giveback:
-                it = new Intent(getActivity(), GiveBackActivity.class);
+                it = new Intent();
+                it.setClass(getActivity(), GiveBackActivity.class);
+                String covertId = new FeedbackAgent(getActivity()).getDefaultConversation().getId();
+                it.putExtra(FeedbackFragment.BUNDLE_KEY_CONVERSATION_ID, covertId);
                 startActivity(it);
                 break;
             case R.id.help:
@@ -187,5 +219,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(it);
                 break;
         }
+        getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.hold);
     }
 }

@@ -3,15 +3,12 @@ package com.allipper.rentme.ui.mine;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.PocketDetailAdapter;
-import com.allipper.rentme.adapter.RentMeAdapter;
 import com.allipper.rentme.bean.BalanceInfo;
-import com.allipper.rentme.bean.OrderInfo;
 import com.allipper.rentme.ui.base.SwipeRefreshBaseActivity;
 
 import java.util.ArrayList;

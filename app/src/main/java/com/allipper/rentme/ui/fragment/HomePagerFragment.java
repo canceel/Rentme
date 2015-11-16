@@ -102,6 +102,7 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                 bundle.putParcelable(ParameterConstant.PARAM_ITEM_DATA, datas.get(i - 1));
                 it.putExtras(bundle);
                 getActivity().startActivity(it);
+                getActivity().overridePendingTransition(R.anim.in_from_right, R.anim.hold);
             }
         });
         View headView = View.inflate(getActivity(), R
@@ -180,9 +181,9 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
             if (isShowDialog) {
                 dialog.show();
             }
-            HttpLoad.HomePage.getHomepage(TAG, Utils.getToken(getActivity()), pagination
-                            .currentPage + "",
-                    pagination.pageSize + "", new ResponseCallback<PulishInfoResponse>
+            HttpLoad.HomePage.getHomepage(TAG, pagination.currentPage + ""
+                    , pagination.pageSize + "",
+                    new ResponseCallback<PulishInfoResponse>
                             (getActivity()) {
                         @Override
                         public void onRequestSuccess(PulishInfoResponse result) {
