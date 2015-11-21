@@ -99,17 +99,17 @@ public class Constant {
      */
     //获取验证码
     public static final String API_USER_GET_MESSAGE_CODE = BASE_URL +
-            "account/getregcaptcha.json?mobile=%1$s";
+            "account/getcaptcha.json?mobile=%1$s&type=%2$s";
     /**
      * 上传头像
      */
     public static final String API_USER_UPLOAD_HEADIMG = BASE_URL +
             "account/uploadavatar.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     /**
-     * 上传相册
+     * 上传背景
      */
     public static final String API_USER_UPLOAD_BACKGROUD = BASE_URL +
-            "account/backgroudImg.json?token=%1$s&timestamp=%2$s&sign=%3$s";
+            "account/uploadbackgroud.json?token=%1$s&timestamp=%2$s&sign=%3$s";
 
     /**
      * 上传相册
@@ -118,13 +118,15 @@ public class Constant {
             "account/uploadalbum.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //用户注册
     public static final String API_USER_REGIST = BASE_URL + "account/register.json";
+    //修改密码
+    public static final String API_USER_CHANGE_PWD = BASE_URL + "account/resetpassword.json";
     //用户登录
     public static final String API_USER_LOGIN = BASE_URL + "account/login.json";
     //刷新token
     public static final String API_REFRESH_TOKEN = BASE_URL + "account/gettoken.json";
-    //重置用户密码
-    public static final String API_USER_RESET_PASSWORD = BASE_URL +
-            "v2/yonghuio2o/userstoken/changepassword";
+    //刷新token
+    public static final String API_RY_TOKEN = BASE_URL + "account/getrctoken" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //修改用户信息
     public static final String API_USER_MODIFY_INFO = BASE_URL +
             "account/update.json?token=%1$s&timestamp=%2$s&sign=%3$s";

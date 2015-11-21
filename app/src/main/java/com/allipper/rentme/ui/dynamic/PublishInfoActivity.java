@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.GridView;
@@ -20,7 +19,8 @@ import android.widget.TextView;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.PicturesAdapter;
-import com.allipper.rentme.common.util.CropUtils;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.response.PulishInfoResponse;
@@ -63,6 +63,7 @@ public class PublishInfoActivity extends BaseActivity {
     private ImageView deleteIv;
     private CircleImageView headCv;
     private HorizontalScrollView horizontalScrollView;
+    private LinearLayout bottomLl;
 
     private int selectedIcon = 0;
     private PulishInfoResponse.DataEntity.ItemsEntity data;
@@ -89,13 +90,15 @@ public class PublishInfoActivity extends BaseActivity {
         fee_tvTextView.setText("￥" + data.perHourPrice);
         careerTextView.setText(data.job);
         ageTextView.setText(data.ageRange);
+        hobbyTextView.setText(data.interests);
         tallTextView.setText(data.heightRange);
         weightTextView.setText(data.weightRange);
         offercontentTextView.setText(data.rentRange);
         scheduleTextView.setText(data.Schedule);
-        hobbyTextView.setText("睡觉、花花");
+        hobbyTextView.setText(data.interests);
         HttpLoad.getImage(data.avatarUrl, headCv);
-        String gender = "男";
+        HttpLoad.getImage(data.backgroudImage, imageViewImageView);
+        String gender = data.gender;
         if ("男".equals(gender)) {
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.sex_girl);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
@@ -140,6 +143,11 @@ public class PublishInfoActivity extends BaseActivity {
             persenPictureLl.setVisibility(View.GONE);
             horizontalScrollView.setVisibility(View.GONE);
         }
+        if (data.userId == SharedPreUtils.getInt(mContext, SharedPre.User.USERID, 0)) {
+            bottomLl.setVisibility(View.GONE);
+        } else {
+            bottomLl.setVisibility(View.VISIBLE);
+        }
     }
 
     private void findViews() {
@@ -167,6 +175,7 @@ public class PublishInfoActivity extends BaseActivity {
         datingButton = (Button) findViewById(R.id.dating);
         pictrueBgRl = (RelativeLayout) findViewById(R.id.picturebg);
         persenPictureLl = (LinearLayout) findViewById(R.id.persen_picture);
+        bottomLl = (LinearLayout) findViewById(R.id.bottom);
         persen_picture_dividerView = findViewById(R.id.persen_picture_divider);
         pictrues = (GridView) findViewById(R.id.bigPictures);
         deleteIv = (ImageView) findViewById(R.id.delete);

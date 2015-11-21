@@ -16,12 +16,14 @@ import com.allipper.rentme.net.response.RegistResult;
 import com.allipper.rentme.net.response.ResponseAppVersion;
 import com.allipper.rentme.net.response.ResponseBase;
 import com.allipper.rentme.net.response.ResponseMessageBean;
+import com.allipper.rentme.net.response.ResponseRyToken;
 import com.allipper.rentme.net.response.SysEnumsResponse;
 import com.allipper.rentme.net.response.UpdateUserInforResponse;
 import com.allipper.rentme.net.response.UserInfo;
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.sea_monster.common.Md5;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -183,14 +185,39 @@ public class HttpLoad {
     public static abstract class UserModule {
 
         /**
+         * 刷新Token
+         *
+         * @param tag
+         * @param token
+         * @param timestamp
+         * @param callback
+         */
+        public static void getRyToken(
+                String tag, String token,
+                String timestamp,
+                ResponseCallback<ResponseRyToken> callback) {
+            String url = String.format(Constant.API_RY_TOKEN, token, timestamp, signUrl
+                    (token,
+                            timestamp));
+            GsonRequest<ResponseRyToken> request = new GsonRequest<>(
+                    Request.Method.GET, url,
+                    ResponseRyToken.class,
+                    null,
+                    null,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
          * @param tag
          * @param mobile
          * @param callback
          */
         public static void getMessageCode(
-                String tag, String mobile,
+                String tag, String mobile, String type,
                 ResponseCallback<ResponseMessageBean> callback) {
-            String url = String.format(Constant.API_USER_GET_MESSAGE_CODE, mobile);
+            String url = String.format(Constant.API_USER_GET_MESSAGE_CODE, mobile, type);
             GsonRequest<ResponseMessageBean> request = new GsonRequest<>(
                     Request.Method.GET, url,
                     ResponseMessageBean.class,
@@ -229,6 +256,33 @@ public class HttpLoad {
         }
 
         /**
+         * 修改密码
+         *
+         * @param tag
+         * @param mobile
+         * @param password
+         * @param messageCode
+         * @param callback
+         */
+        public static void changePassword(
+                String tag, String mobile,
+                String password, String messageCode,
+                ResponseCallback<RegistResult> callback) {
+            final Map<String, String> params = new HashMap<>();
+            params.put("mobile", mobile);
+            params.put("password", Utils.MD5(password));
+            params.put("captcha", messageCode);
+            GsonRequest<RegistResult> request = new GsonRequest<>(
+                    Request.Method.POST, Constant.API_USER_CHANGE_PWD,
+                    RegistResult.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
          * 登录
          *
          * @param tag
@@ -243,7 +297,7 @@ public class HttpLoad {
                 ResponseCallback<LoginResult> callback) {
             final Map<String, String> params = new HashMap<>();
             params.put("mobile", mobile);
-            params.put("password", password);
+            params.put("password", Md5.encode(password));
             GsonRequest<LoginResult> request = new GsonRequest<>(
                     Request.Method.POST, Constant.API_USER_LOGIN,
                     LoginResult.class,

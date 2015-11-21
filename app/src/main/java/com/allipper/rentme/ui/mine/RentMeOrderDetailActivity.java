@@ -1,17 +1,22 @@
 package com.allipper.rentme.ui.mine;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.allipper.rentme.R;
 import com.allipper.rentme.bean.RentMeResponse;
+import com.allipper.rentme.common.util.ToastUtils;
+import com.allipper.rentme.net.HttpLoad;
 import com.allipper.rentme.net.response.PulishInfoResponse;
 import com.allipper.rentme.ui.base.BaseActivity;
 import com.allipper.rentme.ui.base.ParameterConstant;
+import com.allipper.rentme.widget.CircleImageView;
 
 public class RentMeOrderDetailActivity extends BaseActivity {
     private static final String TAG = RentMeOrderDetailActivity.class.getSimpleName();
@@ -31,6 +36,8 @@ public class RentMeOrderDetailActivity extends BaseActivity {
     private TextView costTextView;
     private TextView orderDateTextView;
     private TextView total_feeTextView;
+    private CircleImageView headCircleIamgeView;
+    private Button datingButton;
     private RelativeLayout bottomRelativeLayout;
 
     private RentMeResponse.DataEntity.ItemsEntity data;
@@ -66,7 +73,11 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         orderDateTextView = (TextView) findViewById(R.id.orderDate);
         total_feeTextView = (TextView) findViewById(R.id.total_fee);
         bottomRelativeLayout = (RelativeLayout) findViewById(R.id.bottomRl);
+        datingButton = (Button) findViewById(R.id.dating);
+        headCircleIamgeView = (CircleImageView) findViewById(R.id.head);
 
+        datingButton.setOnClickListener(this);
+        backImageView.setOnClickListener(this);
     }
 
 
@@ -79,9 +90,34 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         durationTextView.setText("2小时");
         telphoneTextView.setText(data.mobile);
         addressTextView.setText(data.meetAddress);
-        costTextView.setText("￥"+data.totalPrice);
-        total_feeTextView.setText("￥"+data.totalPrice);
+        costTextView.setText("￥" + data.totalPrice);
+        total_feeTextView.setText("￥" + data.totalPrice);
+//        HttpLoad.getImage(data.a, headCircleIamgeView);
+        String gender = data.gender;
+        if ("男".equals(gender)) {
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.sex_girl);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            nameTextView.setCompoundDrawables(null, null, drawable, null);
+        } else if ("女".equals(gender)) {
+            Drawable drawable = mContext.getResources().getDrawable(R.mipmap.sex_man);
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            nameTextView.setCompoundDrawables(null, null, drawable, null);
+        } else {
+            nameTextView.setCompoundDrawables(null, null, null, null);
+        }
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        switch (id) {
+            case R.id.dating:
+                ToastUtils.show(mContext, "预约成功");
+                onBackPressed();
+                break;
+            default:
+                super.onClick(view);
+        }
+    }
 }
 

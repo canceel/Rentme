@@ -120,7 +120,7 @@ public class CropUtils {
         }
     }
 
-    private static File getOrCreateFileInExternalStorage() {
+    public static File getOrCreateFileInExternalStorage() {
         File cacheDir = new File(PATH);
         if (!cacheDir.exists()) {
             cacheDir.mkdir();

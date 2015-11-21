@@ -55,13 +55,16 @@ public class PulishInfoResponse extends ResponseBase {
         public static class ItemsEntity implements Parcelable {
             public int userId;
             public String avatarUrl;
+            public String backgroudImage;
             public String nickName;
             public String job;
+            public String gender;
             public String ageRange;
             public String heightRange;
             public String weightRange;
             public String rentRange;
             public String Schedule;
+            public String interests;
             public int perHourPrice;
             public List<Album> album;
 
@@ -74,13 +77,16 @@ public class PulishInfoResponse extends ResponseBase {
             public void writeToParcel(Parcel dest, int flags) {
                 dest.writeInt(this.userId);
                 dest.writeString(this.avatarUrl);
+                dest.writeString(this.backgroudImage);
                 dest.writeString(this.nickName);
                 dest.writeString(this.job);
+                dest.writeString(this.gender);
                 dest.writeString(this.ageRange);
                 dest.writeString(this.heightRange);
                 dest.writeString(this.weightRange);
                 dest.writeString(this.rentRange);
                 dest.writeString(this.Schedule);
+                dest.writeString(this.interests);
                 dest.writeInt(this.perHourPrice);
                 dest.writeTypedList(album);
             }
@@ -91,18 +97,22 @@ public class PulishInfoResponse extends ResponseBase {
             protected ItemsEntity(Parcel in) {
                 this.userId = in.readInt();
                 this.avatarUrl = in.readString();
+                this.backgroudImage = in.readString();
                 this.nickName = in.readString();
                 this.job = in.readString();
+                this.gender = in.readString();
                 this.ageRange = in.readString();
                 this.heightRange = in.readString();
                 this.weightRange = in.readString();
                 this.rentRange = in.readString();
                 this.Schedule = in.readString();
+                this.interests = in.readString();
                 this.perHourPrice = in.readInt();
                 this.album = in.createTypedArrayList(Album.CREATOR);
             }
 
-            public static final Parcelable.Creator<ItemsEntity> CREATOR = new Parcelable.Creator<ItemsEntity>() {
+            public static final Parcelable.Creator<ItemsEntity> CREATOR = new Parcelable
+                    .Creator<ItemsEntity>() {
                 public ItemsEntity createFromParcel(Parcel source) {
                     return new ItemsEntity(source);
                 }
@@ -155,7 +165,8 @@ public class PulishInfoResponse extends ResponseBase {
                 this.CreateTime = in.readString();
             }
 
-            public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>() {
+            public static final Parcelable.Creator<Album> CREATOR = new Parcelable.Creator<Album>
+                    () {
                 public Album createFromParcel(Parcel source) {
                     return new Album(source);
                 }

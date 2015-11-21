@@ -36,8 +36,9 @@ public class HttpUpload {
                                          ResponseCallback<UploadResult> callback,
                                          AndroidMultiPartEntity.ProgressListener listener) {
         String timestamp = String.valueOf(System.currentTimeMillis());
-        String url = String.format(Constant.API_USER_UPLOAD_BACKGROUD, token, timestamp, signUrl(token,
-                timestamp));
+        String url = String.format(Constant.API_USER_UPLOAD_HEADIMG, token, timestamp, signUrl
+                (token,
+                        timestamp));
         UploadFileRequest request = new UploadFileRequest(GsonRequest.Method.POST, tag, url,
                 file, UploadResult.class, callback, callback, listener);
         HttpUtils.getInstance().request(tag, request);
@@ -56,8 +57,9 @@ public class HttpUpload {
                                          ResponseCallback<UploadPictureResult> callback,
                                          AndroidMultiPartEntity.ProgressListener listener) {
         String timestamp = String.valueOf(System.currentTimeMillis());
-        String url = String.format(Constant.API_USER_UPLOAD_PICTURE, token, timestamp, signUrl(token,
-                timestamp));
+        String url = String.format(Constant.API_USER_UPLOAD_PICTURE, token, timestamp, signUrl
+                (token,
+                        timestamp));
         UploadFileRequest request = new UploadFileRequest(GsonRequest.Method.POST, tag, url,
                 file, UploadPictureResult.class, callback, callback, listener);
         HttpUtils.getInstance().request(tag, request);
@@ -73,11 +75,12 @@ public class HttpUpload {
      * @param listener
      */
     public static void uploadBackgroudImg(String tag, File file, String token,
-                                         ResponseCallback<UploadResult> callback,
-                                         AndroidMultiPartEntity.ProgressListener listener) {
+                                          ResponseCallback<UploadResult> callback,
+                                          AndroidMultiPartEntity.ProgressListener listener) {
         String timestamp = String.valueOf(System.currentTimeMillis());
-        String url = String.format(Constant.API_USER_UPLOAD_HEADIMG, token, timestamp, signUrl(token,
-                timestamp));
+        String url = String.format(Constant.API_USER_UPLOAD_BACKGROUD, token, timestamp, signUrl
+                (token,
+                        timestamp));
         UploadFileRequest request = new UploadFileRequest(GsonRequest.Method.POST, tag, url,
                 file, UploadResult.class, callback, callback, listener);
         HttpUtils.getInstance().request(tag, request);

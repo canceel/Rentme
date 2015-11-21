@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dp"
-                android:background="@android:color/transparent"
-                android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:padding="8dp">
 
     <TextView
         android:id="@id/rc_time"
@@ -26,8 +26,8 @@
         android:layout_alignParentLeft="true"
         android:layout_marginRight="16dp"
         android:background="@android:color/transparent"
-        app:defDrawable="@drawable/rc_ic_def_msg_portrait"
-        app:shape="circle"/>
+        app:RCDefDrawable="@drawable/rc_ic_def_msg_portrait"
+        app:RCShape="circle"/>
 
     <io.rong.imkit.widget.AsyncImageView
         android:id="@id/rc_right"
@@ -37,8 +37,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginLeft="16dp"
         android:background="@android:color/transparent"
-        app:defDrawable="@drawable/rc_ic_def_msg_portrait"
-        app:shape="circle"/>
+        app:RCDefDrawable="@drawable/rc_ic_def_msg_portrait"
+        app:RCShape="circle"/>
 
 
     <TextView
@@ -51,7 +51,7 @@
         style="@style/RCTheme.Message.Username.TextView"
         android:gravity="center_vertical"
         android:layout_marginTop="-3dp"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -67,6 +67,17 @@
             android:background="@android:color/transparent"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@id/rc_sent_status"
+                android:layout_gravity="center_vertical"
+                android:textColor="@color/rc_notification_bg"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text="已发"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp" />
+
             <ProgressBar
                 android:id="@id/rc_progress"
                 android:layout_gravity="center_vertical"
@@ -79,14 +90,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/rc_ic_warning"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <io.rong.imkit.widget.ProviderContainerView
                 android:id="@id/rc_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@android:color/transparent"/>
+                android:background="@android:color/transparent" />
 
         </LinearLayout>
 

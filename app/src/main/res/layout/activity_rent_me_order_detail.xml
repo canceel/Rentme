@@ -150,6 +150,7 @@
                     android:textSize="@dimen/text_size_15sp"/>
 
                 <com.allipper.rentme.widget.CircleImageView
+                    android:id="@+id/head"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentRight="true"
@@ -447,7 +448,6 @@
                 android:layout_width="90dp"
                 android:layout_marginRight="24dp"
                 android:layout_marginTop="2dp"
-                android:onClick="confirm"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="接受预约"

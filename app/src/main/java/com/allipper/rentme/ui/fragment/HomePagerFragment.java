@@ -113,7 +113,7 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
         initVP(ll, bannerLayout);
         headView.setLayoutParams(new AbsListView.LayoutParams(AbsListView
                 .LayoutParams
-                .MATCH_PARENT, Utils.dip2px(getActivity(), 180f)));
+                .MATCH_PARENT, Utils.dip2px(getActivity(), 100f)));
         listView.addHeaderView(headView);
         LinearLayout footerLL = new LinearLayout(getActivity());
         footerLL.setBackgroundColor(getResources().getColor(R.color.white));
@@ -143,7 +143,7 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
         for (int i = 0; i < 3; i++) {
             View point = new View(getActivity());
             point.setBackgroundResource(R.drawable.point_background);
-            param = new LinearLayout.LayoutParams(20, 20);
+            param = new LinearLayout.LayoutParams(15, 15);
             param.rightMargin = 10;
             point.setLayoutParams(param);
             point.setEnabled(false);
@@ -208,6 +208,7 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                         @Override
                         public void onReuquestFailed(String error) {
                             dialog.dismiss();
+                            swipeRefreshLayout.setRefreshing(false);
                             ToastUtils.show(getActivity(), error);
                         }
                     });

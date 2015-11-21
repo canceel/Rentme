@@ -23,5 +23,6 @@ public class UploadResult extends ResponseBase {
 
     public static class DataEntity {
         public String avatarUrl;
+        public String backgroudImage;
     }
 }

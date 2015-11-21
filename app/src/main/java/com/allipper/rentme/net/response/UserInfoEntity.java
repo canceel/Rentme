@@ -11,6 +11,7 @@ public class UserInfoEntity {
     public int userId;
     public String mobile;
     public String avatarUrl;
+    public String backgroudImage;
     public String realName;
     public String userDetail;
     public String nickName;
@@ -29,6 +30,7 @@ public class UserInfoEntity {
         info.mobile = mobile;
         info.avatarUrl = avatarUrl;
         info.realName = realName;
+        info.backgroudImage = backgroudImage;
         info.userDetail = TextUtils.isEmpty(userDetail) ? "设置个性签名" : userDetail;
         info.userDetailValue = userDetail;
         info.nickName = TextUtils.isEmpty(nickName) ? "设置昵称" : nickName;

@@ -55,8 +55,7 @@ public class HomePageAdapter extends CommonAdapter<PulishInfoResponse.DataEntity
         holder.setText(R.id.offercontent_tv, review.rentRange);
         holder.setText(R.id.schedule_tv, review.Schedule);
         holder.setText(R.id.fee_tv, "￥" + review.perHourPrice);
-
-        String gender = "男";
+        String gender = review.gender;
         if ("男".equals(gender)) {
             Drawable drawable = context.getResources().getDrawable(R.mipmap.sex_girl);
             drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());

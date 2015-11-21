@@ -10,6 +10,7 @@ public class UserInfo {
     public int userId;
     public String mobile;
     public String avatarUrl;
+    public String backgroudImage;
     public String realName;
     public String userDetail;
     public String userDetailValue;

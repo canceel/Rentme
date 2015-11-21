@@ -51,9 +51,9 @@
         <EditText
             android:id="@+id/cell_no"
             style="@style/EditTextStyle"
-            android:background="@mipmap/input_bg"
-            android:drawableLeft="@mipmap/cell"
             android:layout_marginTop="40dp"
+            android:background="@drawable/button_frame_yellow_1dp"
+            android:drawableLeft="@mipmap/cell"
             android:drawablePadding="16dp"
             android:hint="@string/common_login_account_tip"
             android:imeOptions="actionNext"
@@ -64,12 +64,12 @@
             android:id="@+id/password"
             style="@style/EditTextStyle"
             android:layout_marginTop="20dp"
+            android:background="@drawable/button_frame_yellow_1dp"
             android:drawableLeft="@mipmap/password"
             android:drawablePadding="16dp"
             android:hint="@string/common_password_format_tip"
             android:imeOptions="actionDone"
-            android:inputType="textPassword"
-            android:background="@mipmap/input_bg"/>
+            android:inputType="textPassword"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -81,10 +81,10 @@
                 android:layout_height="20dp"
                 android:layout_marginTop="20dp"
                 android:background="@null"
+                android:gravity="left|center_vertical"
                 android:text="@string/common_register_right_now_tip"
                 android:textColor="@color/text_blue"
-                android:gravity="left|center_vertical"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_14sp"/>
 
             <Button
                 android:id="@+id/forget"
@@ -93,10 +93,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="20dp"
                 android:background="@null"
+                android:gravity="right|center_vertical"
                 android:text="@string/common_forget_password"
                 android:textColor="@color/text_blue"
-                android:gravity="right|center_vertical"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_14sp"/>
         </RelativeLayout>
 
         <Button

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="rc_text_color_primary">#2d2d2d</color>
-    <color name="rc_text_color_secondary">#a7a6a6</color>
+    <color name="rc_text_color_primary">#353535</color>
+    <color name="rc_text_color_secondary">#999999</color>
     <color name="rc_text_color_tertiary">#d7d7d7</color>
     <color name="rc_text_color_primary_inverse">@android:color/white</color>
     <color name="rc_normal_bg">#EBEBEB</color>
+    <color name="rc_divider">#E9E9E9</color>
     <color name="rc_message_user_name">#838383</color>
 
     <color name="rc_notification_bg">#D3D3D3</color>
@@ -19,6 +20,5 @@
 
     <color name="rc_draft_color">#cb120f</color>
     <color name="rc_voice_color">#0195ff</color>
-    <color name="rc_divider">#e9e9e9</color>
 
 </resources>

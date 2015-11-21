@@ -26,6 +26,8 @@ import android.widget.TextView;
 import com.allipper.rentme.R;
 import com.allipper.rentme.adapter.MineChangePicturesAdapter;
 import com.allipper.rentme.bean.ImageFloder;
+import com.allipper.rentme.common.util.CropUtils;
+import com.allipper.rentme.common.util.ImageFactory;
 import com.allipper.rentme.common.util.LoadDialogUtil;
 import com.allipper.rentme.common.util.SharedPre;
 import com.allipper.rentme.common.util.SharedPreUtils;
@@ -42,6 +44,7 @@ import com.allipper.rentme.widget.ListImageDirPopupWindow;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -191,15 +194,36 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
         }
     }
 
+
+    boolean isCompressed = false;
+
     private void uploadOne(int i, final boolean isLast, final Dialog dialog) {
         final int next = i + 1;
-        HttpUpload.uploadUserPicture(TAG, new File(mAdapter.mSelectedImage.get(i)), Utils
+        File file = new File(mAdapter.mSelectedImage.get(i));
+        isCompressed = false;
+        if (file != null && file.exists() && file.length() > 200 * 1024) {
+            String temp = CropUtils.getOrCreateFileInExternalStorage() + File.separator + file
+                    .getName();
+            try {
+                ImageFactory.compressAndGenImage(mAdapter.mSelectedImage.get(i), temp, 200 *
+                        1024, false);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            file = new File(temp);
+            isCompressed = true;
+        }
+        final File finalFile = file;
+        HttpUpload.uploadUserPicture(TAG, file, Utils
                 .getToken(mContext), new ResponseCallback<UploadPictureResult>(mContext) {
             @Override
             public void onRequestSuccess(UploadPictureResult result) {
+                if (isCompressed) {
+                    finalFile.delete();
+                }
                 StringBuffer sb = new StringBuffer();
-                if(result.data.album != null && result.data.album.size() > 0){
-                    for(String str : result.data.album){
+                if (result.data.album != null && result.data.album.size() > 0) {
+                    for (String str : result.data.album) {
                         sb.append(str).append(";");
                     }
                 }
@@ -216,6 +240,9 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
 
             @Override
             public void onReuquestFailed(String error) {
+                if (isCompressed) {
+                    finalFile.delete();
+                }
                 dialog.dismiss();
                 ToastUtils.show(mContext, error);
             }

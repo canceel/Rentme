@@ -128,8 +128,6 @@
             <Button
                 android:id="@+id/exit"
                 style="@style/ButtonStyle"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
                 android:layout_marginTop="24dp"
                 android:text="注销当前账号"
                 android:textSize="18dp"/>

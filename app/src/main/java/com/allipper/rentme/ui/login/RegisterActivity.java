@@ -119,7 +119,23 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
 
                                             @Override
                                             public void onRequestSuccess(LoginResult result) {
-                                                loginSuccess(result.data, null, mDialog);
+                                                loginSuccess(result.data, new
+                                                        LoginSuccessListener() {
+                                                            @Override
+                                                            public void onSuccessed(Dialog dialog) {
+                                                                dialog.dismiss();
+                                                                SharedPreUtils.putString(mContext,
+                                                                        SharedPre.App
+                                                                                .USER_TPE, "login");
+                                                                setResult(RESULT_OK);
+                                                                Intent it = new Intent(mContext,
+                                                                        LoginActivity.class);
+                                                                it.setFlags(Intent
+                                                                        .FLAG_ACTIVITY_CLEAR_TOP);
+                                                                startActivity(it);
+                                                                onBackPressed();
+                                                            }
+                                                        }, mDialog);
                                             }
 
                                             @Override
@@ -164,12 +180,12 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
     public void get_securitycode(View view) {
         if (TextUtils.isEmpty(edInputCellon.getText().toString())) {
             Toast.makeText(this, "请输入手机号码", Toast.LENGTH_SHORT).show();
-        } else if (Utils.isMobile(edInputCellon.getText().toString())) {
+        } else if (!Utils.isMobile(edInputCellon.getText().toString())) {
             Toast.makeText(this, "手机号码错误", Toast.LENGTH_SHORT).show();
         } else if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
             dialog.show();
-            HttpLoad.UserModule.getMessageCode(TAG, edInputCellon.getText().toString(),
+            HttpLoad.UserModule.getMessageCode(TAG, edInputCellon.getText().toString(), "0",
                     new ResponseCallback<ResponseMessageBean>(mContext) {
                         @Override
                         public void onRequestSuccess(ResponseMessageBean result) {

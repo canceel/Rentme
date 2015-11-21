@@ -51,7 +51,8 @@
                 android:layout_height="200dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:src="@color/text_red"/>
+                android:scaleType="fitXY"
+                android:src="@mipmap/publish_bg"/>
 
             <FrameLayout
                 android:id="@+id/first_fl"
@@ -516,6 +517,7 @@
     </ScrollView>
 
     <LinearLayout
+        android:id="@+id/bottom"
         style="@style/BottomStyle"
         android:layout_gravity="bottom"
         android:orientation="horizontal"

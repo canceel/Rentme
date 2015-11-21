@@ -111,6 +111,7 @@ public class Utils {
         UserInfo customer = new UserInfo();
         customer.album = getListData(context, SharedPre.User.ALBUM);
         customer.interests = SharedPreUtils.getString(context, SharedPre.User.INTERESTS);
+        customer.backgroudImage = SharedPreUtils.getString(context, SharedPre.User.BACKGROUDIMG);
         customer.interestsValue = SharedPreUtils.getString(context, SharedPre.User.INTERESTS_VALUE);
         customer.ageRange = SharedPreUtils.getString(context, SharedPre.User.AGERANGE);
         customer.ageRangeValue = SharedPreUtils.getInt(context, SharedPre.User.AGERANGE_VALUE, 0);
@@ -181,9 +182,11 @@ public class Utils {
         SharedPreUtils.removeSharedKey(context, SharedPre.User.GENDER_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.MOBILE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.BACKGROUDIMG);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.USERID);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.AVATARURL);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.RYACCESS_TOKEN);
         SharedPreUtils.removeSharedKey(context, SharedPre.App.ACCESS_TOKEN);
     }
 
@@ -333,7 +336,7 @@ public class Utils {
         Pattern p = null;
         Matcher m = null;
         boolean b = false;
-        p = Pattern.compile("^[1][3,4,5,8][0-9]{9}$"); // 验证手机号
+        p = Pattern.compile("^0?(13[0-9]|15[0-35-9]|18[0236789]|14[57])[0-9]{8}$"); // 验证手机号
         m = p.matcher(str);
         b = m.matches();
         return b;
@@ -395,6 +398,7 @@ public class Utils {
     public static void saveUserInfor(Context context, UserInfoEntity userInfoEntity) {
         UserInfo userInfo = userInfoEntity.entityToInfo();
         SharedPreUtils.putString(context, SharedPre.User.AGERANGE, userInfo.ageRange);
+        SharedPreUtils.putString(context, SharedPre.User.BACKGROUDIMG, userInfo.backgroudImage);
         SharedPreUtils.putInt(context, SharedPre.User.AGERANGE_VALUE, userInfo.ageRangeValue);
         saveListData(context, userInfoEntity.album, SharedPre.User.ALBUM);
         SharedPreUtils.putString(context, SharedPre.User.CONSTELLATION, userInfo.constellation);

@@ -29,6 +29,7 @@ public class MineRentAdapter extends CommonAdapter<RentMeResponse.DataEntity.Ite
         TextView costTextView = holder.getView(R.id.cost);
         TextView locationTextView = holder.getView(R.id.location);
         TextView offercontentTextView = holder.getView(R.id.offercontent);
+//        holder.setImageByUrl(review.av)
         holder.setText(R.id.date, review.createTime);
         holder.setText(R.id.status, review.state);
         holder.setText(R.id.name, review.nickName);

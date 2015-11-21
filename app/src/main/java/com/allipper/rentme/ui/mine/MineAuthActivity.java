@@ -71,12 +71,12 @@ public class MineAuthActivity extends BaseActivity {
     private void submit(View view) {
         if (TextUtils.isEmpty(real_nameEditText.getText().toString())) {
             Toast.makeText(this, "请输入真实姓名", Toast.LENGTH_SHORT).show();
-        } else if (Utils.isMobile(id_cardEditText.getText().toString())) {
+        } else if (!Utils.isMobile(id_cardEditText.getText().toString())) {
             Toast.makeText(this, "请输入身份证", Toast.LENGTH_SHORT).show();
         } else if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
             dialog.show();
-            HttpLoad.UserModule.getMessageCode(TAG, real_nameEditText.getText().toString(),
+            HttpLoad.UserModule.getMessageCode(TAG, real_nameEditText.getText().toString(), "1",
                     new ResponseCallback<ResponseMessageBean>(mContext) {
                         @Override
                         public void onRequestSuccess(ResponseMessageBean result) {

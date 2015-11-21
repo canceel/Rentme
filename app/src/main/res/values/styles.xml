@@ -93,7 +93,7 @@
         <item name="android:textSize">@dimen/text_size_14sp</item>
         <item name="android:paddingLeft">8dp</item>
         <item name="android:paddingRight">8dp</item>
-        <item name="android:background">@mipmap/input_bg</item>
+        <item name="android:background">@drawable/button_frame_yellow_1dp</item>
     </style>
 
 

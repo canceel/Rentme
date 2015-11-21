@@ -66,7 +66,7 @@ public class ModifyInfoActivity extends BaseActivity {
         type = it.getIntExtra(MODIFY_TYPE, -1);
         value = it.getStringExtra(MODIFY_VALUE);
         if (!TextUtils.isEmpty(value)) {
-            if ("设置昵称".equals(value) || "设置个性签名".equals(value) || "请设置时薪".equals(value)) {
+            if ("设置昵称".equals(value) || "设置个性签名".equals(value) || "设置时薪".equals(value)) {
                 contentEditText.setHint(it.getStringExtra(MODIFY_VALUE));
             } else {
                 contentEditText.setText(it.getStringExtra(MODIFY_VALUE));

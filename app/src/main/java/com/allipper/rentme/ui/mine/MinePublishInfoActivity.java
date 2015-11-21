@@ -271,6 +271,11 @@ public class MinePublishInfoActivity extends BaseActivity {
             weightTextView.setText(userInfo.weightRange);
             hobbyTextView.setText(userInfo.interests);
             CropUtils.setHeadFromDisk(mContext, headCircleImageView);
+            String backgroud = SharedPreUtils.getString(mContext, SharedPre.User.BACKGROUDIMG);
+            if (!TextUtils.isEmpty(backgroud)) {
+                HttpLoad.getImage(backgroud, R.mipmap.publish_bg,
+                        imageViewImageView);
+            }
         }
     }
 
@@ -690,16 +695,17 @@ public class MinePublishInfoActivity extends BaseActivity {
         if (Utils.isNetworkConnected(mContext)) {
             final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
             dialog.show();
-            HttpUpload.uploadUserHeadImg(TAG, new File(CropUtils.getPath(mContext,
+            HttpUpload.uploadBackgroudImg(TAG, new File(CropUtils.getPath(mContext,
                     imageUri)), Utils.getToken
                     (mContext), new ResponseCallback<UploadResult>(mContext) {
 
                 @Override
                 public void onRequestSuccess(UploadResult result) {
                     dialog.dismiss();
-                    SharedPreUtils.putString(mContext, SharedPre.User.AVATARURL, result
-                            .data.avatarUrl);
-                    CropUtils.setHeadFromDisk(mContext, imageViewImageView);
+                    SharedPreUtils.putString(mContext, SharedPre.User.BACKGROUDIMG, result
+                            .data.backgroudImage);
+                    HttpLoad.getImage(result.data.backgroudImage, R.mipmap.publish_bg,
+                            imageViewImageView);
                 }
 
                 @Override

@@ -49,6 +49,8 @@ public class SharedPre {
         public static final String INTERESTS = "interests";//用户邮箱
         public static final String INTERESTS_VALUE = "interests_value";//用户邮箱
         public static final String ALBUM = "album";//用户邮箱是否验证
+        public static final String BACKGROUDIMG = "backgroudimg";//
+        public static final String RYACCESS_TOKEN = "ry_token";
     }
 
     public static abstract class Location {

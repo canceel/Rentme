@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,9 +20,14 @@ import android.widget.PopupWindow;
 import com.allipper.rentme.R;
 import com.allipper.rentme.bean.FilterItem;
 import com.allipper.rentme.bean.FilterSubItem;
+import com.allipper.rentme.common.util.SharedPre;
+import com.allipper.rentme.common.util.SharedPreUtils;
 import com.allipper.rentme.common.util.ToastUtils;
 import com.allipper.rentme.common.util.Utils;
 import com.allipper.rentme.database.DbManager;
+import com.allipper.rentme.net.HttpLoad;
+import com.allipper.rentme.net.ResponseCallback;
+import com.allipper.rentme.net.response.ResponseRyToken;
 import com.allipper.rentme.ui.fragment.HomePagerFragment;
 import com.allipper.rentme.ui.fragment.MineFragment;
 import com.allipper.rentme.ui.base.FragmentBaseActivity;
@@ -41,6 +47,8 @@ import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.UserInfo;
 
 public class IndexActivity extends FragmentBaseActivity implements View.OnClickListener {
+
+    private final String TAG = IndexActivity.class.getSimpleName();
 
     public static final String UPDATE_USER_INFO = "update_user_info";
     public final static int ACTIVITY_LOGIN = 100;
@@ -69,6 +77,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     //记录Fragment的位置
     private int position = 0;
     private ArrayList<FilterItem> filterItems = new ArrayList<>();
+    private boolean isInit = false;
 
 
     @Override
@@ -80,7 +89,6 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         registerAction();
         findViews();
         setIMkitConnection();
-        setIMkitUserInfo();
         setTabSelection(position);
         UmengUpdateAgent.setUpdateCheckConfig(false);
         UmengUpdateAgent.update(this);
@@ -118,14 +126,49 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
 
             @Override
             public UserInfo getUserInfo(String userId) {
+                Uri uri = null;
+                if (!TextUtils.isEmpty(SharedPreUtils.getString(mContext, SharedPre.User
+                        .AVATARURL))) {
+                    uri = Uri.parse(SharedPreUtils.getString(mContext, SharedPre.User.AVATARURL));
+                }
 
-                return new UserInfo("123", "abc", null);//根据 userId 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+                return new UserInfo(SharedPreUtils.getInt(mContext, SharedPre.User.USERID, 0) + "",
+                        SharedPreUtils.getString(mContext, SharedPre.User.NICKNAME), uri);//根据
+                // userId
+                // 去你的用户系统里查询对应的用户信息返回给融云 SDK。
             }
 
         }, true);
     }
 
     private void setIMkitConnection() {
+        if (Utils.isGuestUser(mContext) || isInit) {
+            return;
+        }
+        Token = SharedPreUtils.getString(mContext, SharedPre.User.RYACCESS_TOKEN);
+        if (TextUtils.isEmpty(Token)) {
+            HttpLoad.UserModule.getRyToken(TAG, Utils.getToken(mContext), System
+                    .currentTimeMillis() + "", new ResponseCallback<ResponseRyToken>(mContext) {
+                @Override
+                public void onRequestSuccess(ResponseRyToken result) {
+                    Token = result.data.RcToken;
+                    SharedPreUtils.putString(mContext, SharedPre.User.RYACCESS_TOKEN, Token);
+                    connectRy();
+                }
+
+                @Override
+                public void onReuquestFailed(String error) {
+
+                }
+            });
+        } else {
+            connectRy();
+        }
+
+        setIMkitUserInfo();
+    }
+
+    private void connectRy() {
         RongIM.connect(Token, new RongIMClient.ConnectCallback() {
             @Override
             public void onTokenIncorrect() {
@@ -134,7 +177,7 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
 
             @Override
             public void onSuccess(String s) {
-
+                isInit = true;
             }
 
             @Override
@@ -258,8 +301,13 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 if (Utils.isGuestUser(mContext)) { // 匿名用户不可进入消息
                     startActivityForResult(new Intent(this, LoginActivity.class), MESSAGE_LOGIN);
                 } else {
-                    if (RongIM.getInstance() != null)
+                    setIMkitConnection();
+                    if (RongIM.getInstance() != null) {
                         RongIM.getInstance().startConversationList(this);
+                    } else {
+                        setTabSelection(TAB_MESSAGE);
+                        RongIM.getInstance().startConversationList(this);
+                    }
                 }
                 break;
             case R.id.mine_tab_ll:
@@ -308,7 +356,6 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 }
                 break;
             case TAB_MESSAGE:
-
                 if (msgFragment == null) {
                     initIMkitMsg(transaction);
                 } else {

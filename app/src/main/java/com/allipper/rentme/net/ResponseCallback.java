@@ -6,6 +6,7 @@ import com.allipper.rentme.common.Constant;
 import com.allipper.rentme.common.util.Logger;
 import com.allipper.rentme.net.response.GetPublishInfoResponse;
 import com.allipper.rentme.net.response.ResponseBase;
+import com.allipper.rentme.net.response.ResponseMessageBean;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
@@ -42,6 +43,9 @@ public abstract class ResponseCallback<E> implements Response.ErrorListener, Res
             if (0 == userResultBase.code) {
                 onRequestSuccess(result);
             } else if (userResultBase instanceof GetPublishInfoResponse && 10001 ==
+                    userResultBase.code) {
+                onRequestSuccess(result);
+            } else if (userResultBase instanceof ResponseMessageBean && 20003 ==
                     userResultBase.code) {
                 onRequestSuccess(result);
             } else {

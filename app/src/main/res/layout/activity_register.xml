@@ -35,9 +35,9 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@id/heard"
-        android:paddingTop="30dp"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:background="@color/white">
+        android:paddingTop="30dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -50,10 +50,10 @@
                 android:layout_width="90dp"
                 android:layout_height="45dp"
                 android:layout_alignParentRight="true"
-                android:background="@mipmap/send_msg"
-                android:text="获取验证码"
-                android:textColor="@color/text_white_80"
+                android:background="@drawable/rc_btn_send"
                 android:padding="4dp"
+                android:text="获取验证码"
+                android:textColor="@color/white"
                 android:textSize="14sp"/>
 
             <EditText
@@ -97,8 +97,8 @@
             style="@style/EditTextStyle"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:drawableLeft="@mipmap/password"
             android:layout_marginTop="20dp"
+            android:drawableLeft="@mipmap/password"
             android:drawablePadding="16dp"
             android:hint="请输入密码"
             android:paddingLeft="8dp"/>
@@ -109,9 +109,9 @@
             style="@style/EditTextStyle"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="20dp"
             android:drawableLeft="@mipmap/password"
             android:drawablePadding="16dp"
-            android:layout_marginTop="20dp"
             android:hint="确认密码"
             android:paddingLeft="8dp"/>
 
@@ -121,8 +121,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="26dp">
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="20dp">
 
             <CheckBox
                 android:id="@+id/serve_rule"
@@ -130,8 +130,8 @@
                 android:layout_height="wrap_content"
                 android:button="@drawable/checkbox_selector"
                 android:checked="true"
-                android:padding="4dp"
-                android:clickable="true"/>
+                android:clickable="true"
+                android:padding="4dp"/>
 
             <TextView
                 android:id="@+id/text1"
@@ -139,9 +139,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/serve_rule"
-                android:text="确定注册并登陆，表示你同意"
+                android:text="确定注册并登录，表示你同意"
                 android:textColor="@color/text_dark"
                 android:textSize="12sp"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
