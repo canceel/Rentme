@@ -6,7 +6,7 @@
                 android:layout_marginRight="5dp"
                 android:background="@color/white">
 
-    <com.allipper.rentme.widget.AutoScrollViewPager
+    <com.android.youhu.widget.AutoScrollViewPager
         android:id="@+id/banner_asvp"
         android:layout_width="match_parent"
         android:layout_height="100dp"/>

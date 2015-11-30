@@ -55,7 +55,7 @@
             android:layout_height="0dip"
             android:layout_weight="1">
 
-            <com.allipper.rentme.common.view.SideBar
+            <com.android.youhu.common.view.SideBar
                 android:id="@+id/select_alphabetButton"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"

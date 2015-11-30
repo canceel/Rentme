@@ -475,7 +475,7 @@
                 android:visibility="gone"/>
 
 
-            <com.allipper.rentme.widget.CircleImageView
+            <com.android.youhu.widget.CircleImageView
                 android:id="@+id/head"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
@@ -563,12 +563,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <com.allipper.rentme.widget.NoRequsetGridView
+                <com.android.youhu.widget.NoRequsetGridView
                     android:id="@+id/bigPictures"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     >
-                </com.allipper.rentme.widget.NoRequsetGridView>
+                </com.android.youhu.widget.NoRequsetGridView>
             </LinearLayout>
         </HorizontalScrollView>
     </RelativeLayout>

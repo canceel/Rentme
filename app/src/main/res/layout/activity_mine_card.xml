@@ -68,12 +68,12 @@
             android:layout_height="8dp"
             android:background="@color/rc_divider"/>
 
-        <com.allipper.rentme.widget.AutoHeightListView
+        <com.android.youhu.widget.AutoHeightListView
             android:id="@+id/list"
             style="@style/ListViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-        </com.allipper.rentme.widget.AutoHeightListView>
+        </com.android.youhu.widget.AutoHeightListView>
 
         <TextView
             android:id="@+id/card"

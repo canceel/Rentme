@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">约乎</string>
+    <string name="app_name">友乎</string>
 
     <string name="network_error_timeout">网络异常，请检查您的网络</string>
     <string name="network_error_parse">数据解析错误，请联系客服人员</string>

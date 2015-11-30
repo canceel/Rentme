@@ -16,7 +16,7 @@
             android:textColor="@color/title_background"
             android:textSize="@dimen/text_size_14sp"/>
 
-    <com.allipper.rentme.widget.AutoHeightGridView
+    <com.android.youhu.widget.AutoHeightGridView
         android:paddingBottom="10dp"
         android:id="@+id/gridView"
         android:layout_width="match_parent"

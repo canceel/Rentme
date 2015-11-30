@@ -8,7 +8,7 @@
     android:paddingBottom="20dp"
     android:background="#ffffff">
 
-    <com.allipper.rentme.widget.PickerView
+    <com.android.youhu.widget.PickerView
         android:id="@+id/duration"
         android:layout_width="180dp"
         android:layout_height="140dp"/>

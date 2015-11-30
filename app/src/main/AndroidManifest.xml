@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.allipper.rentme"
+    package="com.android.youhu"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.CALL_PHONE"/>
@@ -40,7 +40,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data
-                    android:host="com.allipper.rentme"
+                    android:host="com.android.youhu"
                     android:pathPrefix="/conversationlist"
                     android:scheme="rong"/>
             </intent-filter>
@@ -233,7 +233,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data
-                    android:host="com.allipper.rentme"
+                    android:host="rentme"
                     android:pathPrefix="/subconversationlist"
                     android:scheme="rong"/>
             </intent-filter>
@@ -247,7 +247,7 @@
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <data
-                    android:host="com.allipper.rentme"
+                    android:host="rentme"
                     android:pathPrefix="/conversation/"
                     android:scheme="rong"/>
             </intent-filter>
@@ -297,7 +297,7 @@
             android:name="com.umeng.message.RegistrationReceiver"
             android:exported="false">
             <intent-filter>
-                <action android:name="com.allipper.rentme.intent.action.COMMAND"/>
+                <action android:name="com.android.youhu.intent.action.COMMAND"/>
             </intent-filter>
         </receiver>
         <receiver android:name="com.umeng.message.UmengMessageBootReceiver">
@@ -313,10 +313,10 @@
             android:label="PushService"
             android:process=":push">
             <intent-filter>
-                <action android:name="com.allipper.rentme.intent.action.START"/>
+                <action android:name="com.android.youhu.intent.action.START"/>
             </intent-filter>
             <intent-filter>
-                <action android:name="com.allipper.rentme.intent.action.COCKROACH"/>
+                <action android:name="com.android.youhu.intent.action.COCKROACH"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="org.agoo.android.intent.action.PING_V4"/>
@@ -362,11 +362,12 @@
 
         <service
             android:name="com.umeng.update.net.DownloadingService"
-            android:process=":DownloadingService" >
+            android:process=":DownloadingService">
         </service>
+
         <activity
             android:name="com.umeng.update.UpdateDialogActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
         </activity>
     </application>
 

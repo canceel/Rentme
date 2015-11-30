@@ -69,7 +69,7 @@
                         android:paddingTop="4dp"
                         >
 
-                        <com.allipper.rentme.widget.CircleImageView
+                        <com.android.youhu.widget.CircleImageView
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:layout_below="@+id/imageView"

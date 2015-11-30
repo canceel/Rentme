@@ -4,11 +4,12 @@ android {
     compileSdkVersion 19
     buildToolsVersion '23.0.1'
     defaultConfig {
-        applicationId "com.allipper.rentme"
+        applicationId 'com.android.youhu'
         minSdkVersion 14
         targetSdkVersion 22
         versionCode 1
         versionName '1.0'
+        testApplicationId 'com.android.youhutester'
     }
     buildTypes {
         release {

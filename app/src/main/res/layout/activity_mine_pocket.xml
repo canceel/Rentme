@@ -45,7 +45,7 @@
             android:gravity="center_vertical"
             android:onClick="gotoPocketDetails">
 
-            <com.allipper.rentme.widget.CircleImageView
+            <com.android.youhu.widget.CircleImageView
                 android:id="@+id/head"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
@@ -91,7 +91,7 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <com.allipper.rentme.widget.DrawableLeftCenterButton
+            <com.android.youhu.widget.DrawableLeftCenterButton
                 android:id="@+id/charge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/grey"/>
 
-            <com.allipper.rentme.widget.DrawableLeftCenterButton
+            <com.android.youhu.widget.DrawableLeftCenterButton
                 android:id="@+id/withdraw"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -11,7 +11,7 @@
         style="@style/TitleStyle"
         android:layout_alignParentTop="true">
 
-        <com.allipper.rentme.widget.DrawableLeftCenterButton
+        <com.android.youhu.widget.DrawableLeftCenterButton
             android:id="@+id/gps_location_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

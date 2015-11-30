@@ -174,7 +174,7 @@
                     android:textColor="@color/text_normal"
                     android:textSize="@dimen/text_size_14sp"/>
 
-                <com.allipper.rentme.widget.CircleImageView
+                <com.android.youhu.widget.CircleImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentRight="true"

@@ -48,7 +48,7 @@
             android:background="@color/text_white_0"
             >
 
-            <com.allipper.rentme.widget.CircleImageView
+            <com.android.youhu.widget.CircleImageView
                 android:id="@+id/cardIcon"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -100,12 +100,12 @@
             android:layout_height="8dp"
             android:background="@color/rc_divider"/>
 
-        <com.allipper.rentme.widget.AutoHeightListView
+        <com.android.youhu.widget.AutoHeightListView
             android:id="@+id/list"
             style="@style/ListViewStyle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-        </com.allipper.rentme.widget.AutoHeightListView>
+        </com.android.youhu.widget.AutoHeightListView>
 
         <LinearLayout
             android:layout_width="match_parent"

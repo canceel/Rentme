@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.allipper.rentme.widget.SwipeRefreshLayout
+<com.android.youhu.widget.SwipeRefreshLayout
     android:id="@+id/swipeRefreshLayout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -15,4 +15,4 @@
     </ListView>
 
 
-</com.allipper.rentme.widget.SwipeRefreshLayout>
+</com.android.youhu.widget.SwipeRefreshLayout>

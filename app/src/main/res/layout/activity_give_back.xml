@@ -37,7 +37,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.allipper.rentme.ui.mine.GiveBackActivity"
+        tools:context="com.android.youhu.ui.mine.GiveBackActivity"
         tools:ignore="MergeRootFrame"
         android:background="@color/white"/>
 </LinearLayout>

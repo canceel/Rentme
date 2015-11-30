@@ -14,7 +14,7 @@
         android:background="@color/white"
         >
 
-        <com.allipper.rentme.widget.CircleImageView
+        <com.android.youhu.widget.CircleImageView
             android:id="@+id/head_cv"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -218,12 +218,12 @@
             android:orientation="horizontal"
             >
 
-            <com.allipper.rentme.widget.NoRequsetGridView
+            <com.android.youhu.widget.NoRequsetGridView
                 android:id="@+id/pictures"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 >
-            </com.allipper.rentme.widget.NoRequsetGridView>
+            </com.android.youhu.widget.NoRequsetGridView>
         </LinearLayout>
     </HorizontalScrollView>
 

@@ -31,7 +31,7 @@
                 android:textSize="@dimen/text_size_16sp"/>
         </RelativeLayout>
 
-        <com.allipper.rentme.widget.AutoHeightListView
+        <com.android.youhu.widget.AutoHeightListView
             android:id="@+id/lv_filter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
