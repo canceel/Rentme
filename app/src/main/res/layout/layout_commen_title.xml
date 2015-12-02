@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/title_top"
+    style="@style/TitleStyle"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_alignParentTop="true"
+    android:background="@color/msg_title_background">
+
+    <TextView
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:drawableLeft="@mipmap/back"
+        android:drawablePadding="5dp"
+        android:text="返回"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_16sp"/>
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:drawablePadding="8dp"
+        android:text="关于"
+        android:textColor="@color/msg_title_text_color"
+        android:textSize="@dimen/text_size_18sp"/>
+</RelativeLayout>

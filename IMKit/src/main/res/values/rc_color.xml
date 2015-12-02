@@ -20,5 +20,6 @@
 
     <color name="rc_draft_color">#cb120f</color>
     <color name="rc_voice_color">#0195ff</color>
+    <color name="rc_golde">#FD9603</color>
 
 </resources>

@@ -36,20 +36,21 @@ public final class R {
 		public static final int rc_conversation_top_bg = 0x7f060000;
 		public static final int rc_divider = 0x7f060001;
 		public static final int rc_draft_color = 0x7f060002;
-		public static final int rc_input_bg = 0x7f060003;
-		public static final int rc_message_user_name = 0x7f060004;
-		public static final int rc_normal_bg = 0x7f060005;
-		public static final int rc_notice_normal = 0x7f060006;
-		public static final int rc_notice_text = 0x7f060007;
-		public static final int rc_notice_warning = 0x7f060008;
-		public static final int rc_notification_bg = 0x7f060009;
-		public static final int rc_plugins_bg = 0x7f06000a;
-		public static final int rc_text_color_primary = 0x7f06000b;
-		public static final int rc_text_color_primary_inverse = 0x7f06000c;
-		public static final int rc_text_color_secondary = 0x7f06000d;
-		public static final int rc_text_color_tertiary = 0x7f06000e;
-		public static final int rc_text_voice = 0x7f06000f;
-		public static final int rc_voice_color = 0x7f060010;
+		public static final int rc_golde = 0x7f060003;
+		public static final int rc_input_bg = 0x7f060004;
+		public static final int rc_message_user_name = 0x7f060005;
+		public static final int rc_normal_bg = 0x7f060006;
+		public static final int rc_notice_normal = 0x7f060007;
+		public static final int rc_notice_text = 0x7f060008;
+		public static final int rc_notice_warning = 0x7f060009;
+		public static final int rc_notification_bg = 0x7f06000a;
+		public static final int rc_plugins_bg = 0x7f06000b;
+		public static final int rc_text_color_primary = 0x7f06000c;
+		public static final int rc_text_color_primary_inverse = 0x7f06000d;
+		public static final int rc_text_color_secondary = 0x7f06000e;
+		public static final int rc_text_color_tertiary = 0x7f06000f;
+		public static final int rc_text_voice = 0x7f060010;
+		public static final int rc_voice_color = 0x7f060011;
 	}
 	public static final class dimen {
 		public static final int rc_conversation_item_data_size = 0x7f070000;
