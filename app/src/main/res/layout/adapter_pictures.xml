@@ -3,6 +3,6 @@
            android:id="@+id/picture"
            android:layout_width="fill_parent"
            android:layout_height="fill_parent"
-           android:scaleType="fitXY"
-           android:src="@mipmap/picture">
+           android:scaleType="centerCrop"
+           android:background="@drawable/edittext_frame_1dp">
 </ImageView>

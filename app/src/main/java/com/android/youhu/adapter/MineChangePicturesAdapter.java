@@ -46,7 +46,7 @@ public class MineChangePicturesAdapter extends CommonAdapter<String> {
         }
 
         //设置no_pic
-        holder.setImageResource(R.id.id_item_image, R.mipmap.picture);
+//        holder.setImageResource(R.id.id_item_image, R.mipmap.picture);
         //设置no_selected
         holder.setImageResource(R.id.id_item_select,
                 R.mipmap.picture_unselected);

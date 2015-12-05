@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
@@ -50,7 +51,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     private PicturesAdapter picturesAdapter;
     private RelativeLayout pictrueBgRl;
     private GridView bigPictruesGv;
-    private ImageView closeIv;
+    private Button closeIv;
     private ImageView editIv;
     private Button cancelButton;
     private Button selectAllButton;
@@ -65,11 +66,11 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     private void initListMenuPopupWindw() {
         ActionBean abd = new ActionBean();
         abd.action = "delete";
-        abd.icon = R.mipmap.icon_add;
+        abd.iconStr = "-";
         abd.title = "删除";
         ActionBean aba = new ActionBean();
         aba.action = "add";
-        aba.icon = R.mipmap.icon_add;
+        aba.iconStr = "+";
         aba.title = "新增";
         mMenuActionBeans.add(aba);
         mMenuActionBeans.add(abd);
@@ -149,17 +150,40 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
         bottomeRl = (RelativeLayout) findViewById(R.id.bottom);
         pictrueBgRl = (RelativeLayout) findViewById(R.id.picturebg);
         bigPictruesGv = (GridView) findViewById(R.id.bigPictures);
-        closeIv = (ImageView) findViewById(R.id.close);
+        closeIv = (Button) findViewById(R.id.close);
         editIv = (ImageView) findViewById(R.id.edit);
         cancelButton = (Button) findViewById(R.id.cancel);
         selectAllButton = (Button) findViewById(R.id.selectAll);
         pictureHsv = (HorizontalScrollView) findViewById(R.id.hsv);
 
         findViewById(R.id.back).setOnClickListener(this);
+        findViewById(R.id.delete).setOnClickListener(this);
         editIv.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         selectAllButton.setOnClickListener(this);
         closeIv.setOnClickListener(this);
+        pictrueBgRl.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                float x = motionEvent.getX();
+                float y = motionEvent.getY();
+                int[] loc = new int[2];
+                int[] loc1 = new int[2];
+                if (closeIv != null) {
+                    closeIv.getLocationOnScreen(loc);
+                }
+                if (pictureHsv != null) {
+                    pictureHsv.getLocationOnScreen(loc);
+                }
+                if ((x > loc[0] && x < loc[0] + closeIv.getWidth() && y > loc[1] && y < loc[1] +
+                        closeIv.getHeight()) || (x > loc1[0] && x < loc1[0] +
+                        pictureHsv.getWidth() && y > loc1[1] && y < loc1[1] +
+                        pictureHsv.getHeight())) {
+                    return false;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
@@ -219,6 +243,8 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     public void close(View view) {
         if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
             pictrueBgRl.setVisibility(View.GONE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_out));
         }
     }
 
@@ -280,6 +306,8 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     public void processExit() {
         if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
             pictrueBgRl.setVisibility(View.GONE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_out));
         } else {
             super.processExit();
         }

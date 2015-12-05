@@ -6,6 +6,7 @@
 
     <ListView
         android:id="@+id/id_list_dir"
+        android:listSelector="@drawable/list_selector"
         style="@style/ListViewStyle" >
     </ListView>
 

@@ -222,7 +222,7 @@ public class MineInfoActivity extends BaseActivity {
         editButton.setOnClickListener(this);
         saveButton.setOnClickListener(this);
         findViewById(R.id.toPicture).setOnClickListener(this);
-
+        head_cvCircleImageView.setOnClickListener(this);
 
         CropUtils.setHeadFromDisk(this, head_cvCircleImageView);
     }
@@ -289,7 +289,6 @@ public class MineInfoActivity extends BaseActivity {
         if (currentStatus == NORMAL_STATUS) {
             currentStatus = EDIT_STATUS;
             editButton.setText("取消");
-            head_cvCircleImageView.setOnClickListener(this);
             name_valueTextView.setOnClickListener(this);
             status_valueTextView.setOnClickListener(this);
             constellation_valueTextView.setOnClickListener(this);
@@ -326,7 +325,6 @@ public class MineInfoActivity extends BaseActivity {
         } else {
             currentStatus = NORMAL_STATUS;
             editButton.setText("编辑");
-            head_cvCircleImageView.setOnClickListener(null);
             name_valueTextView.setOnClickListener(null);
             status_valueTextView.setOnClickListener(null);
             constellation_valueTextView.setOnClickListener(null);

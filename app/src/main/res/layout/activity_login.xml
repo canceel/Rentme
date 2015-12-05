@@ -46,7 +46,7 @@
             android:layout_height="100dp"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:src="@mipmap/icon_logo_black"/>
+            android:src="@mipmap/ic_launcher"/>
 
         <EditText
             android:id="@+id/cell_no"

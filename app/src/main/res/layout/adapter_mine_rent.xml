@@ -80,7 +80,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="84dp"
             android:layout_marginTop="16dp"
-            android:text="出租人:"
+            android:text="预约人:"
             android:textColor="@color/text_normal"
             android:textSize="@dimen/text_size_13sp"/>
 

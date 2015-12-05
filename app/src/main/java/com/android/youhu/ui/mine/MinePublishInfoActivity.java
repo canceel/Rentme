@@ -97,7 +97,7 @@ public class MinePublishInfoActivity extends BaseActivity {
     private TextView statusTextView;
     private TextView toPictureTextView;
     private RelativeLayout picturebgRelativeLayout;
-    private ImageView deleteImageView;
+    private Button deleteButton;
     private TextSwitcher editButton;
     private HorizontalScrollView hsvHorizontalScrollView;
     private NoRequsetGridView bigPicturesNoRequsetGridView;
@@ -228,7 +228,7 @@ public class MinePublishInfoActivity extends BaseActivity {
         feeTextView = (TextView) findViewById(R.id.fee);
         statusTextView = (TextView) findViewById(R.id.status);
         picturebgRelativeLayout = (RelativeLayout) findViewById(R.id.picturebg);
-        deleteImageView = (ImageView) findViewById(R.id.delete);
+        deleteButton = (Button) findViewById(R.id.delete);
         hsvHorizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
         bigPicturesNoRequsetGridView = (NoRequsetGridView) findViewById(R.id.bigPictures);
         bottomDividerView = findViewById(R.id.bottom_divider);
@@ -256,8 +256,6 @@ public class MinePublishInfoActivity extends BaseActivity {
         findViewById(R.id.cancel).setOnClickListener(this);
         editButton.setOnClickListener(this);
         setDataToView();
-        emptyTextView.setVisibility(View.VISIBLE);
-
     }
 
     public void setDataToView() {

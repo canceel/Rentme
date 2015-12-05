@@ -60,7 +60,7 @@ public class PublishInfoActivity extends BaseActivity {
     private GridView pictrues;
     private LinearLayout persenPictureLl;
     private View persen_picture_dividerView;
-    private ImageView deleteIv;
+    private Button deleteIv;
     private CircleImageView headCv;
     private HorizontalScrollView horizontalScrollView;
     private LinearLayout bottomLl;
@@ -178,7 +178,7 @@ public class PublishInfoActivity extends BaseActivity {
         bottomLl = (LinearLayout) findViewById(R.id.bottom);
         persen_picture_dividerView = findViewById(R.id.persen_picture_divider);
         pictrues = (GridView) findViewById(R.id.bigPictures);
-        deleteIv = (ImageView) findViewById(R.id.delete);
+        deleteIv = (Button) findViewById(R.id.delete);
         headCv = (CircleImageView) findViewById(R.id.head_cv);
         horizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
         persenPictureLl.setOnClickListener(this);

@@ -35,7 +35,7 @@ import java.io.FileNotFoundException;
 public class CropUtils {
     //缓存路径
     private static final String PATH = Environment.getExternalStorageDirectory().getPath() + File
-            .separator + "rentme.allipper.com";
+            .separator + "youhu";
 
     // 剪裁后保存图片的名称
     private static final String CROP_CACHE_FILE_NAME = "crop_cache_file.jpg";
@@ -173,7 +173,7 @@ public class CropUtils {
         Intent intent = new Intent("com.android.camera.action.CROP");
         intent.setDataAndType(orgUri, "image/*");
         intent.putExtra("crop", "true");
-        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectX", height / width);
         intent.putExtra("aspectY", 1);
         intent.putExtra("outputX", width);
         intent.putExtra("outputY", height);

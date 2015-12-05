@@ -52,7 +52,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:background="@mipmap/icon_logo_black"/>
+                    android:background="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:id="@+id/app_versions"

@@ -69,6 +69,7 @@
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@id/select_alphabetButton"
                 android:background="#FFFFFF"
+                android:listSelector="@drawable/list_selector"
                 android:cacheColorHint="#00000000"
                 android:divider="#D4D4D4"
                 android:dividerHeight="0.5dp"

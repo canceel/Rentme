@@ -5,7 +5,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.android.youhu.R;
 import com.android.youhu.adapter.CommonAdapter;
@@ -30,9 +29,7 @@ public class MinePicturesMenuPopupWindow extends BasePopupWindowForListView<Acti
             @Override
             public void convert(ViewHolder helper, ActionBean item) {
                 helper.setText(R.id.title, item.title);
-                TextView titltTv = helper.getView(R.id.title);
-                titltTv.setCompoundDrawablesWithIntrinsicBounds(context.getResources()
-                        .getDrawable(item.icon), null, null, null);
+                helper.setText(R.id.icon, item.iconStr);
             }
         });
     }

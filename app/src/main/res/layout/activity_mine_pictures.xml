@@ -112,10 +112,10 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
-            android:background="@color/title_background"
-            android:text="关闭"
+            android:background="@drawable/circle_yellow"
+            android:text="X"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_12sp"/>
+            android:textSize="@dimen/text_size_16sp"/>
 
         <HorizontalScrollView
             android:id="@+id/hsv"
