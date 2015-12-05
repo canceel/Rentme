@@ -4,9 +4,9 @@ package com.android.youhu.ui.dynamic;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -60,7 +60,6 @@ public class PublishInfoActivity extends BaseActivity {
     private GridView pictrues;
     private LinearLayout persenPictureLl;
     private View persen_picture_dividerView;
-    private Button deleteIv;
     private CircleImageView headCv;
     private HorizontalScrollView horizontalScrollView;
     private LinearLayout bottomLl;
@@ -178,35 +177,27 @@ public class PublishInfoActivity extends BaseActivity {
         bottomLl = (LinearLayout) findViewById(R.id.bottom);
         persen_picture_dividerView = findViewById(R.id.persen_picture_divider);
         pictrues = (GridView) findViewById(R.id.bigPictures);
-        deleteIv = (Button) findViewById(R.id.delete);
         headCv = (CircleImageView) findViewById(R.id.head_cv);
         horizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
         persenPictureLl.setOnClickListener(this);
-        pictrueBgRl.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                float x = motionEvent.getX();
-                float y = motionEvent.getY();
-                int[] loc = new int[2];
-                int[] loc1 = new int[2];
-                if (deleteIv != null) {
-                    deleteIv.getLocationOnScreen(loc);
-                }
-                if (horizontalScrollView != null) {
-                    horizontalScrollView.getLocationOnScreen(loc);
-                }
-                if ((x > loc[0] && x < loc[0] + deleteIv.getWidth() && y > loc[1] && y < loc[1] +
-                        deleteIv.getHeight()) || (x > loc1[0] && x < loc1[0] +
-                        horizontalScrollView.getWidth() && y > loc1[1] && y < loc1[1] +
-                        horizontalScrollView.getHeight())) {
-                    return false;
-                }
-                return true;
-            }
-        });
-        deleteIv.setOnClickListener(this);
+        pictrueBgRl.setOnClickListener(this);
         backImageView.setOnClickListener(this);
         datingButton.setOnClickListener(this);
+        horizontalScrollView.setOnClickListener(this);
+        pictrues.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                close(null);
+            }
+        });
+    }
+
+    private void close(View o) {
+        if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
+            pictrueBgRl.setVisibility(View.GONE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_out));
+        }
     }
 
     @Override
@@ -227,12 +218,8 @@ public class PublishInfoActivity extends BaseActivity {
                             .alpha_in));
                 }
                 break;
-            case R.id.delete:
-                if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
-                    pictrueBgRl.setVisibility(View.GONE);
-                    pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
-                            .alpha_out));
-                }
+            case R.id.picturebg:
+                close(view);
             default:
                 super.onClick(view);
                 break;

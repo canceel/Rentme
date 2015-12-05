@@ -53,9 +53,11 @@
     <style name="TopButtonStyle">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">30dp</item>
-        <item name="android:background">@drawable/rc_btn_send</item>
+        <item name="android:background">@drawable/rect_yellow</item>
         <item name="android:textColor">@color/text_white_0</item>
         <item name="android:paddingLeft">2dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
         <item name="android:paddingRight">2dp</item>
         <item name="android:textSize">@dimen/text_size_13sp</item>
     </style>
@@ -63,7 +65,7 @@
     <style name="ButtonStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">36dp</item>
-        <item name="android:background">@drawable/rc_btn_send</item>
+        <item name="android:background">@drawable/rect_yellow</item>
         <item name="android:textColor">@color/text_white_0</item>
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>

@@ -102,6 +102,8 @@ public class MakeOrderActivity extends BaseActivity {
         fee_tvTextView.setText("￥" + data.perHourPrice);
         telphoneTextView.setText(SharedPreUtils.getString(mContext, SharedPre.User.MOBILE));
         CropUtils.setHeadFromDisk(mContext, headCv);
+        HttpLoad.getImage(data.backgroudImage, imageViewImageView);
+
     }
 
     private void findViews() {

@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -33,7 +33,8 @@ import com.android.youhu.widget.MinePicturesMenuPopupWindow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MinePicturesActivity extends BaseActivity implements MinePicturesMenuPopupWindow.OnMenuItemSelected, MinePicturesAdapter.OnClick {
+public class MinePicturesActivity extends BaseActivity implements MinePicturesMenuPopupWindow
+        .OnMenuItemSelected, MinePicturesAdapter.OnClick {
     private static final String TAG = MinePicturesActivity.class.getSimpleName();
     private GridView mGirdView;
     private RelativeLayout topTitleRl;
@@ -51,7 +52,6 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     private PicturesAdapter picturesAdapter;
     private RelativeLayout pictrueBgRl;
     private GridView bigPictruesGv;
-    private Button closeIv;
     private ImageView editIv;
     private Button cancelButton;
     private Button selectAllButton;
@@ -132,7 +132,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
                 adapter = new MinePicturesAdapter(mContext, pictureUrls, 0, this);
                 adapter.pictrueBgRl = pictrueBgRl;
                 adapter.pictureHsv = pictureHsv;
-                adapter.width = Utils.getScreenWidth(mContext);
+                adapter.width = Utils.getScreenWidth(mContext) - 2;
                 mGirdView.setAdapter(adapter);
             } else {
                 adapter.setData(pictureUrls);
@@ -150,7 +150,6 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
         bottomeRl = (RelativeLayout) findViewById(R.id.bottom);
         pictrueBgRl = (RelativeLayout) findViewById(R.id.picturebg);
         bigPictruesGv = (GridView) findViewById(R.id.bigPictures);
-        closeIv = (Button) findViewById(R.id.close);
         editIv = (ImageView) findViewById(R.id.edit);
         cancelButton = (Button) findViewById(R.id.cancel);
         selectAllButton = (Button) findViewById(R.id.selectAll);
@@ -160,28 +159,13 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
         findViewById(R.id.delete).setOnClickListener(this);
         editIv.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
+        pictureHsv.setOnClickListener(this);
         selectAllButton.setOnClickListener(this);
-        closeIv.setOnClickListener(this);
-        pictrueBgRl.setOnTouchListener(new View.OnTouchListener() {
+        pictrueBgRl.setOnClickListener(this);
+        bigPictruesGv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                float x = motionEvent.getX();
-                float y = motionEvent.getY();
-                int[] loc = new int[2];
-                int[] loc1 = new int[2];
-                if (closeIv != null) {
-                    closeIv.getLocationOnScreen(loc);
-                }
-                if (pictureHsv != null) {
-                    pictureHsv.getLocationOnScreen(loc);
-                }
-                if ((x > loc[0] && x < loc[0] + closeIv.getWidth() && y > loc[1] && y < loc[1] +
-                        closeIv.getHeight()) || (x > loc1[0] && x < loc1[0] +
-                        pictureHsv.getWidth() && y > loc1[1] && y < loc1[1] +
-                        pictureHsv.getHeight())) {
-                    return false;
-                }
-                return true;
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                close(null);
             }
         });
     }
@@ -202,7 +186,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
             case R.id.delete:
                 delete(view);
                 break;
-            case R.id.close:
+            case R.id.picturebg:
                 close(view);
                 break;
             default:

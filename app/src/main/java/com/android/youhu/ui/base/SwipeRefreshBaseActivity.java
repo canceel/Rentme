@@ -56,9 +56,7 @@ public abstract class SwipeRefreshBaseActivity extends BaseActivity implements S
             swipeLayout.setDirection(direction);
         }
         // set style
-        swipeLayout.setColorSchemeResources(android.R.color.holo_red_light, android.R.color
-                        .holo_green_light,
-                android.R.color.holo_blue_bright, android.R.color.holo_orange_light);
+        swipeLayout.setColorSchemeResources(android.R.color.holo_orange_light);
         listView = (ListView) findViewById(R.id.list);
     }
 

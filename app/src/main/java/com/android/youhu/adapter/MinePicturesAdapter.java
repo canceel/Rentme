@@ -3,6 +3,7 @@ package com.android.youhu.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -68,12 +69,15 @@ public class MinePicturesAdapter extends CommonAdapter<ImageBean> {
                 public void onClick(View v) {
                     if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.GONE) {
                         pictrueBgRl.setVisibility(View.VISIBLE);
+                        pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(context, R.anim
+                                .alpha_in));
                     }
                     if (pictureHsv != null) {
                         pictureHsv.smoothScrollTo((width + 1) * holder.position, 0);
                     }
                 }
             });
+
         } else {
             mSelect.setVisibility(View.VISIBLE);
             mImageView.setColorFilter(null);

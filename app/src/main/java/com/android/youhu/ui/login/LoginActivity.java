@@ -47,6 +47,7 @@ public class LoginActivity extends BaseLoginBusinessActivity {
         super.onNewIntent(intent);
         switch (intent.getFlags()) {
             case Intent.FLAG_ACTIVITY_CLEAR_TOP:
+                setResult(RESULT_OK);
                 onBackPressed();
                 break;
         }

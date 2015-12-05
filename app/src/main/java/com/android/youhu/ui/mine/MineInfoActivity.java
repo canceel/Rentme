@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -208,7 +209,9 @@ public class MineInfoActivity extends BaseActivity {
             public View makeView() {
                 TextView tv = new TextView(MineInfoActivity.this);
                 tv.setTextColor(getResources().getColor(R.color.white));
-                tv.setGravity(Gravity.CENTER);
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.CENTER;
+                tv.setLayoutParams(lp);
                 return tv;
             }
         });

@@ -147,11 +147,14 @@ public class ImageFactory {
         // Store the bitmap into output stream(no compress)
         image.compress(Bitmap.CompressFormat.JPEG, options, os);
         // Compress by loop
-        while (os.toByteArray().length / 1024 > maxSize) {
+        while (os.toByteArray().length / 1024 > maxSize && options > 1) {
             // Clean up os
             os.reset();
             // interval 10
             options -= 10;
+            if (options == 0) {
+                options = 1;
+            }
             image.compress(Bitmap.CompressFormat.JPEG, options, os);
         }
 

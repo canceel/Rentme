@@ -238,7 +238,9 @@ public class MinePublishInfoActivity extends BaseActivity {
             public View makeView() {
                 TextView tv = new TextView(MinePublishInfoActivity.this);
                 tv.setTextColor(getResources().getColor(R.color.white));
-                tv.setGravity(Gravity.CENTER);
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                lp.gravity = Gravity.CENTER;
+                tv.setLayoutParams(lp);
                 return tv;
             }
         });
