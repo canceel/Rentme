@@ -182,7 +182,7 @@
         <item name="android:gravity">center</item>
         <item name="android:borderlessButtonStyle">@style/MyBorderlessButton</item>
         <item name="android:windowTitleStyle">@style/MyWindowTitleStyle</item>
-        <item name="android:listChoiceIndicatorSingle">@drawable/checkbox_selector</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/single_selector</item>
         <item name="android:listChoiceIndicatorMultiple">@drawable/checkbox_selector</item>
     </style>
 
