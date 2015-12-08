@@ -70,7 +70,7 @@ public class MineInfoActivity extends BaseActivity {
     private Uri imagePhotoUri = CropUtils.buildPhotoUri();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
+    private TextView backImageView;
     private TextView titleTextView;
     private RelativeLayout head_rlRelativeLayout;
     private CircleImageView head_cvCircleImageView;
@@ -166,7 +166,7 @@ public class MineInfoActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         head_rlRelativeLayout = (RelativeLayout) findViewById(R.id.head_rl);
         head_cvCircleImageView = (CircleImageView) findViewById(R.id.head_cv);

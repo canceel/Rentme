@@ -75,7 +75,7 @@ public class MinePublishInfoActivity extends BaseActivity {
     //用于保存拍照图片的URI
     private Uri imagePhotoUri = CropUtils.buildPhotoUri();
 
-    private ImageView backImageView;
+    private TextView backImageView;
     private TextView titleTextView;
     private ScrollView scrollViewScrollView;
     private ImageView imageViewImageView;
@@ -207,7 +207,7 @@ public class MinePublishInfoActivity extends BaseActivity {
 
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         toPictureTextView = (TextView) findViewById(R.id.toPicture);
         scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
@@ -238,7 +238,8 @@ public class MinePublishInfoActivity extends BaseActivity {
             public View makeView() {
                 TextView tv = new TextView(MinePublishInfoActivity.this);
                 tv.setTextColor(getResources().getColor(R.color.white));
-                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams
+                        .WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 lp.gravity = Gravity.CENTER;
                 tv.setLayoutParams(lp);
                 return tv;

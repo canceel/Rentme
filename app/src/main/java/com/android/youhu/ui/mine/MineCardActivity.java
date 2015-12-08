@@ -22,8 +22,6 @@ public class MineCardActivity extends BaseActivity {
     private static final String TAG = MineCardActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private AutoHeightListView listAutoHeightListView;
     private TextView cardTextView;
 
@@ -42,10 +40,11 @@ public class MineCardActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         listAutoHeightListView = (AutoHeightListView) findViewById(R.id.list);
         cardTextView = (TextView) findViewById(R.id.card);
+        titleTextView.setText("我的银行卡");
 
         datas = new ArrayList<>();
         datas.add(new CardInfo());

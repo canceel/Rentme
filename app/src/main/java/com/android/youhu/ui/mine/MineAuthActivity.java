@@ -25,8 +25,6 @@ public class MineAuthActivity extends BaseActivity {
     private static final String TAG = MineAuthActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private EditText real_nameEditText;
     private EditText id_cardEditText;
     private Button confirmButton;
@@ -46,13 +44,14 @@ public class MineAuthActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         real_nameEditText = (EditText) findViewById(R.id.real_name);
         id_cardEditText = (EditText) findViewById(R.id.id_card);
         confirmButton = (Button) findViewById(R.id.confirm);
         backImageView.setOnClickListener(this);
         confirmButton.setOnClickListener(this);
+        titleTextView.setText("我的认证");
     }
 
     @Override

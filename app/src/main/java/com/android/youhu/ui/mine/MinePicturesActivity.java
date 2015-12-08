@@ -17,6 +17,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.android.youhu.R;
 import com.android.youhu.adapter.MinePicturesAdapter;
@@ -59,6 +60,8 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
 
     private List<ImageBean> pictureUrls = new ArrayList<>();
     private List<String> pictureUrlStrs = new ArrayList<>();
+
+
 
     /**
      * 初始化展示文件夹的popupWindw
@@ -154,7 +157,8 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
         cancelButton = (Button) findViewById(R.id.cancel);
         selectAllButton = (Button) findViewById(R.id.selectAll);
         pictureHsv = (HorizontalScrollView) findViewById(R.id.hsv);
-
+        backImageView = (TextView) findViewById(R.id.back);
+        titleTextView = (TextView) findViewById(R.id.title);
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.delete).setOnClickListener(this);
         editIv.setOnClickListener(this);

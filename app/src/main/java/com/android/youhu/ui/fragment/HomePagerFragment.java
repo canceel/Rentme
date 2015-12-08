@@ -115,11 +115,11 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                 .LayoutParams
                 .MATCH_PARENT, Utils.dip2px(getActivity(), 100f)));
         listView.addHeaderView(headView);
-        LinearLayout footerLL = new LinearLayout(getActivity());
-        footerLL.setBackgroundColor(getResources().getColor(R.color.white));
-        footerLL.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams
-                .MATCH_PARENT, Utils.dip2px(getActivity(), 46f)));
-        listView.addFooterView(footerLL);
+//        LinearLayout footerLL = new LinearLayout(getActivity());
+//        footerLL.setBackgroundColor(getResources().getColor(R.color.white));
+//        footerLL.setLayoutParams(new AbsListView.LayoutParams(AbsListView.LayoutParams
+//                .MATCH_PARENT, Utils.dip2px(getActivity(), 46f)));
+//        listView.addFooterView(footerLL);
         final List<String> banners = new ArrayList<>(3);
         banners.add("logg");
         banners.add("logg");

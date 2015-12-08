@@ -58,6 +58,7 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.security_code).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);
+        ((TextView)findViewById(R.id.title)).setText("注册");
         agreementRl.setOnClickListener(this);
         time = new CountDownTimer(60000, 1000) {
             @Override

@@ -15,8 +15,6 @@ import com.android.youhu.ui.base.BaseActivity;
 public class PayForgetPasswordActivity extends BaseActivity {
     private static final String TAG = PayForgetPasswordActivity.class.getSimpleName();
 
-    private ImageView backImageView;
-    private TextView titleTextView;
     private Button security_codeButton;
     private EditText cellNoEditText;
     private TextView input_cellno_tvTextView;
@@ -39,7 +37,7 @@ public class PayForgetPasswordActivity extends BaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         security_codeButton = (Button) findViewById(R.id.security_code);
         cellNoEditText = (EditText) findViewById(R.id.cellNo);
@@ -48,7 +46,7 @@ public class PayForgetPasswordActivity extends BaseActivity {
         newPasswordEditText = (EditText) findViewById(R.id.newPassword);
         confirmNewPasswordEditText = (EditText) findViewById(R.id.confirmNewPassword);
         messageTextView = (TextView) findViewById(R.id.message);
-
+        titleTextView.setText("找回支付密码");
     }
 
 

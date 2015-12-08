@@ -13,7 +13,7 @@
             android:layout_height="35dp"
             android:gravity="center"
             android:text="尺寸"
-            android:textColor="@color/title_background"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_size_14sp"/>
 
     <com.android.youhu.widget.AutoHeightGridView

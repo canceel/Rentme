@@ -17,8 +17,6 @@ import java.util.List;
 public class PocketDetailsActivity extends SwipeRefreshBaseActivity {
     private static final String TAG = PocketDetailsActivity.class.getSimpleName();
 
-    private ImageView backImageView;
-    private TextView titleTextView;
 
     private List<BalanceInfo> list = new ArrayList<>();
     private PocketDetailAdapter adapter;
@@ -55,9 +53,9 @@ public class PocketDetailsActivity extends SwipeRefreshBaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
-
+        titleTextView.setText("余额明细");
     }
 
 

@@ -19,8 +19,6 @@ import com.android.youhu.widget.CircleImageView;
 public class RentMeOrderDetailActivity extends BaseActivity {
     private static final String TAG = RentMeOrderDetailActivity.class.getSimpleName();
 
-    private ImageView backImageView;
-    private TextView titleTextView;
     private TextView numberTextView;
     private TextView nameTextView;
     private TextView constellationTextView;
@@ -55,7 +53,7 @@ public class RentMeOrderDetailActivity extends BaseActivity {
 
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         numberTextView = (TextView) findViewById(R.id.number);
         nameTextView = (TextView) findViewById(R.id.name);
@@ -73,6 +71,7 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         bottomRelativeLayout = (RelativeLayout) findViewById(R.id.bottomRl);
         datingButton = (Button) findViewById(R.id.dating);
         headCircleIamgeView = (CircleImageView) findViewById(R.id.head);
+        titleTextView.setText("预约详情");
 
         datingButton.setOnClickListener(this);
         backImageView.setOnClickListener(this);

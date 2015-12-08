@@ -16,8 +16,6 @@ public class BindCardActivity extends BaseActivity {
     private static final String TAG = BindCardActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private EditText cardNoEditText;
 
 
@@ -32,10 +30,10 @@ public class BindCardActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         cardNoEditText = (EditText) findViewById(R.id.cardNo);
-
+        titleTextView.setText("绑定银行卡");
     }
 
 

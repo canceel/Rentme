@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 
 import com.android.youhu.R;
+import com.android.youhu.common.skin.SkinChanger;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
@@ -22,6 +23,7 @@ public class FragmentBaseActivity extends FragmentActivity {
         this.mContext = this;
         PushAgent.getInstance(mContext).onAppStart();
         enterAnimation();
+        SkinChanger.getInstance().changeBackGroundColor(findViewById(R.id.title_layout), false);
     }
 
     public void onResume() {

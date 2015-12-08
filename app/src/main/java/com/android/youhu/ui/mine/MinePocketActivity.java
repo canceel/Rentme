@@ -20,8 +20,6 @@ public class MinePocketActivity extends BaseActivity {
     private static final String TAG = MinePocketActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private CircleImageView headCircleImageView;
     private DrawableLeftCenterButton chargeDrawableLeftCenterButton;
     private DrawableLeftCenterButton withdrawDrawableLeftCenterButton;
@@ -42,7 +40,7 @@ public class MinePocketActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         headCircleImageView = (CircleImageView) findViewById(R.id.head);
         chargeDrawableLeftCenterButton = (DrawableLeftCenterButton) findViewById(R.id.charge);
@@ -52,6 +50,7 @@ public class MinePocketActivity extends BaseActivity {
         pay_passwordLinearLayout = (LinearLayout) findViewById(R.id.pay_password);
         pay_pwdTextView = (TextView) findViewById(R.id.pay_pwd);
 
+        titleTextView.setText("我的钱包");
     }
 
 

@@ -50,6 +50,7 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
         btnSecurityCode = (Button) findViewById(R.id.security_code);
         tvInputCellNo = (TextView) findViewById(R.id.input_cellno_tv);
 
+        ((TextView)findViewById(R.id.title)).setText("修改密码");
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.security_code).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);

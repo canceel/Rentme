@@ -2,6 +2,7 @@ package com.android.youhu.ui.mine;
 
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.android.youhu.R;
 import com.android.youhu.ui.base.FragmentBaseActivity;
@@ -16,7 +17,7 @@ public class GiveBackActivity extends FragmentBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_give_back);
-
+        ((TextView) findViewById(R.id.title)).setText("留言反馈");
         if (savedInstanceState == null) {
             // Create the detail fragment and add it to the activity
             // using a fragment transaction.

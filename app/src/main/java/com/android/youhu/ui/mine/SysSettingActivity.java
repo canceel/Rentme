@@ -44,6 +44,8 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_system_setting);
+        backImageView = (TextView) findViewById(R.id.back);
+        titleTextView = (TextView) findViewById(R.id.title);
         tvAppVersions = (TextView) findViewById(R.id.app_versions);
         messagePushBtn = (ToggleButton) findViewById(R.id.message_push_btn);
         btnAbout = (Button) findViewById(R.id.about);
@@ -53,6 +55,7 @@ public class SysSettingActivity extends BaseActivity implements View.OnClickList
         btnAbout.setOnClickListener(this);
         btnClearCache.setOnClickListener(this);
         btnExit.setOnClickListener(this);
+        titleTextView.setText("系统设置");
 
         isMessagePushOn = SharedPreUtils.getBoolean(mContext, SharedPre.App.MESSAGE_PUSH, true);
         messagePushBtn.setChecked(isMessagePushOn);

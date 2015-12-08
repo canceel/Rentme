@@ -17,8 +17,6 @@ public class CardDetailActivity extends BaseActivity {
     private static final String TAG = CardDetailActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private CircleImageView cardIconCircleImageView;
     private TextView nameTextView;
     private TextView typeTextView;
@@ -39,7 +37,7 @@ public class CardDetailActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         cardIconCircleImageView = (CircleImageView) findViewById(R.id.cardIcon);
         nameTextView = (TextView) findViewById(R.id.name);
@@ -48,7 +46,7 @@ public class CardDetailActivity extends BaseActivity {
         listAutoHeightListView = (AutoHeightListView) findViewById(R.id.list);
         onceLimitTextView = (TextView) findViewById(R.id.onceLimit);
         dayLimitTextView = (TextView) findViewById(R.id.dayLimit);
-
+        titleTextView.setText("银行卡详情");
     }
 
 

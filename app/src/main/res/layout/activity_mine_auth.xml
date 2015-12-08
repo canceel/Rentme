@@ -3,33 +3,9 @@
                 android:layout_height="match_parent"
                 android:background="@color/grey">
 
-    <RelativeLayout
-        android:id="@+id/title_top"
-        style="@style/TitleStyle"
-        android:layout_alignParentTop="true"
-        android:background="@color/msg_title_background">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="4dp"
-            android:onClick="back"
-            android:padding="12dp"
-            android:src="@mipmap/back"/>
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="8dp"
-            android:text="我的认证"
-            android:textColor="@color/msg_title_text_color"
-            android:textSize="@dimen/text_size_18sp"/>
-    </RelativeLayout>
+    <include
+        layout="@layout/layout_commen_title"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -62,8 +38,8 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:drawablePadding="20dp"
                 android:gravity="left|center_vertical"
+                style="@style/EditTextStyleWhite"
                 android:hint="请输入真实姓名"
                 android:textColor="@color/text_normal"
                 android:textSize="@dimen/text_size_14sp"/>
@@ -98,7 +74,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:drawablePadding="20dp"
+                style="@style/EditTextStyleWhite"
                 android:gravity="left|center_vertical"
                 android:hint="请输入身份证号（字母大写）"
                 android:textColor="@color/text_normal"

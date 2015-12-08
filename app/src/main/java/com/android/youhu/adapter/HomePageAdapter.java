@@ -73,10 +73,11 @@ public class HomePageAdapter extends CommonAdapter<PulishInfoResponse.DataEntity
             }
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(review.album.size()
                     * (Utils
-                    .getScreenWidth(context) / 3), Utils.getScreenWidth(context) / 3);
+                    .getScreenWidth(context) / 3 - 2), Utils.getScreenWidth(context) / 3 - 2);
             pictures_GridView.setLayoutParams(params);
-            pictures_GridView.setColumnWidth(Utils.getScreenWidth(context) / 3);
+            pictures_GridView.setColumnWidth(Utils.getScreenWidth(context) / 3 - 2);
             pictures_GridView.setNumColumns(review.album.size());
+            pictures_GridView.setVerticalSpacing(4);
             pictures_GridView.setAdapter(new PicturesAdapter(context, pictureUrls,
                     PicturesAdapter.TYPE_THREE));
         } else {

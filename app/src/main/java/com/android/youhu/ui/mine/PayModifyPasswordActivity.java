@@ -14,8 +14,6 @@ import com.android.youhu.ui.base.BaseActivity;
 public class PayModifyPasswordActivity extends BaseActivity {
     private static final String TAG = PayModifyPasswordActivity.class.getSimpleName();
 
-    private ImageView backImageView;
-    private TextView titleTextView;
     private TextView messageTextView;
     private EditText oldPasswordEditText;
     private EditText newPasswordEditText;
@@ -35,13 +33,13 @@ public class PayModifyPasswordActivity extends BaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         messageTextView = (TextView) findViewById(R.id.message);
         oldPasswordEditText = (EditText) findViewById(R.id.oldPassword);
         newPasswordEditText = (EditText) findViewById(R.id.newPassword);
         confirmNewPasswordEditText = (EditText) findViewById(R.id.confirmNewPassword);
-
+        titleTextView.setText("修改支付密码");
     }
 
 

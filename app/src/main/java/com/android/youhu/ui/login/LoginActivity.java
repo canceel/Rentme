@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.youhu.R;
@@ -34,6 +35,7 @@ public class LoginActivity extends BaseLoginBusinessActivity {
         setContentView(R.layout.activity_login);
         edCellNo = (EditText) findViewById(R.id.cell_no);
         edPassWord = (EditText) findViewById(R.id.password);
+        ((TextView)findViewById(R.id.title)).setText("登录");
 
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.register).setOnClickListener(this);

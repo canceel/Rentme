@@ -16,8 +16,6 @@ public class MineChargeActivity extends BaseActivity {
     private static final String TAG = MineChargeActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private EditText sumMoneyEditText;
 
 
@@ -32,10 +30,10 @@ public class MineChargeActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         sumMoneyEditText = (EditText) findViewById(R.id.sumMoney);
-
+        titleTextView.setText("充值");
     }
 
 

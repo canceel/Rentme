@@ -17,8 +17,6 @@ public class ConfirmMsgActivity extends BaseActivity {
     private static final String TAG = ConfirmMsgActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private TextView messageTextView;
     private EditText codeEditText;
 
@@ -33,11 +31,11 @@ public class ConfirmMsgActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         messageTextView = (TextView) findViewById(R.id.message);
         codeEditText = (EditText) findViewById(R.id.code);
-
+        titleTextView.setText("短信验证");
     }
 
     //���õ���¼�

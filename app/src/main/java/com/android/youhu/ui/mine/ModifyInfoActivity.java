@@ -25,7 +25,7 @@ public class ModifyInfoActivity extends BaseActivity {
     public static final int TYPE_FEE = TYPE_STATUS + 1;
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
+    private TextView backImageView;
     private TextView titleTextView;
     private EditText contentEditText;
     private TextView tipTextView;
@@ -87,7 +87,7 @@ public class ModifyInfoActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         contentEditText = (EditText) findViewById(R.id.content);
         tipTextView = (TextView) findViewById(R.id.tip);

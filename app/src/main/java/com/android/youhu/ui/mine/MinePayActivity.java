@@ -21,8 +21,6 @@ public class MinePayActivity extends BaseActivity {
     private static final String TAG = MinePayActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private TextView typeTextView;
     private TextView sumMoneyTextView;
     private TextView cardTextView;
@@ -59,12 +57,12 @@ public class MinePayActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         typeTextView = (TextView) findViewById(R.id.type);
         sumMoneyTextView = (TextView) findViewById(R.id.sumMoney);
         cardTextView = (TextView) findViewById(R.id.card);
-
+        titleTextView.setText("支付订单");
         pocketmoneyLinearLayout = (LinearLayout) findViewById(R.id.pocketmoneyll);
         stillNeedLinearLayout = (LinearLayout) findViewById(R.id.stillNeedll);
         pocketmoneyTextView = (TextView) findViewById(R.id.pocketmoney);

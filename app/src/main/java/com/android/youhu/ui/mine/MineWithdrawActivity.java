@@ -17,8 +17,6 @@ public class MineWithdrawActivity extends BaseActivity {
     private static final String TAG = MineWithdrawActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
-    private TextView titleTextView;
     private TextView availableTextView;
     private EditText moneyEditText;
     private TextView messageTextView;
@@ -39,13 +37,13 @@ public class MineWithdrawActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         availableTextView = (TextView) findViewById(R.id.available);
         moneyEditText = (EditText) findViewById(R.id.money);
         messageTextView = (TextView) findViewById(R.id.message);
         confirmButton = (Button) findViewById(R.id.confirm);
-
+        titleTextView.setText("提现");
     }
 
 

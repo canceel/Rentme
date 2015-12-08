@@ -99,6 +99,7 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
         }
     };
 
+
     /**
      * 为View绑定数据
      */
@@ -349,7 +350,6 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
         mGirdView = (GridView) findViewById(R.id.pictures);
         mChooseDir = (TextView) findViewById(R.id.id_choose_dir);
         mImageCount = (TextView) findViewById(R.id.id_total_count);
-
         mBottomLy = (RelativeLayout) findViewById(R.id.id_bottom_ly);
 
         findViewById(R.id.back).setOnClickListener(this);

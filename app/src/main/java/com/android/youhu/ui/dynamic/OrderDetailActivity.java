@@ -18,8 +18,6 @@ import com.android.youhu.ui.mine.MinePayActivity;
 public class OrderDetailActivity extends BaseActivity {
     private static final String TAG = OrderDetailActivity.class.getSimpleName();
 
-    private ImageView backImageView;
-    private TextView titleTextView;
     private TextView numberTextView;
     private TextView nameTextView;
     private TextView constellationTextView;
@@ -65,7 +63,7 @@ public class OrderDetailActivity extends BaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         numberTextView = (TextView) findViewById(R.id.number);
         nameTextView = (TextView) findViewById(R.id.name);
@@ -82,7 +80,7 @@ public class OrderDetailActivity extends BaseActivity {
         total_feeTextView = (TextView) findViewById(R.id.total_fee);
         bottomRelativeLayout = (RelativeLayout) findViewById(R.id.bottomRl);
         datingButton = (Button) findViewById(R.id.dating);
-
+        titleTextView.setText("订单详情");
         datingButton.setOnClickListener(this);
     }
 

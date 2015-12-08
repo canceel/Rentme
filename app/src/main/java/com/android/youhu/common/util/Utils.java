@@ -319,7 +319,7 @@ public class Utils {
      */
     public static int getDefaultImage(int resId) {
         if (resId == -1) {
-            return R.mipmap.icon_image_default;
+            return R.mipmap.pic_dir;
         } else {
             return resId;
         }

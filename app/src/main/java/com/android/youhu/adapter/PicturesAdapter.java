@@ -30,12 +30,12 @@ public class PicturesAdapter extends CommonAdapter<String> {
         switch (type) {
             case TYPE_THREE:
                 holder.getConvertView().setLayoutParams(new AbsListView.LayoutParams(Utils
-                        .getScreenWidth(context) / 3 - 2, Utils.getScreenWidth(context) / 3 - 2));
+                        .getScreenWidth(context) / 3 - 6, Utils.getScreenWidth(context) / 3 - 6));
                 break;
             case TYPE_OTHER:
                 holder.getConvertView().setLayoutParams(new AbsListView.LayoutParams(Utils
                         .getScreenWidth
-                                (context), Utils.getScreenHeight(context) * 2 / 3));
+                                (context) - 6, Utils.getScreenHeight(context) * 2 / 3));
                 break;
         }
 

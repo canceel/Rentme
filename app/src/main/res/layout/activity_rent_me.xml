@@ -4,32 +4,9 @@
              android:layout_height="match_parent"
              android:background="@color/grey">
 
-    <RelativeLayout
-        style="@style/TitleStyle"
-        android:layout_alignParentTop="true"
-        android:background="@color/msg_title_background">
-
-        <ImageView
-            android:id="@+id/back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="4dp"
-            android:onClick="back"
-            android:padding="12dp"
-            android:src="@mipmap/back"/>
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:drawablePadding="8dp"
-            android:text="租到我的"
-            android:textColor="@color/msg_title_text_color"
-            android:textSize="@dimen/text_size_18sp"/>
-    </RelativeLayout>
+    <include
+        layout="@layout/layout_commen_title"
+        />
 
     <include
         layout="@layout/common_swiperefresh_layout"

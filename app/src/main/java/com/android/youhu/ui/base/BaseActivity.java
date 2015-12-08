@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.youhu.R;
+import com.android.youhu.common.skin.SkinChanger;
 import com.android.youhu.ui.IndexActivity;
 import com.android.youhu.widget.MyEmptyViewHelper;
 import com.umeng.analytics.MobclickAgent;
@@ -19,6 +21,8 @@ import com.umeng.message.PushAgent;
 public class BaseActivity extends Activity implements View.OnClickListener {
 
     protected Context mContext;
+    protected TextView backImageView;
+    protected TextView titleTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

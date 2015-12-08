@@ -27,8 +27,6 @@ import java.util.List;
 public class RentMeActivity extends SwipeRefreshBaseActivity {
     private static final String TAG = RentMeActivity.class.getSimpleName();
 
-    private ImageView backImageView;
-    private TextView titleTextView;
     private List<RentMeResponse.DataEntity.ItemsEntity> datas = new ArrayList<>();
     private MineRentAdapter adapter;
 
@@ -81,8 +79,9 @@ public class RentMeActivity extends SwipeRefreshBaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText("租到我的");
         listView = (ListView) findViewById(R.id.list);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

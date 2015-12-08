@@ -46,8 +46,6 @@ public class MakeOrderActivity extends BaseActivity {
     private static final int TIME_DIALOG = 1;
     private static final int DURATION_DIALOG = 2;
 
-    private ImageView backImageView;
-    private TextView titleTextView;
     private ScrollView scrollViewScrollView;
     private ImageView imageViewImageView;
     private FrameLayout first_flFrameLayout;
@@ -107,7 +105,7 @@ public class MakeOrderActivity extends BaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
         imageViewImageView = (ImageView) findViewById(R.id.imageView);
@@ -126,7 +124,7 @@ public class MakeOrderActivity extends BaseActivity {
         totalTextView = (TextView) findViewById(R.id.total);
         total_feeTextView = (TextView) findViewById(R.id.total_fee);
         datingButton = (Button) findViewById(R.id.dating);
-
+        titleTextView.setText("生成订单");
         backImageView.setOnClickListener(this);
         dateTextView.setOnClickListener(this);
         timeTextView.setOnClickListener(this);

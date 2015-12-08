@@ -15,7 +15,7 @@ public class MinePayPwdActivity extends BaseActivity {
     private static final String TAG = MinePayPwdActivity.class.getSimpleName();
 
     private RelativeLayout title_topRelativeLayout;
-    private ImageView backImageView;
+    private TextView backImageView;
     private TextView titleTextView;
     private TextView modifyTextView;
     private TextView findbackTextView;
@@ -35,11 +35,11 @@ public class MinePayPwdActivity extends BaseActivity {
 
     private void findViews() {
         title_topRelativeLayout = (RelativeLayout) findViewById(R.id.title_top);
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         modifyTextView = (TextView) findViewById(R.id.modify);
         findbackTextView = (TextView) findViewById(R.id.findback);
-
+        titleTextView.setText("支付密码");
     }
 
 

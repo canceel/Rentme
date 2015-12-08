@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import com.android.youhu.R;
 import com.android.youhu.bean.FilterItem;
 import com.android.youhu.bean.FilterSubItem;
+import com.android.youhu.common.skin.SkinChanger;
 import com.android.youhu.common.util.SharedPre;
 import com.android.youhu.common.util.SharedPreUtils;
 import com.android.youhu.common.util.ToastUtils;
@@ -27,9 +28,9 @@ import com.android.youhu.database.DbManager;
 import com.android.youhu.net.HttpLoad;
 import com.android.youhu.net.ResponseCallback;
 import com.android.youhu.net.response.ResponseRyToken;
+import com.android.youhu.ui.base.FragmentBaseActivity;
 import com.android.youhu.ui.fragment.HomePagerFragment;
 import com.android.youhu.ui.fragment.MineFragment;
-import com.android.youhu.ui.base.FragmentBaseActivity;
 import com.android.youhu.ui.login.CurrentCityActivity;
 import com.android.youhu.ui.login.LoginActivity;
 import com.android.youhu.ui.mine.SysSettingActivity;
@@ -91,6 +92,8 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         setTabSelection(position);
         UmengUpdateAgent.setUpdateCheckConfig(false);
         UmengUpdateAgent.update(this);
+//        SkinChanger.getInstance().changeBackGroundColor(findViewById(R.id.title_layout), false);
+//        SkinChanger.getInstance().changeSrcDrawable(findViewById(R.id.home_icon), false);
     }
 
     private void registerAction() {
@@ -211,8 +214,6 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         mineTabLl = (LinearLayout) findViewById(R.id.mine_tab_ll);
         titleBtn = (Button) findViewById(R.id.gps_location_btn);
         filterIv = (ImageView) findViewById(R.id.filter_iv);
-
-
         homeTabLl.setOnClickListener(this);
         msgTabLl.setOnClickListener(this);
         mineTabLl.setOnClickListener(this);

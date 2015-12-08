@@ -69,7 +69,7 @@ public class MyEmptyViewHelper {
                     ((ViewGroup) view.getParent()).addView(emptyView,lp);
                     break;
                 case TYPE_DEFAULT_EMPTY:
-                    icon.setImageResource(R.mipmap.icon_image_default);
+                    icon.setImageResource(R.mipmap.picture);
                     text.setText("暂无数据");
                     retry.setVisibility(View.GONE);
                     ((ViewGroup) view.getParent()).addView(emptyView);

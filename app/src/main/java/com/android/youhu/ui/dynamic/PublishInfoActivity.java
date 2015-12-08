@@ -34,11 +34,9 @@ import java.util.List;
 public class PublishInfoActivity extends BaseActivity {
     private static final String TAG = PublishInfoActivity.class.getSimpleName();
 
-    private ImageView backImageView;
     private ImageView icon1ImageView;
     private ImageView icon2ImageView;
     private ImageView icon3ImageView;
-    private TextView titleTextView;
     private ImageView imageViewImageView;
     private ScrollView scrollViewScrollView;
     private TextView nameTextView;
@@ -150,7 +148,7 @@ public class PublishInfoActivity extends BaseActivity {
     }
 
     private void findViews() {
-        backImageView = (ImageView) findViewById(R.id.back);
+        backImageView = (TextView) findViewById(R.id.back);
         icon1ImageView = (ImageView) findViewById(R.id.icon1);
         icon2ImageView = (ImageView) findViewById(R.id.icon2);
         icon3ImageView = (ImageView) findViewById(R.id.icon3);
@@ -190,6 +188,7 @@ public class PublishInfoActivity extends BaseActivity {
                 close(null);
             }
         });
+        titleTextView.setText("基本信息");
     }
 
     private void close(View o) {
