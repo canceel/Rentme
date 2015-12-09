@@ -14,6 +14,7 @@
         android:layout_below="@id/title_top"
         android:background="@color/white"
         android:orientation="vertical"
+        android:layout_marginTop="8dp"
         android:paddingTop="30dp">
 
         <RelativeLayout

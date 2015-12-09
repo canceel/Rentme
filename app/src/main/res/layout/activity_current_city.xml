@@ -5,15 +5,31 @@
               android:orientation="vertical">
 
     <RelativeLayout
-        style="@style/TitleStyle">
+        style="@style/TitleStyleWhite">
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:onClick="back"
+            android:text="返回"
+            android:textColor="@color/title_background"
+            android:textSize="@dimen/text_size_16sp"/>
 
         <TextView
-            style="@style/TextTitleStyle"
-            android:text="选择城市"/>
-
-        <ImageButton
-            style="@style/BackStyle"
-            android:onClick="back"/>
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawablePadding="8dp"
+            android:text="选择城市"
+            android:textColor="@color/title_background"
+            android:textSize="@dimen/text_size_18sp"/>
     </RelativeLayout>
 
     <RelativeLayout

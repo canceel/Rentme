@@ -28,7 +28,7 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_gravity="center"
-                    android:background="@mipmap/ic_launcher"/>
+                    android:background="@mipmap/logo_white"/>
 
                 <TextView
                     android:id="@+id/app_versions"
@@ -73,6 +73,7 @@
             <Button
                 android:id="@+id/about"
                 style="@style/ButtonStyle"
+                android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/button_white_selector"
                 android:drawableRight="@mipmap/icon_chevron_right"
@@ -84,6 +85,7 @@
             <Button
                 android:id="@+id/check_version"
                 style="@style/ButtonStyle"
+                android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/button_white_selector"
                 android:drawableRight="@mipmap/icon_chevron_right"
@@ -94,6 +96,7 @@
             <Button
                 android:id="@+id/clear_cache"
                 style="@style/ButtonStyle"
+                android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/button_white_selector"
                 android:drawableRight="@mipmap/icon_chevron_right"

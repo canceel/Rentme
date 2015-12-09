@@ -45,6 +45,7 @@ public class CurrentCityActivity extends BaseActivity implements
     private ListView lvSelectList;
     private RelativeLayout select_toast_layout;
     private TextView section_toast_text;
+    private TextView backTextView;
     private TextView tvPlace;
     private SideBar select_alphabetButton;
 
@@ -65,6 +66,7 @@ public class CurrentCityActivity extends BaseActivity implements
     private void initView() {
         lvSelectList = (ListView) findViewById(R.id.select_list);
         tvPlace = (TextView) findViewById(R.id.place);
+        backTextView = (TextView) findViewById(R.id.back);
         titleLayout = (LinearLayout) findViewById(R.id.title_layout);
         select_list_title = (TextView) findViewById(R.id.select_list_title);
         select_alphabetButton = (SideBar) findViewById(R.id.select_alphabetButton);
@@ -77,6 +79,7 @@ public class CurrentCityActivity extends BaseActivity implements
         adapter = new CurrentCityAdapter(this, datas, alphabet);
         lvSelectList.setAdapter(adapter);
         lvSelectList.setOnScrollListener(this);
+        backTextView.setOnClickListener(this);
         lvSelectList.setOnItemClickListener(this);
         select_alphabetButton.setOnTouchListener(this);
         select_alphabetButton.setAlphabet(alphabet);

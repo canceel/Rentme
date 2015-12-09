@@ -6,19 +6,23 @@
 
     <RelativeLayout
         android:id="@+id/title_top"
-        style="@style/TitleStyle"
-        android:layout_alignParentTop="true"
-        android:background="@color/msg_title_background">
+        style="@style/TitleStyleWhite"
+        android:layout_alignParentTop="true">
 
-        <ImageView
+        <TextView
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="4dp"
-            android:padding="12dp"
-            android:src="@mipmap/back"/>
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/back"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:onClick="back"
+            android:text="返回"
+            android:textColor="@color/title_background"
+            android:textSize="@dimen/text_size_16sp"/>
 
         <TextView
             android:id="@+id/title"
@@ -27,7 +31,7 @@
             android:layout_centerInParent="true"
             android:drawablePadding="8dp"
             android:text="关于"
-            android:textColor="@color/msg_title_text_color"
+            android:textColor="@color/title_background"
             android:textSize="@dimen/text_size_18sp"/>
 
         <Button

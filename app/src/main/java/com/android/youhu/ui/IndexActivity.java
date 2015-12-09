@@ -11,15 +11,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 
 import com.android.youhu.R;
+import com.android.youhu.adapter.PicturesAdapter;
 import com.android.youhu.bean.FilterItem;
 import com.android.youhu.bean.FilterSubItem;
-import com.android.youhu.common.skin.SkinChanger;
 import com.android.youhu.common.util.SharedPre;
 import com.android.youhu.common.util.SharedPreUtils;
 import com.android.youhu.common.util.ToastUtils;
@@ -70,7 +75,13 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     private LinearLayout homeTabLl;
     private LinearLayout msgTabLl;
     private LinearLayout mineTabLl;
+
+    public RelativeLayout pictrueBgRl;
+    public GridView pictrues;
+    public HorizontalScrollView horizontalScrollView;
+
     private MyFilterPopupWindow filterPopup;
+    public PicturesAdapter adapter = null;
 
     private FragmentManager fragmentManager;
     private DbManager db;
@@ -92,8 +103,17 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         setTabSelection(position);
         UmengUpdateAgent.setUpdateCheckConfig(false);
         UmengUpdateAgent.update(this);
-//        SkinChanger.getInstance().changeBackGroundColor(findViewById(R.id.title_layout), false);
-//        SkinChanger.getInstance().changeSrcDrawable(findViewById(R.id.home_icon), false);
+        pictrueBgRl = (RelativeLayout) findViewById(R.id.picturebg);
+        horizontalScrollView = (HorizontalScrollView) findViewById(R.id.hsv);
+        pictrues = (GridView) findViewById(R.id.bigPictures);
+        horizontalScrollView.setOnClickListener(this);
+        pictrueBgRl.setOnClickListener(this);
+        pictrues.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                close(null);
+            }
+        });
     }
 
     private void registerAction() {
@@ -324,12 +344,36 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
             case R.id.filter_iv:
                 showFilterPopUpWindow();
                 break;
+            case R.id.picturebg:
+            case R.id.hsv:
+                close(v);
+                break;
+        }
+    }
+
+    public void show() {
+        if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.GONE) {
+            pictrueBgRl.setVisibility(View.VISIBLE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_in));
+        }
+    }
+
+    private void close(View o) {
+        if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
+            pictrueBgRl.setVisibility(View.GONE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_out));
         }
     }
 
     @Override
     public void onBackPressed() {
-        if (BACK_PRESSED + 2000 > System.currentTimeMillis()) {
+        if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.VISIBLE) {
+            pictrueBgRl.setVisibility(View.GONE);
+            pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
+                    .alpha_out));
+        } else if (BACK_PRESSED + 2000 > System.currentTimeMillis()) {
             super.onBackPressed();
         } else {
             ToastUtils.show(this, "再按一次退出应用");

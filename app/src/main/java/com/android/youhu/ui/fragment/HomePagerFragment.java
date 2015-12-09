@@ -25,6 +25,7 @@ import com.android.youhu.common.util.Utils;
 import com.android.youhu.net.HttpLoad;
 import com.android.youhu.net.ResponseCallback;
 import com.android.youhu.net.response.PulishInfoResponse;
+import com.android.youhu.ui.IndexActivity;
 import com.android.youhu.ui.base.ParameterConstant;
 import com.android.youhu.ui.dynamic.PublishInfoActivity;
 import com.android.youhu.widget.AutoScrollViewPager;
@@ -196,9 +197,12 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                             } else {
                                 datas.addAll(result.data.items);
                             }
-
+                            IndexActivity indexActivity = (IndexActivity) getActivity();
                             if (homePageAdapter == null) {
-                                homePageAdapter = new HomePageAdapter(getActivity(), datas);
+                                homePageAdapter = new HomePageAdapter(getActivity(), datas,
+                                        indexActivity.pictrues, indexActivity.adapter,
+                                        indexActivity.pictrueBgRl, indexActivity
+                                        .horizontalScrollView);
                                 listView.setAdapter(homePageAdapter);
                             } else {
                                 homePageAdapter.setData(datas);

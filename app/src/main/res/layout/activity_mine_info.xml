@@ -543,7 +543,7 @@
             <View
                 android:id="@+id/bottom_divider"
                 android:layout_width="match_parent"
-                android:layout_height="46dp"
+                android:layout_height="54dp"
                 android:background="@color/rc_divider"
                 android:visibility="gone"/>
         </LinearLayout>

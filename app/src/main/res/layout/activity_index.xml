@@ -122,4 +122,31 @@
                 android:textSize="@dimen/text_size_12sp"/>
         </LinearLayout>
     </LinearLayout>
+    <RelativeLayout
+        android:id="@+id/picturebg"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@color/purple_dark"
+        android:visibility="gone">
+
+        <HorizontalScrollView
+            android:id="@+id/hsv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:scrollbars="none">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <com.android.youhu.widget.NoRequsetGridView
+                    android:id="@+id/bigPictures"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    >
+                </com.android.youhu.widget.NoRequsetGridView>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </RelativeLayout>
 </FrameLayout>

@@ -3,10 +3,14 @@ package com.android.youhu.adapter;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.youhu.R;
@@ -18,6 +22,24 @@ import java.util.List;
 
 
 public class HomePageAdapter extends CommonAdapter<PulishInfoResponse.DataEntity.ItemsEntity> {
+
+    private GridView bigPictruesGv;
+    private PicturesAdapter picturesAdapter;
+    private RelativeLayout pictrueBgRl;
+    private HorizontalScrollView pictureHsv;
+
+    public HomePageAdapter(Context context, List<PulishInfoResponse.DataEntity.ItemsEntity>
+            datas, GridView bigPictruesGv, PicturesAdapter picturesAdapter, RelativeLayout
+                                   pictrueBgRl, HorizontalScrollView pictureHsv) {
+        super(context, datas);
+        this.context = context;
+        this.datas = datas;
+        this.layoutId = R.layout.adapter_home_page;
+        this.bigPictruesGv = bigPictruesGv;
+        this.picturesAdapter = picturesAdapter;
+        this.pictrueBgRl = pictrueBgRl;
+        this.pictureHsv = pictureHsv;
+    }
 
     public HomePageAdapter(Context context, List<PulishInfoResponse.DataEntity.ItemsEntity> datas) {
         super(context, datas);
@@ -67,7 +89,7 @@ public class HomePageAdapter extends CommonAdapter<PulishInfoResponse.DataEntity
 
         if (review.album != null && review.album.size() > 0) {
             horizontalScrollView.setVisibility(View.VISIBLE);
-            List<String> pictureUrls = new ArrayList<String>(review.album.size());
+            final List<String> pictureUrls = new ArrayList<String>(review.album.size());
             for (int i = 0; i < review.album.size(); i++) {
                 pictureUrls.add(review.album.get(i).PictureUrl);
             }
@@ -80,6 +102,39 @@ public class HomePageAdapter extends CommonAdapter<PulishInfoResponse.DataEntity
             pictures_GridView.setVerticalSpacing(4);
             pictures_GridView.setAdapter(new PicturesAdapter(context, pictureUrls,
                     PicturesAdapter.TYPE_THREE));
+
+            pictures_GridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    if (pictrueBgRl != null && pictrueBgRl.getVisibility() == View.GONE) {
+                        LinearLayout.LayoutParams params1 = new LinearLayout.LayoutParams
+                                (pictureUrls.size() *
+                                        (Utils
+                                                .getScreenWidth(context)), ViewGroup.LayoutParams
+                                        .WRAP_CONTENT);
+                        bigPictruesGv.setLayoutParams(params1);
+                        bigPictruesGv.setColumnWidth(Utils.getScreenWidth(context) / 3 - 10);
+                        bigPictruesGv.setVerticalSpacing(5);
+                        bigPictruesGv.setNumColumns(pictureUrls.size());
+                        if (picturesAdapter == null) {
+                            picturesAdapter = new PicturesAdapter(context, pictureUrls,
+                                    PicturesAdapter
+                                            .TYPE_OTHER);
+                            bigPictruesGv.setAdapter(picturesAdapter);
+                        } else {
+                            picturesAdapter.setData(pictureUrls);
+                        }
+                        pictrueBgRl.setVisibility(View.VISIBLE);
+                        pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(context, R.anim
+                                .alpha_in));
+                    }
+                    if (pictureHsv != null) {
+                        pictureHsv.smoothScrollTo((Utils.getScreenWidth(context) / 3 - 10 + 1) *
+                                holder.position, 0);
+                    }
+                }
+            });
+
         } else {
             horizontalScrollView.setVisibility(View.GONE);
         }
