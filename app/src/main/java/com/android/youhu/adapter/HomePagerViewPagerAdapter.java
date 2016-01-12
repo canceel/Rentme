@@ -61,7 +61,7 @@ public class HomePagerViewPagerAdapter extends RecyclingPagerAdapter {
 //            }
 //        });
         holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        holder.imageView.setBackgroundResource(R.color.background);
+        holder.imageView.setBackgroundResource(R.mipmap.icon_ad_bg);
 //        HttpLoad.getImage(context, themeItems.get(getPosition(position)).imageURL,
 //                holder.imageView);
         return view;

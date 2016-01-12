@@ -53,6 +53,12 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
     private List<PulishInfoResponse.DataEntity.ItemsEntity> datas;
     private int previousPointEnale;
 
+    public void setParam(String param) {
+        this.param = param;
+    }
+
+    private String param = "&gender=0&height=0&weight=0";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
@@ -182,8 +188,10 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
             if (isShowDialog) {
                 dialog.show();
             }
-            HttpLoad.HomePage.getHomepage(TAG, pagination.currentPage + ""
-                    , pagination.pageSize + "",
+            HttpLoad.HomePage.getHomepage(TAG,
+                    pagination.currentPage + "",
+                    pagination.pageSize + "",
+                    param,
                     new ResponseCallback<PulishInfoResponse>
                             (getActivity()) {
                         @Override

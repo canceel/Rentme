@@ -42,6 +42,7 @@ public class ApplicationInit extends Application {
              * IMKit SDK调用第一步 初始化
              */
             RongIM.init(this);
+            RongCloudEvent.init(baseContext);
         }
     }
 

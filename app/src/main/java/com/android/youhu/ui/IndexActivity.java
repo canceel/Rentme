@@ -23,6 +23,7 @@ import android.widget.RelativeLayout;
 
 import com.android.youhu.R;
 import com.android.youhu.adapter.PicturesAdapter;
+import com.android.youhu.application.ApplicationInit;
 import com.android.youhu.bean.FilterItem;
 import com.android.youhu.bean.FilterSubItem;
 import com.android.youhu.common.util.SharedPre;
@@ -32,6 +33,8 @@ import com.android.youhu.common.util.Utils;
 import com.android.youhu.database.DbManager;
 import com.android.youhu.net.HttpLoad;
 import com.android.youhu.net.ResponseCallback;
+import com.android.youhu.net.response.EnumEntity;
+import com.android.youhu.net.response.ItemsEntity;
 import com.android.youhu.net.response.ResponseRyToken;
 import com.android.youhu.ui.base.FragmentBaseActivity;
 import com.android.youhu.ui.fragment.HomePagerFragment;
@@ -40,6 +43,7 @@ import com.android.youhu.ui.login.CurrentCityActivity;
 import com.android.youhu.ui.login.LoginActivity;
 import com.android.youhu.ui.mine.SysSettingActivity;
 import com.android.youhu.widget.MyFilterPopupWindow;
+import com.android.youhu.widget.SwipyRefreshLayoutDirection;
 import com.umeng.update.UmengUpdateAgent;
 
 import java.util.ArrayList;
@@ -59,8 +63,8 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     public final static int ACTIVITY_LOGIN = 100;
     public final static int MESSAGE_LOGIN = 101;
 
-    String Token = "/vF9at/zPgLACf2atvUXXLSUXIuhYrpnL2rv6v3TqMTdk6sO8EkeHI7KLV0+vJQqQ90T/Ijz" +
-            "+lKSO4/TnNq1Hw==";//test
+    String Token = "HwfSXv31B//2lIodBrXalbSUXIuhYrpnL2rv6v3TqMRc9a" +
+            "/RsSBVjNcCw8NFxROupTlAAiYe5MaSO4/TnNq1Hw==";//test
     private static long BACK_PRESSED;
     private static final int TAB_HOME = 0;
     private static final int TAB_MESSAGE = 1;
@@ -161,6 +165,8 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
             }
 
         }, true);
+
+        RongIM.getInstance().setMessageAttachedUserInfo(true);
     }
 
     private void setIMkitConnection() {
@@ -239,50 +245,36 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         mineTabLl.setOnClickListener(this);
         titleBtn.setOnClickListener(this);
         filterIv.setOnClickListener(this);
-
+        EnumEntity genderEntities = ApplicationInit.getGenderEntities();
+        EnumEntity heightEntities = ApplicationInit.getHeightEntities();
+        EnumEntity weightEntities = ApplicationInit.getWeightEntities();
         FilterItem filterItem1 = new FilterItem();
         filterItem1.title = "性别";
-        FilterSubItem filterSubItem1 = new FilterSubItem();
-        filterSubItem1.name = "汉子";
-        filterItem1.item.add(filterSubItem1);
-        FilterSubItem filterSubItem2 = new FilterSubItem();
-        filterSubItem2.name = "妹子";
-        filterItem1.item.add(filterSubItem2);
+        for (ItemsEntity ge : genderEntities.items) {
+            FilterSubItem filterSubItem = new FilterSubItem();
+            filterSubItem.name = ge.displayName;
+            filterSubItem.value = ge.value;
+            filterItem1.item.add(filterSubItem);
+        }
         filterItems.add(filterItem1);
-
         FilterItem filterItem2 = new FilterItem();
         filterItem2.title = "身高";
-        FilterSubItem filterSubItem01 = new FilterSubItem();
-        filterSubItem01.name = "160~165cm";
-        filterItem2.item.add(filterSubItem01);
-        FilterSubItem filterSubItem11 = new FilterSubItem();
-        filterSubItem11.name = "165~170cm";
-        filterItem2.item.add(filterSubItem11);
-        FilterSubItem filterSubItem21 = new FilterSubItem();
-        filterSubItem21.name = "170~180cm";
-        filterItem2.item.add(filterSubItem21);
-        FilterSubItem filterSubItem31 = new FilterSubItem();
-        filterSubItem31.name = "180cm以上";
-        filterItem2.item.add(filterSubItem31);
+        for (ItemsEntity he : heightEntities.items) {
+            FilterSubItem filterSubItem = new FilterSubItem();
+            filterSubItem.name = he.displayName;
+            filterSubItem.value = he.value;
+            filterItem2.item.add(filterSubItem);
+        }
         filterItems.add(filterItem2);
 
         FilterItem filterItem3 = new FilterItem();
         filterItem3.title = "体重";
-        FilterSubItem filterSubItem02 = new FilterSubItem();
-        filterSubItem02.name = "40~55kg";
-        filterItem3.item.add(filterSubItem02);
-        FilterSubItem filterSubItem13 = new FilterSubItem();
-        filterSubItem13.name = "56~60kg";
-        filterItem3.item.add(filterSubItem13);
-        FilterSubItem filterSubItem24 = new FilterSubItem();
-        filterSubItem24.name = "61~65kg";
-        filterItem3.item.add(filterSubItem24);
-        FilterSubItem filterSubItem35 = new FilterSubItem();
-        filterSubItem35.name = "66~75kg";
-        filterItem3.item.add(filterSubItem35);
-        FilterSubItem filterSubItem36 = new FilterSubItem();
-        filterSubItem36.name = "75kg以上";
-        filterItem3.item.add(filterSubItem36);
+        for (ItemsEntity he : weightEntities.items) {
+            FilterSubItem filterSubItem = new FilterSubItem();
+            filterSubItem.name = he.displayName;
+            filterSubItem.value = he.value;
+            filterItem3.item.add(filterSubItem);
+        }
         filterItems.add(filterItem3);
     }
 
@@ -481,8 +473,30 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         });
     }
 
-    private void filterProductList(HashMap<String, String> selectedItems) {
-
+    private void filterProductList(HashMap<String, Integer> selectedItems) {
+        if (selectedItems != null && selectedItems.size() > 0) {
+            String filterUrl = "";
+            for (String title : selectedItems.keySet()) {
+                if (title.equals("性别")) {
+                    filterUrl += "&gender=" + selectedItems.get(title);
+                } else if (title.equals("体重")) {
+                    filterUrl += "&weight=" + selectedItems.get(title);
+                } else if (title.equals("身高")) {
+                    filterUrl += "&height=" + selectedItems.get(title);
+                }
+            }
+            if (!filterUrl.contains("gender")) {
+                filterUrl += "&gender=0";
+            } else if (!filterUrl.contains("weight")) {
+                filterUrl += "&weight=0";
+            } else if (!filterUrl.contains("height")) {
+                filterUrl += "&height=0";
+            }
+            if (homeFragment != null) {
+                homeFragment.setParam(filterUrl);
+                homeFragment.onRefresh(SwipyRefreshLayoutDirection.TOP);
+            }
+        }
     }
 
     protected void onNewIntent(Intent intent) {
@@ -514,6 +528,12 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
                 setTabSelection(TAB_MESSAGE);
             }
         }
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(mReceiver);
+
     }
 
 }

@@ -1,8 +1,8 @@
 package com.android.youhu.adapter;
 
 import android.content.Context;
-import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.android.youhu.R;
 import com.android.youhu.common.util.Utils;
@@ -27,15 +27,18 @@ public class PicturesAdapter extends CommonAdapter<String> {
     public void convert(ViewHolder holder, String s) {
         ImageView pictureImageView = holder.getView(R.id.picture);
         holder.setImageByUrl(s, R.id.picture);
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) pictureImageView
+                .getLayoutParams();
         switch (type) {
             case TYPE_THREE:
-                holder.getConvertView().setLayoutParams(new AbsListView.LayoutParams(Utils
-                        .getScreenWidth(context) / 3 - 6, Utils.getScreenWidth(context) / 3 - 6));
+                lp.width = Utils.getScreenWidth(context) / 3 - 6;
+                lp.height = Utils.getScreenWidth(context) / 3 - 6;
+                pictureImageView.setLayoutParams(lp);
                 break;
             case TYPE_OTHER:
-                holder.getConvertView().setLayoutParams(new AbsListView.LayoutParams(Utils
-                        .getScreenWidth
-                                (context) - 6, Utils.getScreenHeight(context) * 2 / 3));
+                lp.width = Utils.getScreenWidth(context) - 6;
+                lp.height = Utils.getScreenHeight(context) * 2 / 3;
+                pictureImageView.setLayoutParams(lp);
                 break;
         }
 

@@ -92,7 +92,8 @@
                 android:paddingTop="10dp"
                 android:text="我的认证"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_16sp"/>
+                android:textSize="@dimen/text_size_16sp"
+                />
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

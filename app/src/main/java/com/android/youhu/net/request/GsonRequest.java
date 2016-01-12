@@ -23,6 +23,7 @@ public class GsonRequest<T> extends Request<T> {
 
     private static final String TAG = GsonRequest.class.getSimpleName();
     private static final String CONTENT_TYPE = "application/x-www-form-urlencoded";
+//    private static final String CONTENT_TYPE = "form/data";
     private final Gson gson = new Gson();
     private final Class<T> clazz;
     private final Map<String, String> headers;

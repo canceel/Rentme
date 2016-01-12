@@ -25,7 +25,7 @@
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
-                android:gravity="center"
+                android:gravity="right"
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
                 android:text="姓名:"
@@ -61,7 +61,7 @@
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
-                android:gravity="center"
+                android:gravity="right"
                 android:paddingBottom="16dp"
                 android:paddingTop="16dp"
                 android:text="身份证号:"
@@ -85,11 +85,31 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
             android:gravity="center_horizontal|left"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
             android:text="1.此次身份验证必须填写您本人身份证"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/text_size_14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_horizontal|left"
+            android:text="2.身份证用于用户支付与取现相关验证，否则支付遇到问题"
+            android:textColor="@color/text_normal"
+            android:textSize="@dimen/text_size_14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_horizontal|left"
+            android:text="3.身份证验证只准一次，修改需要联系客户。"
             android:textColor="@color/text_normal"
             android:textSize="@dimen/text_size_14sp"/>
 

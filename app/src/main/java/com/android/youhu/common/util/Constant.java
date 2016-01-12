@@ -118,8 +118,14 @@ public class Constant {
     // 查询租到我的
     public static final String API_ORDER_GET_RENT_MINE = BASE_URL + "orderInfo/myProvider" +
             ".json?token=%1$s&timestamp=%2$s&sign=%3$s&pageIndex=%4$s&pageSize=%5$s";
+    // 处理订单
+    public static final String API_ORDER_PROCESS = BASE_URL + "orderInfo/ChangeOrder" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
 
-    // 查询我租到的
+    // 首页
     public static final String API_HOME_GET_RENT = BASE_URL + "rentInfo/getRentList" +
-            ".json?pageIndex=%1$s&pageSize=%2$s";
+            ".json?pageIndex=%1$s&pageSize=%2$s%3$s";
+    // 删除用户相册
+    public static final String API_DELETE_PHOTO = BASE_URL + "Account/DeleteAlbum" +
+            ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
 }

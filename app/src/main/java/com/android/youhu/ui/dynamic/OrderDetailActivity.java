@@ -1,11 +1,9 @@
 package com.android.youhu.ui.dynamic;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,7 +11,8 @@ import com.android.youhu.R;
 import com.android.youhu.bean.RentMeResponse;
 import com.android.youhu.ui.base.BaseActivity;
 import com.android.youhu.ui.base.ParameterConstant;
-import com.android.youhu.ui.mine.MinePayActivity;
+
+import io.rong.imkit.RongIM;
 
 public class OrderDetailActivity extends BaseActivity {
     private static final String TAG = OrderDetailActivity.class.getSimpleName();
@@ -60,6 +59,25 @@ public class OrderDetailActivity extends BaseActivity {
 
     private void getData() {
         data = getIntent().getExtras().getParcelable(ParameterConstant.PARAM_ITEM_DATA);
+//        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+//
+//            @Override
+//            public UserInfo getUserInfo(String userId) {
+//                Uri uri = null;
+//                if (!TextUtils.isEmpty(data.)) {
+//                    uri = Uri.parse(SharedPreUtils.getString(mContext, SharedPre.User
+//                            .AVATARURL));
+//                }
+//
+//                return new UserInfo(SharedPreUtils.getInt(mContext, SharedPre.User
+//                        .USERID, 0) + "",
+//                        SharedPreUtils.getString(mContext, SharedPre.User.NICKNAME),
+//                        uri);//根据
+//                // userId
+//                // 去你的用户系统里查询对应的用户信息返回给融云 SDK。
+//            }
+//
+//        }, true);
     }
 
     private void findViews() {
@@ -88,11 +106,20 @@ public class OrderDetailActivity extends BaseActivity {
     public void onClick(View view) {
         int id = view.getId();
         switch (id) {
-            case R.id.dating:
-                Intent it = new Intent(mContext, MinePayActivity.class);
-                it.putExtra("isCharged", false);
-                startActivity(it);
+            case R.id.dating: {
+//                Intent it = new Intent(mContext, MinePayActivity.class);
+//                it.putExtra("isCharged", false);
+//                startActivity(it);
+                /**
+                 * 启动单聊界面。
+                 *
+                 * @param context      应用上下文。
+                 * @param targetUserId 要与之聊天的用户 Id。
+                 * @param title        聊天的标题，如果传入空值，则默认显示与之聊天的用户名称。
+                 */
+                RongIM.getInstance().startPrivateChat(mContext, data.userId + "", data.nickName);
                 break;
+            }
             default:
                 super.onClick(view);
                 break;

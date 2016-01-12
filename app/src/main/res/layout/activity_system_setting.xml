@@ -76,7 +76,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/button_white_selector"
-                android:drawableRight="@mipmap/icon_chevron_right"
+                android:drawableRight="@mipmap/icon_row"
                 android:gravity="left|center_vertical"
                 android:text="关于我们"
                 android:textColor="@color/text_normal"
@@ -88,7 +88,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/button_white_selector"
-                android:drawableRight="@mipmap/icon_chevron_right"
+                android:drawableRight="@mipmap/icon_row"
                 android:gravity="left|center_vertical"
                 android:text="检查更新"
                 android:textColor="@color/text_normal"/>
@@ -99,7 +99,7 @@
                 android:layout_height="48dp"
                 android:layout_marginTop="1dp"
                 android:background="@drawable/button_white_selector"
-                android:drawableRight="@mipmap/icon_chevron_right"
+                android:drawableRight="@mipmap/icon_row"
                 android:gravity="left|center_vertical"
                 android:text="清除缓存"
                 android:textColor="@color/text_normal"/>

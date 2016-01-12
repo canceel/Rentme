@@ -4,6 +4,9 @@ import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.android.volley.Request;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.youhu.bean.RentMeResponse;
 import com.android.youhu.common.util.Constant;
 import com.android.youhu.common.util.Utils;
@@ -20,9 +23,6 @@ import com.android.youhu.net.response.ResponseRyToken;
 import com.android.youhu.net.response.SysEnumsResponse;
 import com.android.youhu.net.response.UpdateUserInforResponse;
 import com.android.youhu.net.response.UserInfo;
-import com.android.volley.Request;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.sea_monster.common.Md5;
 
 import java.io.File;
@@ -308,6 +308,23 @@ public class HttpLoad {
             HttpUtils.getInstance().request(tag, request);
         }
 
+        public static void deletePhoto(String tag, String url, String token,
+                                       ResponseCallback<ResponseBase> callback) {
+            final Map<String, String> params = new HashMap<>();
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            params.put("albumUrl", url);
+            String url1 = String.format(Constant.API_DELETE_PHOTO, token, timestamp, signUrl(token,
+                    timestamp));
+            GsonRequest<ResponseBase> request = new GsonRequest<>(
+                    Request.Method.POST, url1,
+                    ResponseBase.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
         /**
          * 更新用户信息
          * <p/>
@@ -528,7 +545,7 @@ public class HttpLoad {
                                        String pageIndex,
                                        String pageSize, ResponseCallback<RentMeResponse> callback) {
             String timestamp = String.valueOf(System.currentTimeMillis());
-            String url = String.format(Constant.API_ORDER_GET_MINE_RENT, token, timestamp, signUrl
+            String url = String.format(Constant.API_ORDER_GET_RENT_MINE, token, timestamp, signUrl
                     (token,
                             timestamp), pageIndex, pageSize);
             GsonRequest<RentMeResponse> request = new GsonRequest<>(
@@ -540,15 +557,45 @@ public class HttpLoad {
                     callback);
             HttpUtils.getInstance().request(tag, request);
         }
+
+        /**
+         * 处理订单
+         *
+         * @param tag
+         * @param token
+         * @param orderId
+         * @param status
+         */
+        public static void processOrder(String tag,
+                                        String token,
+                                        String orderId,
+                                        String status, ResponseCallback<ResponseBase> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_ORDER_PROCESS, token, timestamp, signUrl
+                    (token,                            timestamp));
+            final Map<String, String> params = new HashMap<>();
+            params.put("orderId", orderId);
+            params.put("status", status);
+            GsonRequest<ResponseBase> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    ResponseBase.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
     }
 
     public abstract static class HomePage {
 
         public static void getHomepage(String tag,
                                        String pageIndex,
-                                       String pageSize, ResponseCallback<PulishInfoResponse>
+                                       String pageSize,
+                                       String param,
+                                       ResponseCallback<PulishInfoResponse>
                                                callback) {
-            String url = String.format(Constant.API_HOME_GET_RENT, pageIndex, pageSize);
+            String url = String.format(Constant.API_HOME_GET_RENT, pageIndex, pageSize, param);
             GsonRequest<PulishInfoResponse> request = new GsonRequest<>(
                     Request.Method.GET, url,
                     PulishInfoResponse.class,

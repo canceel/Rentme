@@ -5,5 +5,6 @@ package com.android.youhu.bean;
  */
 public class FilterSubItem {
     public String name;
+    public int value;
     public boolean isSelected;
 }

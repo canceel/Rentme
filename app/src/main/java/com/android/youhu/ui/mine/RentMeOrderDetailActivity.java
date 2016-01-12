@@ -1,17 +1,22 @@
 package com.android.youhu.ui.mine;
 
 
+import android.app.Dialog;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.youhu.R;
 import com.android.youhu.bean.RentMeResponse;
+import com.android.youhu.common.util.LoadDialogUtil;
 import com.android.youhu.common.util.ToastUtils;
+import com.android.youhu.common.util.Utils;
+import com.android.youhu.net.HttpLoad;
+import com.android.youhu.net.ResponseCallback;
+import com.android.youhu.net.response.ResponseBase;
 import com.android.youhu.ui.base.BaseActivity;
 import com.android.youhu.ui.base.ParameterConstant;
 import com.android.youhu.widget.CircleImageView;
@@ -72,7 +77,6 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         datingButton = (Button) findViewById(R.id.dating);
         headCircleIamgeView = (CircleImageView) findViewById(R.id.head);
         titleTextView.setText("预约详情");
-
         datingButton.setOnClickListener(this);
         backImageView.setOnClickListener(this);
     }
@@ -102,6 +106,11 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         } else {
             nameTextView.setCompoundDrawables(null, null, null, null);
         }
+        if("拒绝预约".equals(data.state)||"接受预约".equals(data.state)){
+            findViewById(R.id.bottom).setVisibility(View.GONE);
+        }else{
+            findViewById(R.id.bottom).setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -109,12 +118,39 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         int id = view.getId();
         switch (id) {
             case R.id.dating:
-                ToastUtils.show(mContext, "预约成功");
-                onBackPressed();
+                processOrder("2");
+                break;
+            case R.id.cancel:
+                processOrder("3");
                 break;
             default:
                 super.onClick(view);
         }
+    }
+
+    public void processOrder(final String status) {
+        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+        dialog.show();
+        HttpLoad.Order.processOrder(TAG, Utils.getToken(mContext), data.orderId, status, new
+                ResponseCallback<ResponseBase>(mContext) {
+
+                    @Override
+                    public void onRequestSuccess(ResponseBase result) {
+                        dialog.dismiss();
+                        if ("2".equals(status)) {
+                            ToastUtils.show(mContext, "预约成功");
+                        } else {
+                            ToastUtils.show(mContext, "订单已拒绝");
+                        }
+                        onBackPressed();
+                    }
+
+                    @Override
+                    public void onReuquestFailed(String error) {
+                        dialog.dismiss();
+                        ToastUtils.show(mContext, error);
+                    }
+                });
     }
 }
 

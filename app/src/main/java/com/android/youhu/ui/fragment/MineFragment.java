@@ -113,6 +113,7 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         setUpUmengFeedback();
     }
 
+
     public void updateUserInfo() {
         String string = SharedPreUtils.getString(getActivity(), SharedPre.User.NICKNAME);
         string = TextUtils.isEmpty(string) ? "昵称" : string;

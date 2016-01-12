@@ -21,7 +21,7 @@ import java.util.HashMap;
  */
 public class FilterItemViewAdapter extends BaseAdapter implements PickUpFilterItemViewAdapter
         .SelectorListerner {
-    private HashMap<String, String> selectMap = new HashMap<>();
+    private HashMap<String, Integer> selectMap = new HashMap<>();
     private Context context;
     private ArrayList<FilterItem> datas;
     private LayoutInflater inflater;
@@ -39,7 +39,7 @@ public class FilterItemViewAdapter extends BaseAdapter implements PickUpFilterIt
             for (int j = 0; j < fi.item.size(); j++) {
                 FilterSubItem fsi = fi.item.get(j);
                 if (fsi.isSelected) {
-                    selectMap.put(fi.title, fsi.name);
+                    selectMap.put(fi.title, fsi.value);
                 }
             }
         }
@@ -95,11 +95,11 @@ public class FilterItemViewAdapter extends BaseAdapter implements PickUpFilterIt
     }
 
     @Override
-    public void updateSelectorMap(int position, String value) {
+    public void updateSelectorMap(int position, int value) {
         selectMap.put(datas.get(position).title, value);
     }
 
-    public HashMap<String, String> getSelectMap() {
+    public HashMap<String, Integer> getSelectMap() {
         return selectMap;
     }
 }

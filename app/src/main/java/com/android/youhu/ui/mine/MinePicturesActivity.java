@@ -27,7 +27,11 @@ import com.android.youhu.bean.ImageBean;
 import com.android.youhu.common.util.LoadDialogUtil;
 import com.android.youhu.common.util.SharedPre;
 import com.android.youhu.common.util.SharedPreUtils;
+import com.android.youhu.common.util.ToastUtils;
 import com.android.youhu.common.util.Utils;
+import com.android.youhu.net.HttpLoad;
+import com.android.youhu.net.ResponseCallback;
+import com.android.youhu.net.response.ResponseBase;
 import com.android.youhu.ui.base.BaseActivity;
 import com.android.youhu.widget.MinePicturesMenuPopupWindow;
 
@@ -60,7 +64,6 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
 
     private List<ImageBean> pictureUrls = new ArrayList<>();
     private List<String> pictureUrlStrs = new ArrayList<>();
-
 
 
     /**
@@ -210,10 +213,53 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     }
 
     public void delete(View view) {
-
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
+        final List<String> selectedImage = adapter.mSelectedImage;
+        if (selectedImage != null && selectedImage.size() > 0) {
+            deleteOne(0, 1 == selectedImage.size(), LoadDialogUtil.createLoadingDialog(mContext,
+                    R.string.delete));
         }
+    }
+
+    private void deleteOne(int i, final boolean isLast, final Dialog dialog) {
+        final List<String> selectedImage = adapter.mSelectedImage;
+        final String url = selectedImage.get(i);
+        final int next = i++;
+        HttpLoad.UserModule.deletePhoto(TAG, url, Utils.getToken(mContext), new
+                ResponseCallback<ResponseBase>(mContext) {
+                    @Override
+                    public void onRequestSuccess(ResponseBase result) {
+                        String albumStr = SharedPreUtils.getString(mContext, SharedPre.User.ALBUM);
+                        StringBuffer sb = new StringBuffer();
+                        if (!TextUtils.isEmpty(albumStr)) {
+                            String[] album = albumStr.split(";");
+                            for (int j = 0; j < album.length; j++) {
+                                if (album[j].equals(url)) {
+                                    album[j] = "";
+                                    break;
+                                }
+                            }
+                            for (int j = 0; j < album.length; j++) {
+                                if (!album[j].equals("")) {
+                                    sb.append(album[j]).append(";");
+                                }
+                            }
+                        }
+                        SharedPreUtils.putString(mContext, SharedPre.User.ALBUM, sb.toString());
+                        if (isLast) {
+                            dialog.dismiss();
+                            ToastUtils.show(mContext, "删除成功");
+                            getDatas(true);
+                        } else {
+                            deleteOne(next, next == selectedImage.size() - 1, dialog);
+                        }
+                    }
+
+                    @Override
+                    public void onReuquestFailed(String error) {
+                        dialog.dismiss();
+                        ToastUtils.show(mContext, error);
+                    }
+                });
     }
 
     public void cancel(View view) {

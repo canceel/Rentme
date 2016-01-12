@@ -198,28 +198,28 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
 
     private void uploadOne(int i, final boolean isLast, final Dialog dialog) {
         final int next = i + 1;
-        File file = new File(mAdapter.mSelectedImage.get(i));
-        isCompressed = false;
-        if (file != null && file.exists() && file.length() > 200 * 1024) {
-            String temp = CropUtils.getOrCreateFileInExternalStorage() + File.separator + file
-                    .getName();
-            try {
-                ImageFactory.compressAndGenImage(mAdapter.mSelectedImage.get(i), temp, 200 *
-                        1024, false);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            file = new File(temp);
-            isCompressed = true;
-        }
-        final File finalFile = file;
+        final File file = new File(mAdapter.mSelectedImage.get(i));
+//        isCompressed = false;
+//        if (file != null && file.exists() && file.length() > 200 * 1024) {
+//            String temp = CropUtils.getOrCreateFileInExternalStorage() + File.separator + file
+//                    .getName();
+//            try {
+//                ImageFactory.compressAndGenImage(mAdapter.mSelectedImage.get(i), temp, 200 *
+//                        1024, false);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            file = new File(temp);
+//            isCompressed = true;
+//        }
+//        final File finalFile = file;
         HttpUpload.uploadUserPicture(TAG, file, Utils
                 .getToken(mContext), new ResponseCallback<UploadPictureResult>(mContext) {
             @Override
             public void onRequestSuccess(UploadPictureResult result) {
-                if (isCompressed) {
-                    finalFile.delete();
-                }
+//                if (isCompressed) {
+//                    finalFile.delete();
+//                }
                 StringBuffer sb = new StringBuffer();
                 if (result.data.album != null && result.data.album.size() > 0) {
                     for (String str : result.data.album) {
@@ -239,9 +239,9 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
 
             @Override
             public void onReuquestFailed(String error) {
-                if (isCompressed) {
-                    finalFile.delete();
-                }
+//                if (isCompressed) {
+//                    finalFile.delete();
+//                }
                 dialog.dismiss();
                 ToastUtils.show(mContext, error);
             }

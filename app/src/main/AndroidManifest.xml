@@ -59,6 +59,10 @@
             android:name=".ui.GuideActivity"
             android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".application.PhotoActivity"
+            android:configChanges="orientation|keyboard|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
         <!-- 登录模块    开始 -->
         <activity
             android:name=".ui.login.LoginActivity"

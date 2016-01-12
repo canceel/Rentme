@@ -24,7 +24,7 @@ public class MyFilterPopupWindow extends PopupWindow implements View.OnClickList
     private View conentView;
     private Context context;
     private ArrayList<FilterItem> datas;
-    public HashMap<String, String> selectedItems;
+    public HashMap<String, Integer> selectedItems;
 
     public MyFilterPopupWindow(Context context, ArrayList<FilterItem> datas) {
         this.context = context;

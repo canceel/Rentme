@@ -41,7 +41,6 @@
             android:layout_height="match_parent"
             android:layout_marginRight="8dp"
             android:gravity="left|center_vertical"
-            android:onClick="chooseDate"
             android:text="已完成"
             android:textColor="@color/text_dark"
             android:textSize="@dimen/text_size_15sp"/>

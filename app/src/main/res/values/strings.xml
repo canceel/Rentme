@@ -17,6 +17,7 @@
     <string name="loadmore_foot_no_data_tip">没有更多数据</string>
     <string name="publishing">正在发布&#8230;</string>
     <string name="unpublishing">正在取消发布&#8230;</string>
+    <string name="delete">正在删除&#8230;</string>
 
 
 </resources>

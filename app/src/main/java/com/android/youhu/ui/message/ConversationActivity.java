@@ -3,6 +3,7 @@ package com.android.youhu.ui.message;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.youhu.R;
@@ -22,6 +23,10 @@ public class ConversationActivity extends FragmentBaseActivity {
      * 目标 Id
      */
     private String mTargetId;
+    /**
+     * 目标 Id
+     */
+    private String mTargetAvater;
 
     /**
      * 刚刚创建完讨论组后获得讨论组的id 为targetIds，需要根据 为targetIds 获取 targetId
@@ -38,7 +43,12 @@ public class ConversationActivity extends FragmentBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         Intent intent = getIntent();
-
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         getIntentDate(intent);
     }
 
@@ -47,11 +57,12 @@ public class ConversationActivity extends FragmentBaseActivity {
      */
     private void getIntentDate(Intent intent) {
         TextView nameTv = (TextView) findViewById(R.id.name);
-        nameTv.setText( intent.getData().getQueryParameter("title").toString());
+        nameTv.setText(intent.getData().getQueryParameter("title").toString());
         mTargetId = intent.getData().getQueryParameter("targetId");
         mTargetIds = intent.getData().getQueryParameter("targetIds");
         //intent.getData().getLastPathSegment();//获得当前会话类型
-        mConversationType = Conversation.ConversationType.valueOf(intent.getData().getLastPathSegment().toUpperCase(Locale.getDefault()));
+        mConversationType = Conversation.ConversationType.valueOf(intent.getData()
+                .getLastPathSegment().toUpperCase(Locale.getDefault()));
         enterFragment(mConversationType, mTargetId);
     }
 
@@ -59,11 +70,12 @@ public class ConversationActivity extends FragmentBaseActivity {
      * 加载会话页面 ConversationFragment
      *
      * @param mConversationType 会话类型
-     * @param mTargetId 目标 Id
+     * @param mTargetId         目标 Id
      */
     private void enterFragment(Conversation.ConversationType mConversationType, String mTargetId) {
 
-        ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager().findFragmentById(R.id.conversation);
+        ConversationFragment fragment = (ConversationFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.conversation);
 
         Uri uri = Uri.parse("rong://" + getApplicationInfo().packageName).buildUpon()
                 .appendPath("conversation").appendPath(mConversationType.getName().toLowerCase())
