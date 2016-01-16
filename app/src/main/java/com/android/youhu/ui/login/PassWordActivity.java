@@ -117,7 +117,6 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
                                                                 SharedPreUtils.putString(mContext,
                                                                         SharedPre.App
                                                                                 .USER_TPE, "login");
-                                                                setResult(RESULT_OK);
                                                                 Intent it = new Intent(mContext,
                                                                         LoginActivity.class);
                                                                 it.setFlags(Intent

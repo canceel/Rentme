@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import com.android.youhu.adapter.HomePageAdapter;
 import com.android.youhu.adapter.HomePagerViewPagerAdapter;
 import com.android.youhu.bean.Pagination;
 import com.android.youhu.common.util.LoadDialogUtil;
+import com.android.youhu.common.util.SharedPre;
+import com.android.youhu.common.util.SharedPreUtils;
 import com.android.youhu.common.util.ToastUtils;
 import com.android.youhu.common.util.Utils;
 import com.android.youhu.net.HttpLoad;
@@ -31,6 +34,8 @@ import com.android.youhu.ui.dynamic.PublishInfoActivity;
 import com.android.youhu.widget.AutoScrollViewPager;
 import com.android.youhu.widget.SwipeRefreshLayout;
 import com.android.youhu.widget.SwipyRefreshLayoutDirection;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
@@ -59,10 +64,13 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
 
     private String param = "&gender=0&height=0&weight=0";
 
+    private IndexActivity indexActivity;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_pager, container, false);
+        indexActivity = (IndexActivity) getActivity();
         initPageInfo();
         initView(view);
         return view;
@@ -135,6 +143,17 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                 banners);
         adapter.setInfiniteLoop(true);
         bannerLayout.setAdapter(adapter);
+        String cache = SharedPreUtils.getString(getActivity(), SharedPre.App.HOME_CACHE);
+        if(!TextUtils.isEmpty(cache)){
+            datas = new Gson().fromJson(cache, new
+                            TypeToken<List<PulishInfoResponse.DataEntity.ItemsEntity>>() {
+                            }.getType());
+            homePageAdapter = new HomePageAdapter(getActivity(), datas,
+                    indexActivity.pictrues, indexActivity.adapter,
+                    indexActivity.pictrueBgRl, indexActivity
+                    .horizontalScrollView);
+            listView.setAdapter(homePageAdapter);
+        }
         getHomePage(true);
     }
 
@@ -202,10 +221,12 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                                 isRefresh = false;
                                 datas = result.data.items;
                                 pagination = result.data.pager;
+                                if(datas != null && datas.size() > 0){
+                                    SharedPreUtils.putString(indexActivity, SharedPre.App.HOME_CACHE,new Gson().toJson(datas));
+                                }
                             } else {
                                 datas.addAll(result.data.items);
                             }
-                            IndexActivity indexActivity = (IndexActivity) getActivity();
                             if (homePageAdapter == null) {
                                 homePageAdapter = new HomePageAdapter(getActivity(), datas,
                                         indexActivity.pictrues, indexActivity.adapter,

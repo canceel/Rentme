@@ -6,11 +6,6 @@ package com.android.youhu.common.util;
  */
 public class SharedPre {
 
-    public static abstract class Constant {
-        public static final String GUEST_USER = "guest_user";
-        public static final String Third_Platform_USER = "third_platform_user";
-        public static final String APP_USER = "app_user";
-    }
 
     public static abstract class App {
         public static final String VERSION = "app_version";//版本信息
@@ -21,6 +16,7 @@ public class SharedPre {
         public static final String EXPIRES_IN = "expires_in";//过期时间
         public static final String START_IMAGE = "start_image";//启动页
         public static final String DEVICE_TOKEN = "device_token";
+        public static final String HOME_CACHE = "device_home_cache";
     }
 
     public static abstract class User {

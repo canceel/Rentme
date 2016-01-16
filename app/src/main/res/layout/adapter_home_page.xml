@@ -21,7 +21,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="14dp"
+            android:layout_marginTop="4dp"
             android:src="@mipmap/icon_defaultheader"/>
 
         <ImageView
@@ -37,29 +37,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/head_cv"
-            android:layout_marginLeft="16dp"
             android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/head_cv"
             android:drawablePadding="8dp"
-            android:textStyle="bold"
             android:drawableRight="@mipmap/sex_girl"
             android:text="杨颖"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_16sp"/>
+            android:textSize="@dimen/text_size_14sp"
+            android:textStyle="bold"/>
+
         <View
             android:id="@+id/line"
             android:layout_width="match_parent"
-            android:background="@color/grey"
-            android:layout_alignLeft="@+id/name_tv"
+            android:layout_height="1px"
             android:layout_alignBottom="@+id/head_cv"
-            android:layout_height="1px"/>
+            android:layout_alignLeft="@+id/name_tv"
+            android:background="@color/grey"/>
+
         <LinearLayout
             android:id="@+id/second_ll"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name_tv"
             android:layout_below="@+id/line"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -69,19 +71,19 @@
                 android:layout_height="wrap_content"
                 android:text="职业："
                 android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:id="@+id/career_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:singleLine="true"
                 android:ellipsize="end"
                 android:gravity="left"
+                android:singleLine="true"
                 android:text="摄影"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_12sp"/>
 
             <TextView
                 android:id="@+id/age_title_tv"
@@ -89,19 +91,19 @@
                 android:layout_height="wrap_content"
                 android:text="年龄："
                 android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:id="@+id/age_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:singleLine="true"
                 android:ellipsize="end"
                 android:gravity="left"
+                android:singleLine="true"
                 android:text="21-25岁"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -110,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/second_ll"
             android:layout_below="@+id/second_ll"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -120,19 +122,19 @@
                 android:layout_height="wrap_content"
                 android:text="身高："
                 android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:id="@+id/hight_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:ellipsize="end"
                 android:gravity="left"
                 android:singleLine="true"
-                android:ellipsize="end"
                 android:text="165-170cm"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_12sp"/>
 
             <TextView
                 android:id="@+id/weight_title_tv"
@@ -140,19 +142,19 @@
                 android:layout_height="wrap_content"
                 android:text="体重："
                 android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:id="@+id/weight_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:ellipsize="end"
                 android:gravity="left"
                 android:singleLine="true"
-                android:ellipsize="end"
                 android:text="40-50kg"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -161,7 +163,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/third_ll"
             android:layout_below="@+id/third_ll"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -170,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:text="出租范围："
                 android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:id="@+id/offercontent_tv"
@@ -183,7 +185,7 @@
                 android:maxLines="1"
                 android:text="吃饭、聊天、看电影/吃饭、聊天、看电影/吃饭、聊天、看电影/吃饭、聊天、看电影"
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -192,7 +194,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/forth_ll"
             android:layout_below="@+id/forth_ll"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="4dp"
             android:orientation="horizontal">
 
             <TextView
@@ -201,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:text="档期："
                 android:textColor="@color/text_normal"
-                android:textSize="@dimen/text_size_14sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:id="@+id/schedule_tv"
@@ -214,7 +216,7 @@
                 android:text="睡醒后"
 
                 android:textColor="@color/text_dark"
-                android:textSize="@dimen/text_size_13sp"/>
+                android:textSize="@dimen/text_size_12sp"/>
         </LinearLayout>
     </RelativeLayout>
 
@@ -223,10 +225,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
+        android:paddingLeft="60dp"
         android:layout_marginRight="5dp"
         android:background="@color/white"
         android:paddingBottom="6dp"
-        android:paddingTop="12dp"
+        android:paddingTop="8dp"
         android:scrollbars="none">
 
         <LinearLayout

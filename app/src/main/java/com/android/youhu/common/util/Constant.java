@@ -14,20 +14,9 @@ import java.io.InputStreamReader;
  */
 public class Constant {
 
-
-    /**
-     * 测试环境的参数配置
-     */
-    //系统日志Debug模式开关，默认打开，可以打印日志，发布时设置为false
-    public static final boolean IS_DEBUG_MODE = true;
-    //测试用，后续改掉:分配至各渠道的唯一ID
-    public static final String CLIENT_ID = "mobile_android";
-
     private static final String CONFIG_PATH = "test.json";
-
-    //测试环境
-    public static String BASE_HOST = "http://www.zu5ba.com";
-    public static final String BASE_URL = BASE_HOST + "/api/";
+    private static boolean  IS_TEST_URL = false;
+    private static String TEST_BASE_HOST;
 
     static {
         File file = CropUtils.getOrCreateFileInExternalStorage();
@@ -39,13 +28,30 @@ public class Constant {
                         (new FileInputStream(testFile))), new TypeToken<ConfigBean>() {
                 }.getType());
                 if (bean != null) {
-                    BASE_HOST = bean.baseUrl;
+                    TEST_BASE_HOST = "http://" + bean.baseUrl;
+                    IS_TEST_URL = true;
                 }
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    /**
+     * 测试环境的参数配置
+     */
+    //系统日志Debug模式开关，默认打开，可以打印日志，发布时设置为false
+    public static final boolean IS_DEBUG_MODE = true;
+    //测试用，后续改掉:分配至各渠道的唯一ID
+    public static final String CLIENT_ID = "mobile_android";
+
+
+
+    //测试环境
+    public static String BASE_HOST = IS_TEST_URL ? TEST_BASE_HOST: "http://www.zu5ba.com";
+    public static final String BASE_URL = BASE_HOST + "/api/";
+
+
 
     /**
      * 首页相关模块
