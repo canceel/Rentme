@@ -61,9 +61,19 @@ public class HomePagerViewPagerAdapter extends RecyclingPagerAdapter {
 //            }
 //        });
         holder.imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        holder.imageView.setBackgroundResource(R.mipmap.icon_ad_bg);
-//        HttpLoad.getImage(context, themeItems.get(getPosition(position)).imageURL,
-//                holder.imageView);
+        int resId = R.mipmap.banner1;
+        switch (position % themeItems.size()) {
+            case 0:
+                resId = R.mipmap.banner1;
+                break;
+            case 1:
+                resId = R.mipmap.banner2;
+                break;
+            case 2:
+                resId = R.mipmap.banner3;
+                break;
+        }
+        holder.imageView.setImageResource(resId);
         return view;
     }
 

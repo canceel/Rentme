@@ -94,10 +94,12 @@ public class HomePageAdapter extends CommonAdapter<PulishInfoResponse.DataEntity
                 pictureUrls.add(review.album.get(i).PictureUrl);
             }
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(review.album.size()
-                    * (Utils
-                    .getScreenWidth(context) / 3 - 2), Utils.getScreenWidth(context) / 3 - 2);
+                    * ((Utils
+                    .getScreenWidth(context) - Utils.dip2px(context, 76)) / 3 - 2), (Utils
+                    .getScreenWidth(context) - Utils.dip2px(context, 76)) / 3 - 2);
             pictures_GridView.setLayoutParams(params);
-            pictures_GridView.setColumnWidth(Utils.getScreenWidth(context) / 3 - 2);
+            pictures_GridView.setColumnWidth((Utils
+                    .getScreenWidth(context) - Utils.dip2px(context, 76)) / 3 - 2);
             pictures_GridView.setNumColumns(review.album.size());
             pictures_GridView.setVerticalSpacing(4);
             pictures_GridView.setAdapter(new PicturesAdapter(context, pictureUrls,

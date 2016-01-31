@@ -65,7 +65,7 @@ public class LoginActivity extends BaseLoginBusinessActivity {
             Toast.makeText(this, "请输入密码", Toast.LENGTH_SHORT).show();
         } else {
             if (Utils.isNetworkConnected(this)) {
-                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
+                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this);
                 mDialog.show();
                 HttpLoad.UserModule.login(TAG, account, password, new
                         ResponseCallback<LoginResult>(this) {

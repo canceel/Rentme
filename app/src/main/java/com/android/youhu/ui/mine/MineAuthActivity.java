@@ -1,6 +1,7 @@
 package com.android.youhu.ui.mine;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,8 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.youhu.R;
+import com.android.youhu.common.util.LoadDialogUtil;
 import com.android.youhu.common.util.ToastUtils;
 import com.android.youhu.common.util.Utils;
+import com.android.youhu.net.HttpLoad;
+import com.android.youhu.net.ResponseCallback;
+import com.android.youhu.net.response.ResponseBase;
 import com.android.youhu.ui.base.BaseActivity;
 
 public class MineAuthActivity extends BaseActivity {
@@ -64,26 +69,27 @@ public class MineAuthActivity extends BaseActivity {
     private void submit(View view) {
         if (TextUtils.isEmpty(real_nameEditText.getText().toString())) {
             Toast.makeText(this, "请输入真实姓名", Toast.LENGTH_SHORT).show();
-        } else if (!TextUtils.isEmpty(id_cardEditText.getText().toString())) {
+        } else if (TextUtils.isEmpty(id_cardEditText.getText().toString())) {
             Toast.makeText(this, "请输入身份证", Toast.LENGTH_SHORT).show();
         } else if (Utils.isNetworkConnected(mContext)) {
-//            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
-//            dialog.show();
-//            HttpLoad.UserModule.getMessageCode(TAG, real_nameEditText.getText().toString(), "1",
-//                    new ResponseCallback<ResponseMessageBean>(mContext) {
-//                        @Override
-//                        public void onRequestSuccess(ResponseMessageBean result) {
-//                            dialog.dismiss();
-            ToastUtils.show(mContext, "已验证");
-            onBackPressed();
-//                        }
-//
-//                        @Override
-//                        public void onReuquestFailed(String error) {
-//                            dialog.dismiss();
-//                            ToastUtils.show(mContext, error);
-//                        }
-//                    });
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
+            dialog.show();
+            HttpLoad.UserModule.auth(TAG, real_nameEditText.getText().toString(), id_cardEditText
+                            .getText().toString(), Utils.getToken(mContext),
+                    new ResponseCallback<ResponseBase>(mContext) {
+                        @Override
+                        public void onRequestSuccess(ResponseBase result) {
+                            dialog.dismiss();
+                            ToastUtils.show(mContext, "已验证");
+                            onBackPressed();
+                        }
+
+                        @Override
+                        public void onReuquestFailed(String error) {
+                            dialog.dismiss();
+                            ToastUtils.show(mContext, error);
+                        }
+                    });
 
         }
     }

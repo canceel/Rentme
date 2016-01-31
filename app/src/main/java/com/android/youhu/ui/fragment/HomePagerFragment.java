@@ -54,17 +54,14 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
     protected boolean isRefresh = true;
     // 分页
     protected Pagination pagination;
-
     private List<PulishInfoResponse.DataEntity.ItemsEntity> datas;
     private int previousPointEnale;
+    private String param = "&gender=0&height=0&weight=0";
+    private IndexActivity indexActivity;
 
     public void setParam(String param) {
         this.param = param;
     }
-
-    private String param = "&gender=0&height=0&weight=0";
-
-    private IndexActivity indexActivity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -144,17 +141,19 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
         adapter.setInfiniteLoop(true);
         bannerLayout.setAdapter(adapter);
         String cache = SharedPreUtils.getString(getActivity(), SharedPre.App.HOME_CACHE);
-        if(!TextUtils.isEmpty(cache)){
+        if (!TextUtils.isEmpty(cache)) {
             datas = new Gson().fromJson(cache, new
-                            TypeToken<List<PulishInfoResponse.DataEntity.ItemsEntity>>() {
-                            }.getType());
+                    TypeToken<List<PulishInfoResponse.DataEntity.ItemsEntity>>() {
+                    }.getType());
             homePageAdapter = new HomePageAdapter(getActivity(), datas,
                     indexActivity.pictrues, indexActivity.adapter,
                     indexActivity.pictrueBgRl, indexActivity
                     .horizontalScrollView);
             listView.setAdapter(homePageAdapter);
+            getHomePage(false);
+        } else {
+            getHomePage(true);
         }
-        getHomePage(true);
     }
 
     public void initVP(final LinearLayout ll, AutoScrollViewPager vp) {
@@ -202,8 +201,7 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
      */
     public void getHomePage(final boolean isShowDialog) {
         if (Utils.isNetworkConnected(getActivity())) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(getActivity(), R.string
-                    .loading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(getActivity());
             if (isShowDialog) {
                 dialog.show();
             }
@@ -221,8 +219,9 @@ public class HomePagerFragment extends Fragment implements View.OnClickListener,
                                 isRefresh = false;
                                 datas = result.data.items;
                                 pagination = result.data.pager;
-                                if(datas != null && datas.size() > 0){
-                                    SharedPreUtils.putString(indexActivity, SharedPre.App.HOME_CACHE,new Gson().toJson(datas));
+                                if (datas != null && datas.size() > 0) {
+                                    SharedPreUtils.putString(indexActivity, SharedPre.App
+                                            .HOME_CACHE, new Gson().toJson(datas));
                                 }
                             } else {
                                 datas.addAll(result.data.items);

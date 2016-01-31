@@ -31,4 +31,5 @@ public class UserInfo {
     public List<String> album;
     public String interests;
     public String interestsValue;
+    public int isAuth;
 }

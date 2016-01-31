@@ -14,13 +14,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.R;
-import com.android.youhu.common.util.CropUtils;
 import com.android.youhu.common.util.DialogUtils;
 import com.android.youhu.common.util.LoadDialogUtil;
 import com.android.youhu.common.util.SharedPre;
@@ -40,6 +39,10 @@ import com.android.youhu.widget.MyTimePickerUtils;
 
 import java.util.Calendar;
 
+import io.rong.imkit.RongIM;
+import io.rong.imlib.model.Conversation;
+import io.rong.message.TextMessage;
+
 public class MakeOrderActivity extends BaseActivity {
     private static final String TAG = MakeOrderActivity.class.getSimpleName();
     private static final int DATE_DIALOG = 0;
@@ -47,7 +50,7 @@ public class MakeOrderActivity extends BaseActivity {
     private static final int DURATION_DIALOG = 2;
 
     private ScrollView scrollViewScrollView;
-    private ImageView imageViewImageView;
+    private NetworkImageView imageViewImageView;
     private FrameLayout first_flFrameLayout;
     private TextView nameTextView;
     private TextView constellationTextView;
@@ -62,7 +65,7 @@ public class MakeOrderActivity extends BaseActivity {
     private TextView totalTextView;
     private TextView total_feeTextView;
     private Button datingButton;
-    private CircleImageView headCv;
+    private NetworkImageView headCv;
 
     private String[] datas;
     private int selectedIndex = 0;
@@ -96,11 +99,12 @@ public class MakeOrderActivity extends BaseActivity {
 
     private void setDataToView() {
         nameTextView.setText(data.nickName);
+        //TODO 星座
         constellationTextView.setText("双鱼座");
         fee_tvTextView.setText("￥" + data.perHourPrice);
         telphoneTextView.setText(SharedPreUtils.getString(mContext, SharedPre.User.MOBILE));
-        CropUtils.setHeadFromDisk(mContext, headCv);
-        HttpLoad.getImage(data.backgroudImage, imageViewImageView);
+        HttpLoad.getImage(data.backgroudImage, R.mipmap.publish_bg, imageViewImageView);
+        HttpLoad.getImage(data.avatarUrl, R.mipmap.icon_defaultheader, headCv);
 
     }
 
@@ -108,7 +112,7 @@ public class MakeOrderActivity extends BaseActivity {
         backImageView = (TextView) findViewById(R.id.back);
         titleTextView = (TextView) findViewById(R.id.title);
         scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
-        imageViewImageView = (ImageView) findViewById(R.id.imageView);
+        imageViewImageView = (NetworkImageView) findViewById(R.id.imageView);
         first_flFrameLayout = (FrameLayout) findViewById(R.id.first_fl);
         nameTextView = (TextView) findViewById(R.id.name);
         constellationTextView = (TextView) findViewById(R.id.constellation);
@@ -243,7 +247,7 @@ public class MakeOrderActivity extends BaseActivity {
         } else if (TextUtils.isEmpty(totalPrice)) {
             ToastUtils.show(mContext, "请设置预约时长");
         } else if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpLoad.Order.createOrder(TAG, Utils.getToken(mContext), providerUserId,
                     targetUserId, perHourPrice, meetDate + " " + meetTime, meetAddress,
@@ -252,6 +256,21 @@ public class MakeOrderActivity extends BaseActivity {
                         @Override
                         public void onRequestSuccess(ResponseBase result) {
                             dialog.dismiss();
+                            /**
+                             * 发送消息。
+                             *
+                             * @param type        会话类型。
+                             * @param targetId    目标 Id。根据不同的 conversationType，可能是用户 Id、讨论组 Id、群组
+                             *                    Id 或聊天室 Id。
+                             * @param content     消息内容。
+                             * @param pushContent push 时提示内容，为空时提示文本内容。
+                             * @param callback    发送消息的回调。
+                             * @return
+                             */
+                            RongIM.getInstance().getRongIMClient().sendMessage(Conversation
+                                    .ConversationType.PRIVATE, data.userId + "", TextMessage.obtain
+                                    ("我是" + SharedPreUtils.getString(mContext, SharedPre.User
+                                            .NICKNAME) + ",已经预约了您，希望您同意！"), "", "", null, null);
                             startActivity(new Intent(mContext, MineRentActivity.class));
                             back(null);
                         }

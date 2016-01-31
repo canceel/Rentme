@@ -58,7 +58,7 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.security_code).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);
-        ((TextView)findViewById(R.id.title)).setText("注册");
+        ((TextView) findViewById(R.id.title)).setText("注册");
         agreementRl.setOnClickListener(this);
         time = new CountDownTimer(60000, 1000) {
             @Override
@@ -106,7 +106,7 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
             Toast.makeText(this, "请阅读友乎APP服务条款", Toast.LENGTH_SHORT).show();
         } else {
             if (Utils.isNetworkConnected(this)) {
-                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
+                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this);
                 mDialog.show();
                 HttpLoad.UserModule.registMobile(TAG, phoneNum, password, messageCode, new
                         ResponseCallback<RegistResult>(this) {
@@ -181,7 +181,7 @@ public class RegisterActivity extends BaseLoginBusinessActivity {
         } else if (!Utils.isMobile(edInputCellon.getText().toString())) {
             Toast.makeText(this, "手机号码错误", Toast.LENGTH_SHORT).show();
         } else if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpLoad.UserModule.getMessageCode(TAG, edInputCellon.getText().toString(), "0",
                     new ResponseCallback<ResponseMessageBean>(mContext) {

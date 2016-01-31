@@ -42,6 +42,8 @@
     </RelativeLayout>
 
     <GridView
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
         android:id="@+id/pictures"
         android:layout_below="@+id/title_top"
         android:layout_marginTop="8dp"

@@ -13,6 +13,7 @@ public class UserInfoEntity {
     public String avatarUrl;
     public String backgroudImage;
     public String realName;
+    public int isAuth;
     public String userDetail;
     public String nickName;
     public EnumEntity constellation;
@@ -35,6 +36,7 @@ public class UserInfoEntity {
         info.userDetailValue = userDetail;
         info.nickName = TextUtils.isEmpty(nickName) ? "设置昵称" : nickName;
         info.nickNameValue = nickName;
+        info.isAuth = isAuth;
         info.constellation = constellation.items == null && constellation.items.size() == 0 ?
                 "设置星座" : constellation.items.get(0).name;
         info.constellationValue = constellation.items == null && constellation.items.size() == 0 ?

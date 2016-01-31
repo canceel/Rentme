@@ -106,9 +106,9 @@ public class RentMeOrderDetailActivity extends BaseActivity {
         } else {
             nameTextView.setCompoundDrawables(null, null, null, null);
         }
-        if("拒绝预约".equals(data.state)||"接受预约".equals(data.state)){
+        if ("拒绝预约".equals(data.state) || "接受预约".equals(data.state)) {
             findViewById(R.id.bottom).setVisibility(View.GONE);
-        }else{
+        } else {
             findViewById(R.id.bottom).setVisibility(View.VISIBLE);
         }
     }
@@ -129,7 +129,7 @@ public class RentMeOrderDetailActivity extends BaseActivity {
     }
 
     public void processOrder(final String status) {
-        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
         dialog.show();
         HttpLoad.Order.processOrder(TAG, Utils.getToken(mContext), data.orderId, status, new
                 ResponseCallback<ResponseBase>(mContext) {

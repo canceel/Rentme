@@ -10,13 +10,13 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.R;
 import com.android.youhu.adapter.PicturesAdapter;
 import com.android.youhu.common.util.SharedPre;
@@ -34,10 +34,10 @@ import java.util.List;
 public class PublishInfoActivity extends BaseActivity {
     private static final String TAG = PublishInfoActivity.class.getSimpleName();
 
-    private ImageView icon1ImageView;
-    private ImageView icon2ImageView;
-    private ImageView icon3ImageView;
-    private ImageView imageViewImageView;
+    private NetworkImageView icon1ImageView;
+    private NetworkImageView icon2ImageView;
+    private NetworkImageView icon3ImageView;
+    private NetworkImageView imageViewImageView;
     private ScrollView scrollViewScrollView;
     private TextView nameTextView;
     private TextView constellationTextView;
@@ -94,7 +94,7 @@ public class PublishInfoActivity extends BaseActivity {
         scheduleTextView.setText(data.Schedule);
         hobbyTextView.setText(data.interests);
         HttpLoad.getImage(data.avatarUrl, headCv);
-        HttpLoad.getImage(data.backgroudImage, imageViewImageView);
+        HttpLoad.getImage(data.backgroudImage, R.mipmap.publish_bg, imageViewImageView);
         String gender = data.gender;
         if ("男".equals(gender)) {
             Drawable drawable = mContext.getResources().getDrawable(R.mipmap.sex_girl);
@@ -149,11 +149,11 @@ public class PublishInfoActivity extends BaseActivity {
 
     private void findViews() {
         backImageView = (TextView) findViewById(R.id.back);
-        icon1ImageView = (ImageView) findViewById(R.id.icon1);
-        icon2ImageView = (ImageView) findViewById(R.id.icon2);
-        icon3ImageView = (ImageView) findViewById(R.id.icon3);
+        icon1ImageView = (NetworkImageView) findViewById(R.id.icon1);
+        icon2ImageView = (NetworkImageView) findViewById(R.id.icon2);
+        icon3ImageView = (NetworkImageView) findViewById(R.id.icon3);
         titleTextView = (TextView) findViewById(R.id.title);
-        imageViewImageView = (ImageView) findViewById(R.id.imageView);
+        imageViewImageView = (NetworkImageView) findViewById(R.id.imageView);
         scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
         nameTextView = (TextView) findViewById(R.id.name);
         constellationTextView = (TextView) findViewById(R.id.constellation);

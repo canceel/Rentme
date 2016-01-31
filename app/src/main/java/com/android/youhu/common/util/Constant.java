@@ -89,9 +89,13 @@ public class Constant {
     public static final String API_USER_CHANGE_PWD = BASE_URL + "account/resetpassword.json";
     //用户登录
     public static final String API_USER_LOGIN = BASE_URL + "account/login.json";
+    //用户认证
+    public static final String API_USER_AUTH = BASE_URL + "account/UpdateIdCard.json?token=%1$s&timestamp=%2$s&sign=%3$s";
+    //获取用户信息
+    public static final String API_USER_INFO = BASE_URL + "account/GetUserInfo.json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //刷新token
     public static final String API_REFRESH_TOKEN = BASE_URL + "account/gettoken.json";
-    //刷新token
+    //融云token
     public static final String API_RY_TOKEN = BASE_URL + "account/getrctoken" +
             ".json?token=%1$s&timestamp=%2$s&sign=%3$s";
     //修改用户信息
@@ -100,8 +104,6 @@ public class Constant {
     //修改用户密码
     public static final String API_USER_MODIFY_PASSWORD = BASE_URL +
             "v2/yonghuio2o/userstoken/changepassword";
-    //获取用户信息
-    public static final String API_USER_INFO = BASE_URL + "v2/yonghuio2o/userstoken/getuser";
     //发布信息
     public static final String API_PUBLISH_INFO = BASE_URL + "rentinfo/release" +
             ".json?token=%1$s&timestamp=%2$s&sign=%3$s";

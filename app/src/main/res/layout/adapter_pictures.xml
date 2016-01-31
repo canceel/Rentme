@@ -5,12 +5,12 @@
               android:background="@drawable/edittext_frame_1dp"
               android:gravity="center">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/picture">
-    </ImageView>
+    </com.android.volley.toolbox.NetworkImageView>
 </LinearLayout>

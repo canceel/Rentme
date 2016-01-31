@@ -22,6 +22,7 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.R;
 import com.android.youhu.net.HttpLoad;
 
@@ -46,7 +47,7 @@ public class CropUtils {
     //拍照后保存图片的Uri（原始尺寸，大图）
     private static Uri uriPhoto;
 
-    public static void setHeadFromDisk(Context context, ImageView imageView) {
+    public static void setHeadFromDisk(Context context, NetworkImageView imageView) {
         String avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
 
         if (!TextUtils.isEmpty(avatarUrl)) {

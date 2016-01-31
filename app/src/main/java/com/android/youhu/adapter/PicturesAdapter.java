@@ -31,8 +31,8 @@ public class PicturesAdapter extends CommonAdapter<String> {
                 .getLayoutParams();
         switch (type) {
             case TYPE_THREE:
-                lp.width = Utils.getScreenWidth(context) / 3 - 6;
-                lp.height = Utils.getScreenWidth(context) / 3 - 6;
+                lp.width = (Utils.getScreenWidth(context) - Utils.dip2px(context, 76)) / 3 - 6;
+                lp.height = (Utils.getScreenWidth(context) - Utils.dip2px(context, 76)) / 3 - 6;
                 pictureImageView.setLayoutParams(lp);
                 break;
             case TYPE_OTHER:

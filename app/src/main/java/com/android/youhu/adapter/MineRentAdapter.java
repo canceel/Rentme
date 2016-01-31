@@ -1,6 +1,8 @@
 package com.android.youhu.adapter;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.youhu.R;
@@ -25,11 +27,17 @@ public class MineRentAdapter extends CommonAdapter<RentMeResponse.DataEntity.Ite
         TextView statusTextView = holder.getView(R.id.status);
         TextView nameTextView = holder.getView(R.id.name);
         TextView phoneTextView = holder.getView(R.id.phone);
+        ImageView authImageView = holder.getView(R.id.auth);
         TextView timeTextView = holder.getView(R.id.time);
         TextView costTextView = holder.getView(R.id.cost);
         TextView locationTextView = holder.getView(R.id.location);
         TextView offercontentTextView = holder.getView(R.id.offercontent);
-//        holder.setImageByUrl(review.av)
+        holder.setImageByUrl(review.avatarUrl, R.mipmap.icon_defaultheader, R.id.head_cv);
+        if (review.isAuth == 1) {
+            authImageView.setVisibility(View.VISIBLE);
+        } else {
+            authImageView.setVisibility(View.GONE);
+        }
         holder.setText(R.id.date, review.createTime);
         holder.setText(R.id.status, review.state);
         holder.setText(R.id.name, review.nickName);

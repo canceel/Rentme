@@ -60,10 +60,10 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
     private final String TAG = IndexActivity.class.getSimpleName();
 
     public static final String UPDATE_USER_INFO = "update_user_info";
-    public final static int ACTIVITY_LOGIN = 100;
-    public final static int MESSAGE_LOGIN = 101;
+    public final static int ACTIVITY_LOGIN = 10000;
+    public final static int MESSAGE_LOGIN = ACTIVITY_LOGIN + 1;
 
-    String Token = "HwfSXv31B//2lIodBrXalbSUXIuhYrpnL2rv6v3TqMRc9a" +
+    private String Token = "HwfSXv31B//2lIodBrXalbSUXIuhYrpnL2rv6v3TqMRc9a" +
             "/RsSBVjNcCw8NFxROupTlAAiYe5MaSO4/TnNq1Hw==";//test
     private static long BACK_PRESSED;
     private static final int TAB_HOME = 0;
@@ -130,6 +130,10 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
         @Override
         public void onReceive(Context context, Intent intent) {
             if (UPDATE_USER_INFO.equals(intent.getAction())) {
+                if (intent != null && intent.getBooleanExtra(SysSettingActivity
+                        .EXIT_CURRENT_USER, false)) {
+                    RongIM.getInstance().disconnect();
+                }
                 if (mineFragment != null) {
                     mineFragment.updateUserInfo();
                 }
@@ -366,7 +370,9 @@ public class IndexActivity extends FragmentBaseActivity implements View.OnClickL
             pictrueBgRl.startAnimation(AnimationUtils.loadAnimation(mContext, R.anim
                     .alpha_out));
         } else if (BACK_PRESSED + 2000 > System.currentTimeMillis()) {
+            RongIM.getInstance().disconnect();
             super.onBackPressed();
+            System.exit(0);
         } else {
             ToastUtils.show(this, "再按一次退出应用");
             BACK_PRESSED = System.currentTimeMillis();

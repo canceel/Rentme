@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/head_cv"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="22dp"
             android:layout_marginLeft="16dp"
             android:layout_toRightOf="@+id/head_cv"
             android:drawablePadding="8dp"
@@ -53,6 +53,7 @@
             android:layout_height="1px"
             android:layout_alignBottom="@+id/head_cv"
             android:layout_alignLeft="@+id/name_tv"
+            android:layout_marginBottom="12dp"
             android:background="@color/grey"/>
 
         <LinearLayout
@@ -61,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name_tv"
             android:layout_below="@+id/line"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="-4dp"
             android:orientation="horizontal"
             android:weightSum="2">
 
@@ -225,10 +226,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:paddingLeft="60dp"
         android:layout_marginRight="5dp"
         android:background="@color/white"
         android:paddingBottom="6dp"
+        android:paddingLeft="76dp"
         android:paddingTop="8dp"
         android:scrollbars="none">
 
@@ -298,7 +299,7 @@
                 android:paddingLeft="10dp"
                 android:text="￥300"
                 android:textColor="@color/text_red"
-                android:textSize="@dimen/text_size_15sp"/>
+                android:textSize="@dimen/text_size_13sp"/>
 
             <TextView
                 android:layout_width="wrap_content"

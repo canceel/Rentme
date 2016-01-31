@@ -1,18 +1,26 @@
 package com.android.youhu.ui.dynamic;
 
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.R;
 import com.android.youhu.bean.RentMeResponse;
+import com.android.youhu.net.HttpLoad;
 import com.android.youhu.ui.base.BaseActivity;
 import com.android.youhu.ui.base.ParameterConstant;
 
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
+import io.rong.message.TextMessage;
 
 public class OrderDetailActivity extends BaseActivity {
     private static final String TAG = OrderDetailActivity.class.getSimpleName();
@@ -20,6 +28,7 @@ public class OrderDetailActivity extends BaseActivity {
     private TextView numberTextView;
     private TextView nameTextView;
     private TextView constellationTextView;
+    private NetworkImageView head_cvNetworkImageView;
     private TextView locationTextView;
     private TextView dateTextView;
     private TextView timeTextView;
@@ -48,36 +57,32 @@ public class OrderDetailActivity extends BaseActivity {
         numberTextView.setText(data.orderId);
         orderDateTextView.setText(data.createTime);
         nameTextView.setText(data.nickName);
+        constellationTextView.setText(data.constellation);
         dateTextView.setText(data.meetTime);
         timeTextView.setText(data.meetTime);
-        durationTextView.setText("2小时");
+        durationTextView.setText(data.totalPrice / data.perHourPrice + "小时");
         telphoneTextView.setText(data.mobile);
         addressTextView.setText(data.meetAddress);
         costTextView.setText("￥" + data.totalPrice);
         total_feeTextView.setText("￥" + data.totalPrice);
+        HttpLoad.getImage(data.avatarUrl, R.mipmap.icon_defaultheader,
+                head_cvNetworkImageView);
     }
 
     private void getData() {
         data = getIntent().getExtras().getParcelable(ParameterConstant.PARAM_ITEM_DATA);
-//        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
-//
-//            @Override
-//            public UserInfo getUserInfo(String userId) {
-//                Uri uri = null;
-//                if (!TextUtils.isEmpty(data.)) {
-//                    uri = Uri.parse(SharedPreUtils.getString(mContext, SharedPre.User
-//                            .AVATARURL));
-//                }
-//
-//                return new UserInfo(SharedPreUtils.getInt(mContext, SharedPre.User
-//                        .USERID, 0) + "",
-//                        SharedPreUtils.getString(mContext, SharedPre.User.NICKNAME),
-//                        uri);//根据
-//                // userId
-//                // 去你的用户系统里查询对应的用户信息返回给融云 SDK。
-//            }
-//
-//        }, true);
+        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+            @Override
+            public UserInfo getUserInfo(String userId) {
+                Uri uri = null;
+                if (!TextUtils.isEmpty(data.avatarUrl)) {
+                    uri = Uri.parse(data.avatarUrl);
+                }
+                return new UserInfo(data.userId + "", data.nickName, uri);//根据
+            }
+
+        }, true);
     }
 
     private void findViews() {
@@ -96,6 +101,7 @@ public class OrderDetailActivity extends BaseActivity {
         costTextView = (TextView) findViewById(R.id.cost);
         orderDateTextView = (TextView) findViewById(R.id.orderDate);
         total_feeTextView = (TextView) findViewById(R.id.total_fee);
+        head_cvNetworkImageView = (NetworkImageView) findViewById(R.id.head_cv);
         bottomRelativeLayout = (RelativeLayout) findViewById(R.id.bottomRl);
         datingButton = (Button) findViewById(R.id.dating);
         titleTextView.setText("订单详情");
@@ -107,9 +113,6 @@ public class OrderDetailActivity extends BaseActivity {
         int id = view.getId();
         switch (id) {
             case R.id.dating: {
-//                Intent it = new Intent(mContext, MinePayActivity.class);
-//                it.putExtra("isCharged", false);
-//                startActivity(it);
                 /**
                  * 启动单聊界面。
                  *

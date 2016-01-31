@@ -42,7 +42,7 @@ public class MineRentActivity extends SwipeRefreshBaseActivity {
 
 
     public void getDatas(boolean isShowDialog) {
-        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
         if (isShowDialog) {
             dialog.show();
         }

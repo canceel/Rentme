@@ -20,7 +20,6 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
@@ -29,6 +28,7 @@ import android.widget.TextSwitcher;
 import android.widget.TextView;
 import android.widget.ViewSwitcher;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.R;
 import com.android.youhu.application.ApplicationInit;
 import com.android.youhu.common.util.CropUtils;
@@ -78,7 +78,7 @@ public class MinePublishInfoActivity extends BaseActivity {
     private TextView backImageView;
     private TextView titleTextView;
     private ScrollView scrollViewScrollView;
-    private ImageView imageViewImageView;
+    private NetworkImageView imageViewImageView;
     private FrameLayout first_flFrameLayout;
     private TextView nameTextView;
     private TextView constellationTextView;
@@ -138,8 +138,7 @@ public class MinePublishInfoActivity extends BaseActivity {
 
     public void getDatas(boolean isShowDialog) {
         if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string
-                    .loading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             if (isShowDialog) {
                 dialog.show();
             }
@@ -211,7 +210,7 @@ public class MinePublishInfoActivity extends BaseActivity {
         titleTextView = (TextView) findViewById(R.id.title);
         toPictureTextView = (TextView) findViewById(R.id.toPicture);
         scrollViewScrollView = (ScrollView) findViewById(R.id.scrollView);
-        imageViewImageView = (ImageView) findViewById(R.id.imageView);
+        imageViewImageView = (NetworkImageView) findViewById(R.id.imageView);
         first_flFrameLayout = (FrameLayout) findViewById(R.id.first_fl);
         nameTextView = (TextView) findViewById(R.id.name);
         emptyTextView = (TextView) findViewById(R.id.empty);
@@ -316,8 +315,7 @@ public class MinePublishInfoActivity extends BaseActivity {
 
     private void cancel(View view) {
         if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string
-                    .unpublishing);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpLoad.UserModule.cancelInfo(TAG, Utils
                     .getToken(mContext), new ResponseCallback<ResponseBase>(mContext) {
@@ -601,7 +599,7 @@ public class MinePublishInfoActivity extends BaseActivity {
         } else if (TextUtils.isEmpty(perHourPrice)) {
             ToastUtils.show(mContext, "请设置时薪");
         } else if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.publishing);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpLoad.UserModule.publishInfo(TAG, rentRange, scheduleRange, perHourPrice, Utils
                     .getToken(mContext), new ResponseCallback<ResponseBase>(mContext) {
@@ -694,7 +692,7 @@ public class MinePublishInfoActivity extends BaseActivity {
 
     private void uploadImage() {
         if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpUpload.uploadBackgroudImg(TAG, new File(CropUtils.getPath(mContext,
                     imageUri)), Utils.getToken

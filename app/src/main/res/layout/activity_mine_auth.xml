@@ -109,7 +109,7 @@
             android:layout_marginRight="16dp"
             android:layout_marginLeft="16dp"
             android:gravity="center_horizontal|left"
-            android:text="3.身份证验证只准一次，修改需要联系客户。"
+            android:text="3.身份证验证只准一次，修改需要联系客服。"
             android:textColor="@color/text_normal"
             android:textSize="@dimen/text_size_14sp"/>
 

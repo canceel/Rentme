@@ -50,13 +50,15 @@ public class RentMeResponse extends ResponseBase {
         public List<ItemsEntity> items;
 
 
-
-
         public static class ItemsEntity implements Parcelable {
             public String createTime;
             public String orderId;
             public String state;
             public int userId;
+            public int isAuth;
+            public int perHourPrice;
+            public String constellation;
+            public String avatarUrl;
             public String nickName;
             public String gender;
             public String mobile;
@@ -76,6 +78,10 @@ public class RentMeResponse extends ResponseBase {
                 dest.writeString(this.orderId);
                 dest.writeString(this.state);
                 dest.writeInt(this.userId);
+                dest.writeInt(this.isAuth);
+                dest.writeInt(this.perHourPrice);
+                dest.writeString(this.constellation);
+                dest.writeString(this.avatarUrl);
                 dest.writeString(this.nickName);
                 dest.writeString(this.gender);
                 dest.writeString(this.mobile);
@@ -93,6 +99,10 @@ public class RentMeResponse extends ResponseBase {
                 this.orderId = in.readString();
                 this.state = in.readString();
                 this.userId = in.readInt();
+                this.isAuth = in.readInt();
+                this.perHourPrice = in.readInt();
+                this.constellation = in.readString();
+                this.avatarUrl = in.readString();
                 this.nickName = in.readString();
                 this.gender = in.readString();
                 this.mobile = in.readString();
@@ -102,7 +112,8 @@ public class RentMeResponse extends ResponseBase {
                 this.totalPrice = in.readInt();
             }
 
-            public static final Parcelable.Creator<ItemsEntity> CREATOR = new Parcelable.Creator<ItemsEntity>() {
+            public static final Parcelable.Creator<ItemsEntity> CREATOR = new Parcelable
+                    .Creator<ItemsEntity>() {
                 public ItemsEntity createFromParcel(Parcel source) {
                     return new ItemsEntity(source);
                 }

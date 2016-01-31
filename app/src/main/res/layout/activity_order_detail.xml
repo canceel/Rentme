@@ -152,6 +152,7 @@
                     android:textSize="@dimen/text_size_14sp"/>
 
                 <com.android.youhu.widget.CircleImageView
+                    android:id="@+id/head_cv"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:layout_alignParentRight="true"

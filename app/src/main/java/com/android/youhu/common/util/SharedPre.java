@@ -45,6 +45,7 @@ public class SharedPre {
         public static final String ALBUM = "album";//用户邮箱是否验证
         public static final String BACKGROUDIMG = "backgroudimg";//
         public static final String RYACCESS_TOKEN = "ry_token";
+        public static final String IS_AUTH = "is_auto";
     }
 
     public static abstract class Location {

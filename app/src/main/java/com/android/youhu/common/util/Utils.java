@@ -135,6 +135,7 @@ public class Utils {
         customer.job = SharedPreUtils.getString(context, SharedPre.User.JOB);
         customer.jobValue = SharedPreUtils.getInt(context, SharedPre.User.JOB_VALUE, 0);
         customer.avatarUrl = SharedPreUtils.getString(context, SharedPre.User.AVATARURL);
+        customer.isAuth = SharedPreUtils.getInt(context, SharedPre.User.IS_AUTH, 0);
         return customer;
     }
 
@@ -181,6 +182,7 @@ public class Utils {
         SharedPreUtils.removeSharedKey(context, SharedPre.User.GENDER_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.MOBILE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB);
+        SharedPreUtils.removeSharedKey(context, SharedPre.User.IS_AUTH);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.BACKGROUDIMG);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.JOB_VALUE);
         SharedPreUtils.removeSharedKey(context, SharedPre.User.USERID);
@@ -403,6 +405,8 @@ public class Utils {
         SharedPreUtils.putString(context, SharedPre.User.CONSTELLATION, userInfo.constellation);
         SharedPreUtils.putInt(context, SharedPre.User.CONSTELLATION_VALUE, userInfo
                 .constellationValue);
+        SharedPreUtils.putInt(context, SharedPre.User.IS_AUTH, userInfo
+                .isAuth);
         SharedPreUtils.putString(context, SharedPre.User.GENDER, userInfo.gender);
         SharedPreUtils.putInt(context, SharedPre.User.GENDER_VALUE, userInfo.genderValue);
         SharedPreUtils.putString(context, SharedPre.User.HEIGHTRANGE, userInfo.heightRange);

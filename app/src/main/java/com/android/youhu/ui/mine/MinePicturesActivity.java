@@ -100,7 +100,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
 
 
     public void getDatas(boolean isShowDialog) {
-        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+        final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
         if (isShowDialog) {
             dialog.show();
         }
@@ -215,8 +215,7 @@ public class MinePicturesActivity extends BaseActivity implements MinePicturesMe
     public void delete(View view) {
         final List<String> selectedImage = adapter.mSelectedImage;
         if (selectedImage != null && selectedImage.size() > 0) {
-            deleteOne(0, 1 == selectedImage.size(), LoadDialogUtil.createLoadingDialog(mContext,
-                    R.string.delete));
+            deleteOne(0, 1 == selectedImage.size(), LoadDialogUtil.createLoadingDialog(mContext));
         }
     }
 

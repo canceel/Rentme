@@ -50,7 +50,7 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
         btnSecurityCode = (Button) findViewById(R.id.security_code);
         tvInputCellNo = (TextView) findViewById(R.id.input_cellno_tv);
 
-        ((TextView)findViewById(R.id.title)).setText("修改密码");
+        ((TextView) findViewById(R.id.title)).setText("修改密码");
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.security_code).setOnClickListener(this);
         findViewById(R.id.confirm).setOnClickListener(this);
@@ -97,7 +97,7 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
             Toast.makeText(this, "两次密码输入不一致", Toast.LENGTH_SHORT).show();
         } else {
             if (Utils.isNetworkConnected(this)) {
-                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this, R.string.loading);
+                final Dialog mDialog = LoadDialogUtil.createLoadingDialog(this);
                 mDialog.show();
                 HttpLoad.UserModule.changePassword(TAG, phoneNum, newPassword, messageCode, new
                         ResponseCallback<RegistResult>(this) {
@@ -151,7 +151,7 @@ public class PassWordActivity extends BaseLoginBusinessActivity {
         } else if (!Utils.isMobile(edInputCellNo.getText().toString())) {
             Toast.makeText(this, "手机号码错误", Toast.LENGTH_SHORT).show();
         } else if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.loading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpLoad.UserModule.getMessageCode(TAG, edInputCellNo.getText().toString(), "1",
                     new ResponseCallback<ResponseMessageBean>(mContext) {

@@ -17,6 +17,7 @@ import com.android.youhu.R;
 import com.android.youhu.common.util.CropUtils;
 import com.android.youhu.common.util.SharedPre;
 import com.android.youhu.common.util.SharedPreUtils;
+import com.android.youhu.common.util.ToastUtils;
 import com.android.youhu.common.util.Utils;
 import com.android.youhu.net.response.UserInfo;
 import com.android.youhu.ui.GuideActivity;
@@ -143,12 +144,6 @@ public class MineFragment extends Fragment implements View.OnClickListener {
         PushAgent.getInstance(getActivity()).setDebugMode(true);
         PushAgent.getInstance(getActivity()).enable();
 
-        //fb.setWelcomeInfo();
-        //  fb.setWelcomeInfo("Welcome to use umeng feedback app");
-//        FeedbackPush.getInstance(this).init(true);
-//        PushAgent.getInstance(this).setPushIntentServiceClass(MyPushIntentService.class);
-
-
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -167,8 +162,13 @@ public class MineFragment extends Fragment implements View.OnClickListener {
                 startActivity(it);
                 break;
             case R.id.mine_auth:
-                it = new Intent(getActivity(), MineAuthActivity.class);
-                startActivity(it);
+                int isAuth = SharedPreUtils.getInt(getActivity(), SharedPre.User.IS_AUTH, 0);
+                if (isAuth == 1) {
+                    ToastUtils.show(getActivity(), "您已通过验证，如需修改请联系客服。");
+                } else {
+                    it = new Intent(getActivity(), MineAuthActivity.class);
+                    startActivity(it);
+                }
                 break;
             case R.id.mine_publish:
                 UserInfo userInfo = Utils.getUserInfo(getActivity());

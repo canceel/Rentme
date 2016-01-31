@@ -5,15 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
-import android.widget.ImageView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.R;
 import com.android.youhu.ui.base.BaseActivity;
 
 public class PhotoActivity extends BaseActivity {
     private static final String TAG = PhotoActivity.class.getSimpleName();
 
-    private ImageView iconImageView;
+    private NetworkImageView iconImageView;
 
 
     @Override
@@ -33,7 +33,7 @@ public class PhotoActivity extends BaseActivity {
     }
 
     private void findViews() {
-        iconImageView = (ImageView) findViewById(R.id.icon);
+        iconImageView = (NetworkImageView) findViewById(R.id.icon);
 
     }
 

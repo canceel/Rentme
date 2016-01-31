@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="38dp"
         android:background="@color/white"
         android:orientation="horizontal"
         >
@@ -18,11 +18,11 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="11dp"
             android:gravity="left|center_vertical"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
             android:text="下单时间"
             android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_14sp"/>
+            android:textSize="@dimen/text_size_13sp"/>
 
         <TextView
             android:id="@+id/date"
@@ -33,7 +33,7 @@
             android:gravity="left|center_vertical"
             android:text="2015-10-20 12:30"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_15sp"/>
+            android:textSize="@dimen/text_size_14sp"/>
 
         <TextView
             android:id="@+id/status"
@@ -43,7 +43,8 @@
             android:gravity="left|center_vertical"
             android:text="已完成"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_15sp"/>
+            android:textSize="@dimen/text_size_14sp"/>
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,17 +60,25 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="176dp"
+        android:layout_height="126dp"
         android:background="@color/white"
         >
 
         <com.android.youhu.widget.CircleImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_below="@+id/imageView"
+            android:id="@+id/head_cv"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:layout_marginLeft="11dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:src="@mipmap/icon_defaultheader"/>
+
+        <ImageView
+            android:id="@+id/auth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/head_cv"
+            android:layout_alignRight="@+id/head_cv"
+            android:src="@mipmap/auth_icon"/>
 
         <TextView
             android:id="@+id/nameTitle"
@@ -77,118 +86,125 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="84dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="8dp"
             android:text="预约人:"
             android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_13sp"/>
+            android:textSize="@dimen/text_size_12sp"/>
 
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
             android:layout_alignBottom="@+id/nameTitle"
+            android:layout_marginLeft="6dp"
             android:layout_toRightOf="@+id/nameTitle"
             android:drawablePadding="4dp"
             android:drawableRight="@mipmap/sex_girl"
             android:text="杨颖"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_14sp"/>
+            android:textSize="@dimen/text_size_13sp"/>
 
 
         <TextView
             android:id="@+id/phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="11dp"
-            android:layout_alignParentRight="true"
             android:layout_alignBottom="@+id/nameTitle"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
             android:text="15000000000"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_14sp"/>
+            android:textSize="@dimen/text_size_13sp"/>
 
         <TextView
             android:id="@+id/timeTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nameTitle"
             android:layout_alignLeft="@+id/nameTitle"
-            android:layout_marginTop="12dp"
+            android:layout_below="@+id/nameTitle"
+            android:layout_marginTop="6dp"
             android:text="预约日期:"
             android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_13sp"/>
+            android:textSize="@dimen/text_size_12sp"/>
+
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/timeTitle"
             android:layout_alignBaseline="@+id/timeTitle"
             android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/timeTitle"
             android:text="2015-10-05 12:30"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_14sp"/>
+            android:textSize="@dimen/text_size_13sp"/>
+
         <TextView
             android:id="@+id/locationTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/timeTitle"
             android:layout_alignLeft="@+id/timeTitle"
-            android:layout_marginTop="12dp"
+            android:layout_below="@+id/timeTitle"
+            android:layout_marginTop="6dp"
             android:text="见面地址:"
             android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_13sp"/>
+            android:textSize="@dimen/text_size_12sp"/>
+
         <TextView
             android:id="@+id/location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/locationTitle"
             android:layout_alignBaseline="@+id/locationTitle"
             android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/locationTitle"
             android:text="王府井负一寻觅咖啡厅"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_14sp"/>
+            android:textSize="@dimen/text_size_13sp"/>
+
         <TextView
             android:id="@+id/offercontentTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/locationTitle"
             android:layout_alignLeft="@+id/locationTitle"
-            android:layout_marginTop="12dp"
+            android:layout_below="@+id/locationTitle"
+            android:layout_marginTop="6dp"
             android:text="出租范围:"
             android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_13sp"/>
+            android:textSize="@dimen/text_size_12sp"/>
+
         <TextView
             android:id="@+id/offercontent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/offercontentTitle"
             android:layout_alignBaseline="@+id/offercontentTitle"
             android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/offercontentTitle"
             android:text="看电影、压马路、吃饭"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_14sp"/>
+            android:textSize="@dimen/text_size_13sp"/>
+
         <TextView
             android:id="@+id/costTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/cost"
             android:layout_alignBottom="@+id/cost"
             android:layout_marginTop="8dp"
+            android:layout_toLeftOf="@+id/cost"
             android:text="订单金额:"
             android:textColor="@color/text_normal"
-            android:textSize="@dimen/text_size_13sp"/>
+            android:textSize="@dimen/text_size_12sp"/>
+
         <TextView
             android:id="@+id/cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="11dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="6dp"
+            android:layout_marginRight="11dp"
             android:text="300元"
             android:textColor="@color/text_dark"
-            android:textSize="@dimen/text_size_15sp"/>
+            android:textSize="@dimen/text_size_14sp"/>
     </RelativeLayout>
 </LinearLayout>

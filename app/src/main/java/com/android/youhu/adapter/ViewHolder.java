@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.common.util.LocalImageLoader;
 import com.android.youhu.net.HttpLoad;
 
@@ -100,7 +101,7 @@ public class ViewHolder {
      * @return
      */
     public ViewHolder setImageByUrl(String url, int viewId) {
-        HttpLoad.getImage(url, 0, (ImageView) getView(viewId));
+        HttpLoad.getImage(url, 0, (NetworkImageView) getView(viewId));
         return this;
     }
 
@@ -113,7 +114,7 @@ public class ViewHolder {
      * @return
      */
     public ViewHolder setImageByUrl(String url, int defaultResId, int viewId) {
-        HttpLoad.getImage(url, defaultResId, (ImageView) getView(viewId));
+        HttpLoad.getImage(url, defaultResId, (NetworkImageView) getView(viewId));
         return this;
     }
 

@@ -187,7 +187,7 @@ public class ChangePicturesActivity extends BaseActivity implements ListImageDir
         } else if (mAdapter.mSelectedImage.size() > 5) {
             ToastUtils.show(mContext, "最多只能上传5张照片");
         } else if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             uploadOne(0, mAdapter.mSelectedImage.size() - 1 == 0, dialog);
         }

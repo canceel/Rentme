@@ -710,7 +710,7 @@ public class MineInfoActivity extends BaseActivity {
         if (Utils.isUserInfoNoneComplete(userInfoEntity)) {
             ToastUtils.show(mContext, "用户信息不完整！");
         } else if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.updating);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpLoad.UserModule.updateUserInfor(TAG, userInfoEntity, Utils.getToken
                     (mContext), new
@@ -744,7 +744,7 @@ public class MineInfoActivity extends BaseActivity {
 
     private void uploadImage() {
         if (Utils.isNetworkConnected(mContext)) {
-            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext, R.string.uploading);
+            final Dialog dialog = LoadDialogUtil.createLoadingDialog(mContext);
             dialog.show();
             HttpUpload.uploadUserHeadImg(TAG, new File(CropUtils.getPath(mContext,
                     imageUri)), Utils.getToken

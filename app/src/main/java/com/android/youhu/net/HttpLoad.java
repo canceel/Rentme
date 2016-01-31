@@ -2,11 +2,11 @@ package com.android.youhu.net;
 
 import android.graphics.Bitmap;
 import android.text.TextUtils;
-import android.widget.ImageView;
 
 import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.android.youhu.bean.RentMeResponse;
 import com.android.youhu.common.util.Constant;
 import com.android.youhu.common.util.Utils;
@@ -20,6 +20,7 @@ import com.android.youhu.net.response.ResponseAppVersion;
 import com.android.youhu.net.response.ResponseBase;
 import com.android.youhu.net.response.ResponseMessageBean;
 import com.android.youhu.net.response.ResponseRyToken;
+import com.android.youhu.net.response.ResponseUserInfo;
 import com.android.youhu.net.response.SysEnumsResponse;
 import com.android.youhu.net.response.UpdateUserInforResponse;
 import com.android.youhu.net.response.UserInfo;
@@ -46,59 +47,17 @@ public class HttpLoad {
     }
 
     //获取图片，并指定默认图片的资源ID
-    public static void getImage(String url, final int defaultRes, final ImageView
-            imageView, int width, int height) {
-        if (TextUtils.isEmpty(url)) {
-            imageView.setImageResource(Utils.getDefaultImage(defaultRes));
-            return;
-        }
-        HttpUtils.getInstance()
-                .getImageLoader()
-                .get(
-                        url,
-                        new ImageLoader.ImageListener() {
-                            public void onErrorResponse(VolleyError error) {
-                                int errorImageResId = Utils.getDefaultImage(defaultRes);
-                                if (errorImageResId != 0) {
-                                    imageView.setImageResource(errorImageResId);
-                                } else {
-                                    imageView.setBackgroundColor(0xffffffff);
-                                }
-                            }
-
-                            public void onResponse(ImageLoader.ImageContainer response, boolean
-                                    isImmediate) {
-                                int defaultImageResId = Utils.getDefaultImage(defaultRes);
-                                if (response.getBitmap() != null) {
-                                    imageView.setImageBitmap(response.getBitmap());
-                                } else if (defaultImageResId != 0) {
-                                    imageView.setImageResource(defaultImageResId);
-                                } else {
-                                    imageView.setBackgroundColor(0xffffffff);
-                                }
-
-                            }
-                        },
-                        width,
-                        height);
-
-    }
-
-    //获取图片，用控件的尺寸
-    public static void getImage(String url, int defaultRes, ImageView
+    public static void getImage(String url, final int defaultRes, final NetworkImageView
             imageView) {
-        getImage(url, defaultRes, imageView, imageView.getWidth(), imageView.getHeight());
+        imageView.setDefaultImageResId(Utils.getDefaultImage(defaultRes));
+        imageView.setErrorImageResId(Utils.getDefaultImage(defaultRes));
+        imageView.setImageUrl(url, HttpUtils.getInstance()
+                .getImageLoader());
     }
 
     //获取图片，并使用特定的默认图片
-    public static void getImage(String url, ImageView imageView) {
+    public static void getImage(String url, NetworkImageView imageView) {
         getImage(url, 0, imageView);
-    }
-
-    //获取图片，指定特定的默认图片，指定高宽
-    public static void getImage(String url, ImageView imageView, int width,
-                                int height) {
-        getImage(url, 0, imageView, width, height);
     }
 
     public static void downloadImage(String url, final String filePath, final
@@ -301,6 +260,67 @@ public class HttpLoad {
             GsonRequest<LoginResult> request = new GsonRequest<>(
                     Request.Method.POST, Constant.API_USER_LOGIN,
                     LoginResult.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 认证
+         *
+         * @param tag
+         * @param name
+         * @param idCard
+         * @param token
+         * @param callback
+         */
+
+        public static void auth(
+                String tag,
+                String name,
+                String idCard,
+                String token,
+                ResponseCallback<ResponseBase> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_USER_AUTH, token, timestamp, signUrl
+                    (token, timestamp));
+            final Map<String, String> params = new HashMap<>();
+            params.put("realName", name);
+            params.put("idCard", idCard);
+            GsonRequest<ResponseBase> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    ResponseBase.class,
+                    null,
+                    params,
+                    callback,
+                    callback);
+            HttpUtils.getInstance().request(tag, request);
+        }
+
+        /**
+         * 获取用户信息
+         *
+         * @param tag
+         * @param userId
+         * @param token
+         * @param callback
+         */
+
+        public static void getUserInfo(
+                String tag,
+                String userId,
+                String token,
+                ResponseCallback<ResponseUserInfo> callback) {
+            String timestamp = String.valueOf(System.currentTimeMillis());
+            String url = String.format(Constant.API_USER_INFO, token, timestamp, signUrl
+                    (token, timestamp));
+            final Map<String, String> params = new HashMap<>();
+            params.put("userId", userId);
+            GsonRequest<ResponseUserInfo> request = new GsonRequest<>(
+                    Request.Method.POST, url,
+                    ResponseUserInfo.class,
                     null,
                     params,
                     callback,
@@ -572,7 +592,7 @@ public class HttpLoad {
                                         String status, ResponseCallback<ResponseBase> callback) {
             String timestamp = String.valueOf(System.currentTimeMillis());
             String url = String.format(Constant.API_ORDER_PROCESS, token, timestamp, signUrl
-                    (token,                            timestamp));
+                    (token, timestamp));
             final Map<String, String> params = new HashMap<>();
             params.put("orderId", orderId);
             params.put("status", status);

@@ -26,4 +26,16 @@
     <item
         android:drawable="@drawable/loading_8"
         android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_9"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_10"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_11"
+        android:duration="100"/>
+    <item
+        android:drawable="@drawable/loading_12"
+        android:duration="100"/>
 </animation-list>
